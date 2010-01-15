@@ -15,10 +15,10 @@ public class DCDSolver {
 		}
 	}
 	
-	public static void solve(WeightVector vw, double c_pos, double c_neg, int iter, double eps, int threshold){
+	public static void solve(WeightVector wv, double c_pos, double c_neg, int iter, double eps, int threshold){
 			
 		
-		int totdocs = vw.size();
+		int totdocs = wv.size();
 	    double c = c_pos;
 	    int[] index = new int[totdocs];
 	    int active = totdocs;
@@ -38,6 +38,8 @@ public class DCDSolver {
 	    	double max_pg = Double.NEGATIVE_INFINITY;
 	    	double min_pg = Double.POSITIVE_INFINITY;
 	    	
+	    	long iter_time = System.nanoTime();
+	    	
 	    	if(threshold > 0 || active < threshold)
 	    		shuffle(index, active);
 	    	else
@@ -46,9 +48,9 @@ public class DCDSolver {
 	    	for(int j = 0; j != active; j++){
 	    		iters++;
 	    		int i = index[j];
-	    		double alpha = vw.alpha(i);
-	    		double target = vw.target(i);
-	    		double g = vw.dot(i)*target - 1;
+	    		double alpha = wv.alpha(i);
+	    		double target = wv.target(i);
+	    		double g = wv.dot(i)*target - 1;
 	    		double pg = g;
 	    		boolean shrink = false;
 	    		
@@ -67,7 +69,6 @@ public class DCDSolver {
 	    		
 	    		if(shrink){
 	    			active--;
-	    			// swap(index[j], index[active]);
 	    			swap(index, j, active);
 	    			j--;
 	    			continue;
@@ -75,14 +76,17 @@ public class DCDSolver {
 	    		
 	    		if(pg != 0.0){
 	    			double alpha_old = alpha;
-	    			double alpha_new = Math.min(Math.max(alpha - g/vw.snorm(i), 0.0), c);
-	    			vw.add_alpha(i, alpha_new - alpha_old);
-	    			vw.add(i, target*(alpha_new - alpha_old));
+	    			double alpha_new = Math.min(Math.max(alpha - g/wv.snorm(i), 0.0), c);
+	    			wv.add_alpha(i, alpha_new - alpha_old);
+	    			wv.add(i, target*(alpha_new - alpha_old));
 			    }
 	    	}
 	    	
-	    	//elapsed = System.nanoTime() - elapsed;
-	    	System.out.println("Iter " + Integer.toString(t) + ": active:" + Integer.toString(active) +"\teps=" + Double.toString(max_pg - min_pg));
+	    	System.out.print("Iter " + Integer.toString(t));
+	    	System.out.print(": active:" + Integer.toString(active));
+	    	System.out.print("\teps=" + Double.toString(max_pg - min_pg));
+	    	System.out.print("\telapsed:"+ Double.toString((System.nanoTime() - iter_time)/1000000) + " msecs");
+	    	System.out.println();
 	    	double diff = max_pg - min_pg;
 
 			if(diff <= eps && active == totdocs){
