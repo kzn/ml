@@ -11,10 +11,11 @@ public class BasicDataset implements Dataset {
 	protected List<Double> sqnorms;
 	protected List<RWSample> samples;
 	
-	BasicDataset(){
+	BasicDataset(String filename){
 		dim = 0;
 		sqnorms = new ArrayList<Double>();
 		samples = new ArrayList<RWSample>();
+		this.read(filename);
 	}
 
 	@Override
@@ -22,7 +23,7 @@ public class BasicDataset implements Dataset {
 		return dim;
 	}
 
-	@Override
+	
 	public void read(String filename) {
 		System.out.println("Reading:" + filename);
 

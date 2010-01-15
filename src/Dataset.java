@@ -1,8 +1,5 @@
 
 public interface Dataset {
-	/// Read dataset from filename
-	void read(String filename);
-	
 	/// Return total number of samples in the dataset
 	int size();
 	
