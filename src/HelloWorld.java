@@ -17,11 +17,16 @@ public class HelloWorld {
 		
 		
 		
-		Dataset dset = new BasicDataset();
-		dset.read(args[0]);
+		Dataset dset = new BasicDataset(args[0]);
 	
 		System.out.println("Dataset size:" + Integer.toString(dset.size()));
 		System.out.println("Dataset dim:" + Integer.toString(dset.max_dim()));
+		
+		WeightVector vw = new WeightVectorLinear(dset);
+		
+		DCDSolver.solve(vw, 0.05, 0.05, 500, 0.1, 100000);
+		
+		System.out.println("Norm: " + Double.toString(vw.norm()));
 		
 		
 		
