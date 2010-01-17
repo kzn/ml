@@ -15,7 +15,7 @@ public class WeightVectorRanking implements WeightVector {
 	
 	
 	
-	public WeightVectorRanking(Dataset ds){
+	public WeightVectorRanking(Dataset ds, List<Integer> qids){
 		dataset = ds;
 		w = new WeightVectorLinear(dataset);
 		List<Integer> _a = new ArrayList<Integer>();
@@ -25,23 +25,26 @@ public class WeightVectorRanking implements WeightVector {
 		
 		
 		
-		for(int i = 0; i != dataset.size(); i++){ // a idx
-			for(int j = i; j != dataset.size(); j++){ // b idx
+		for(int i = 0; i != qids.size(); i++){ // a idx
+			for(int j = i; j != qids.size(); j++){ // b idx
+				int q_i = qids.get(i);
+				int q_j = qids.get(j);
 				
-				RWSample x = dataset.vec(i);
-				RWSample y = dataset.vec(j);
 				
-				if(x.qid != y.qid)
+				if(q_i != q_j)
 					break;
+				
+				if(w.target(i) == w.target(j))
+					continue;
 				  
-				if(x.target > y.target){ // pair a > b
+				if(w.target(i) > w.target(j)){ // pair a > b
 					_a.add(i);
 					_b.add(j);
-					_targets.add(1.0 + x.weight - y.weight);
-				}else if(x.target < y.target){ // pair b > a
+					_targets.add(1.0);
+				}else{ // pair b > a
 					_a.add(j);
 					_b.add(i);
-					_targets.add(1.0 + y.weight - x.weight);
+					_targets.add(1.0);
 				}
 			}
 		}
