@@ -3,8 +3,7 @@ import java.util.List;
 
 
 public class WeightVectorRanking implements WeightVector {
-	protected WeightVectorLinear w;
-	protected Dataset dataset;
+	protected WeightVector w;
 	protected double[] alphas;
 	protected double[] targets;
 	protected double[] sqnorms;
@@ -15,9 +14,8 @@ public class WeightVectorRanking implements WeightVector {
 	
 	
 	
-	public WeightVectorRanking(Dataset ds, List<Integer> qids){
-		dataset = ds;
-		w = new WeightVectorLinear(dataset);
+	public WeightVectorRanking(WeightVector base, List<Integer> qids){
+		w = base;
 		List<Integer> _a = new ArrayList<Integer>();
 		List<Integer> _b = new ArrayList<Integer>();
 		List<Double> _targets = new ArrayList<Double>();
@@ -64,28 +62,8 @@ public class WeightVectorRanking implements WeightVector {
 		sqnorms = new double[a.length];
 		
 		for(int i = 0; i != a.length; i++){
-			sqnorms[i] = dataset.snorm(a[i]) + dataset.snorm(b[i]);
-			
-			/// sparse dot code
-			double res = 0;
-			int j = 0;
-			int k = 0;
-			RWSample x = dataset.vec(a[i]);
-			RWSample y = dataset.vec(b[i]);
-			
-			while(j != x.size	 && k != y.size){
-				if(x.indexes[j] < y.indexes[k])
-					j++;
-				else if(x.indexes[j] > y.indexes[k])
-					k++;
-				else{
-					res += x.values[j] * y.values[k];
-					j++;
-					k++;
-				}
-			}
-			
-			sqnorms[i] -= 2 * res;
+			sqnorms[i] = w.snorm(a[i]) + w.snorm(b[i]);
+			sqnorms[i] -= 2 * w.dot(a[i], b[i]);
 		}
 				
 		alphas = new double[a.length];
@@ -115,6 +93,15 @@ public class WeightVectorRanking implements WeightVector {
 	@Override
 	public double dot(int idx) {
 		return w.dot(a[idx]) - w.dot(b[idx]);
+	}
+	
+	@Override
+	public double dot(int x, int y){
+		int _a = a[x];
+		int _b = b[x];
+		int _c = a[y];
+		int _d = b[y];
+		return w.dot(_a, _c) - w.dot(_a, _d) - w.dot(_b, _c) + w.dot(_b, _d);
 	}
 
 	@Override
