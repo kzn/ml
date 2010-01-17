@@ -3,13 +3,11 @@ public class WeightVectorLinear implements WeightVector {
 	protected Dataset dataset;
 	protected double[] alphas;
 	protected double[] v;
-	protected int m_dim;
 	
 	public WeightVectorLinear(Dataset ds){
 		dataset = ds;
-		m_dim = ds.max_dim();
 		alphas = new double[ds.size()];
-		v = new double[m_dim + 1];
+		v = new double[dataset.max_dim() + 1];
 	}
 
 	@Override
@@ -33,7 +31,7 @@ public class WeightVectorLinear implements WeightVector {
 
 	@Override
 	public int dim() {
-		return m_dim;
+		return dataset.max_dim();
 	}
 
 	@Override
@@ -54,7 +52,6 @@ public class WeightVectorLinear implements WeightVector {
 
 	@Override
 	public double norm() {
-		
 		return Math.sqrt(snorm());
 	}
 	
@@ -62,7 +59,7 @@ public class WeightVectorLinear implements WeightVector {
 	public double snorm(){
 		double n = 0;
 		
-		for(int i = 0; i != m_dim; i++)
+		for(int i = 0; i != dim(); i++)
 			n += v[i] * v[i];
 		
 		return n;
