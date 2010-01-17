@@ -5,9 +5,9 @@ public class WeightVectorLinear implements WeightVector {
 	protected double[] v;
 	protected Kernel kernel;
 	
-	public WeightVectorLinear(Dataset ds){
+	public WeightVectorLinear(Dataset ds, Kernel kernel){
 		dataset = ds;
-		kernel = new LinearKernel();
+		this.kernel = kernel;
 		alphas = new double[ds.size()];
 		v = new double[dataset.max_dim() + 1];
 	}
@@ -40,6 +40,12 @@ public class WeightVectorLinear implements WeightVector {
 	public double dot(int idx) {
 		return kernel.dot(v, dataset.vec(idx));
 	}
+	
+	@Override
+	public double dot(int x, int y) {
+		return kernel.dot(dataset.vec(x), dataset.vec(y));
+	}
+	
 
 	@Override
 	public int size() {
