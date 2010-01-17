@@ -18,5 +18,6 @@ public interface WeightVector {
 	
 	double target(int idx);
 	double dot(int idx);
+	double dot(int x, int y);
 	double snorm(int idx);
 }
