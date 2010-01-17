@@ -3,9 +3,11 @@ public class WeightVectorLinear implements WeightVector {
 	protected Dataset dataset;
 	protected double[] alphas;
 	protected double[] v;
+	protected Kernel kernel;
 	
 	public WeightVectorLinear(Dataset ds){
 		dataset = ds;
+		kernel = new LinearKernel();
 		alphas = new double[ds.size()];
 		v = new double[dataset.max_dim() + 1];
 	}
@@ -36,13 +38,7 @@ public class WeightVectorLinear implements WeightVector {
 
 	@Override
 	public double dot(int idx) {
-		RWSample s = dataset.vec(idx);
-		double sum = 0;
-		
-		for(int i = 0; i != s.size; i++){
-			sum += v[s.indexes[i]] * s.values[i];
-		}
-		return sum;
+		return kernel.dot(v, dataset.vec(idx));
 	}
 
 	@Override
