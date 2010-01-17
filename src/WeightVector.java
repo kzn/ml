@@ -1,23 +1,23 @@
 
-public interface WeightVector {
+public abstract class WeightVector {
 	
 	// direct wv properties
-	int dim(); // dimension of model
-	double norm();
-	double snorm();
+	public abstract int dim(); // dimension of model
+	public abstract double norm();
+	public abstract double snorm();
 	
 	
 	
 	// problem properties
-	int size(); // problem size
-	void add(int idx, double factor);
+	public abstract int size(); // problem size
+	public abstract void add(int idx, double factor);
 	
-	void add_alpha(int idx, double factor);
+	public abstract void add_alpha(int idx, double factor);
 	
-	double alpha(int idx);
+	public abstract double alpha(int idx);
 	
-	double target(int idx);
-	double dot(int idx);
-	double dot(int x, int y);
-	double snorm(int idx);
+	public abstract double target(int idx);
+	public abstract double dot(int idx);
+	public abstract double dot(int x, int y);
+	public abstract double snorm(int idx);
 }

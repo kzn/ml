@@ -1,5 +1,5 @@
 
-public class WeightVectorLinear implements WeightVector {
+public class WeightVectorLinear extends WeightVector {
 	protected Dataset dataset;
 	protected double[] alphas;
 	protected double[] v;

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WeightVectorRanking implements WeightVector {
+public class WeightVectorRanking extends WeightVector {
 	protected WeightVector w;
 	protected double[] alphas;
 	protected double[] targets;
