@@ -29,7 +29,7 @@ public class DCDSolver {
 	    for(int i = 0; i != totdocs; i++)
 	    	index[i] = i;
 	    
-	    System.out.println("C:" + Double.toString(c));
+	    System.out.printf("C:%f/%f\n",c_pos, c_neg);
 	    System.out.println("Algorithm: DCD Full");
 	    
 	    long elapsed = System.nanoTime();
@@ -81,12 +81,7 @@ public class DCDSolver {
 	    			wv.add(i, target*(alpha_new - alpha_old));
 			    }
 	    	}
-	    	
-	    	System.out.print("Iter " + Integer.toString(t));
-	    	System.out.print(": active:" + Integer.toString(active));
-	    	System.out.print("\teps=" + Double.toString(max_pg - min_pg));
-	    	System.out.print("\telapsed:"+ Double.toString((System.nanoTime() - iter_time)/1000000) + " msecs");
-	    	System.out.println();
+	    	System.out.printf("Iter %d: active: %d\t eps=%f\t elapsed: %d msecs\n", t, active, max_pg - min_pg, (System.nanoTime() - iter_time)/1000000);
 	    	double diff = max_pg - min_pg;
 
 			if(diff <= eps && active == totdocs){
@@ -113,7 +108,7 @@ public class DCDSolver {
 	    
 	    elapsed = System.nanoTime() - elapsed;
 
-	    System.out.println("Optimization done in: " + Double.toString(elapsed/ 1000000000) + "secs");
+	    System.out.printf("Optimization done in: %f secs\n", ((double)elapsed)/1000000000);
 		System.out.println("Done.");
 	}
 	
