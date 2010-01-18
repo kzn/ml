@@ -44,7 +44,7 @@ public class DCDSolver {
 	    	if(threshold > 0 || active < threshold)
 	    		shuffle(index, active);
 	    	else
-	    		Arrays.sort(index);
+	    		Arrays.sort(index, 0, active);
 	    	
 	    	for(int j = 0; j != active; j++){
 	    		iters++;
