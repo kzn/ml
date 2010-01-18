@@ -1,5 +1,4 @@
 package ru.iitp.proling.svm;
-import SparseVector;
 
 /*
  * Abstract class instead of Interface for efficiency reasons

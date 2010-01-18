@@ -1,5 +1,4 @@
-import ru.iitp.proling.svm.Kernel;
-
+package ru.iitp.proling.svm;
 
 public class WeightVectorLinear extends WeightVector {
 	protected Dataset dataset;

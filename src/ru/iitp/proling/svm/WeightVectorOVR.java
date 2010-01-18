@@ -1,3 +1,4 @@
+package ru.iitp.proling.svm;
 
 public class WeightVectorOVR extends WeightVectorProxy {
 	protected double positive;

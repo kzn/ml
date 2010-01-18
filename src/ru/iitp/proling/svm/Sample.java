@@ -1,3 +1,4 @@
+package ru.iitp.proling.svm;
 import java.util.List;
 
 public class Sample extends SparseVector {

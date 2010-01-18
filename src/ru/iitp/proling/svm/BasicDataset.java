@@ -1,3 +1,4 @@
+package ru.iitp.proling.svm;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +12,7 @@ public class BasicDataset implements Dataset {
 	protected List<Double> sqnorms;
 	protected List<RWSample> samples;
 	
-	BasicDataset(String filename){
+	public BasicDataset(String filename){
 		dim = 0;
 		sqnorms = new ArrayList<Double>();
 		samples = new ArrayList<RWSample>();
