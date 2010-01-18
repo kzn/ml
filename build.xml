@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     18.01.2010 10:46:29                                                        
+
+     SVM iitp project    
+     Basic project for linear SVM DCD solver
+                   
+     ant                                                                
+     ====================================================================== -->
+<project name="SVM iitp project" default="compile">
+    <description>
+            Basic project for linear SVM DCD solver
+    </description>
+	
+	<property name="build.dir" value="build"/>
+	<property name="src.dir" value="src"/>
+	<property name="jar.dir" value="${build.dir}/jar"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+		
+	<property name="jar.path" value="iitp-svm.jar"/>
+	<property name="main.class" value="HelloWorld"/>
+	
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+    <target name="clean" depends="" description="Clean build directory">
+        <delete dir="${build.dir}"/>
+    </target>
+	
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+    <target name="compile" depends="" description="Compile project">
+        <mkdir dir="${classes.dir}"/>
+    	<javac srcdir="${src.dir}"  destdir="${classes.dir}"/>    
+    </target>
+	
+	<!-- ================================= 
+          target: jar              
+         ================================= -->
+    <target name="jar" depends="compile" description="Build a jar file">
+        <jar destfile="${jar.path}" basedir="${classes.dir}">
+        	<manifest>
+        		<attribute name="Main-Class" value="HelloWorld"/>
+        	</manifest>
+        </jar>
+    </target>
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" depends="depends" description="Basic project for linear SVM DCD solver">
+        
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="depends">
+    </target>
+
+</project>
