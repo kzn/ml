@@ -1,3 +1,4 @@
+package ru.iitp.proling.svm;
 
 public abstract class WeightVector {
 	

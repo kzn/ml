@@ -1,3 +1,4 @@
+package ru.iitp.proling.svm;
 
 public interface Dataset {
 	/// Return total number of samples in the dataset
