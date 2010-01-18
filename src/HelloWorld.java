@@ -22,7 +22,7 @@ public class HelloWorld {
 		System.out.println("Dataset size:" + Integer.toString(dset.size()));
 		System.out.println("Dataset dim:" + Integer.toString(dset.max_dim()));
 		
-		WeightVector vw = new WeightVectorLinear(dset);
+		WeightVector vw = new WeightVectorLinear(dset, new LinearKernel());
 		
 		DCDSolver.solve(vw, 0.05, 0.05, 500, 0.1, 100000);
 		
