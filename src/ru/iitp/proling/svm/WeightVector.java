@@ -6,6 +6,7 @@ public abstract class WeightVector {
 	public abstract int dim(); // dimension of model
 	public abstract double norm();
 	public abstract double snorm();
+	public abstract double[] vec();
 	
 	
 	

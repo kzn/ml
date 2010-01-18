@@ -61,5 +61,10 @@ public class WeightVectorProxy extends WeightVector {
 	public double target(int idx) {
 		return w.target(idx);
 	}
+	
+	@Override
+	public double[] vec(){
+		return w.vec();
+	}
 
 }

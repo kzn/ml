@@ -78,5 +78,10 @@ public class WeightVectorLinear extends WeightVector {
 	public double target(int idx) {
 		return dataset.vec(idx).target;
 	}
+	
+	@Override
+	public double[] vec(){
+		return v;
+	}
 
 }
