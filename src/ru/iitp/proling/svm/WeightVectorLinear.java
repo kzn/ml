@@ -10,7 +10,7 @@ public class WeightVectorLinear extends WeightVector {
 		dataset = ds;
 		this.kernel = kernel;
 		alphas = new double[ds.size()];
-		v = new double[dataset.max_dim() + 1];
+		v = new double[kernel.dim(dataset.max_dim()) + 1];
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class WeightVectorLinear extends WeightVector {
 
 	@Override
 	public int dim() {
-		return dataset.max_dim();
+		return v.length;
 	}
 
 	@Override
