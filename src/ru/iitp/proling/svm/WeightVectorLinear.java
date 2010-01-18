@@ -83,5 +83,11 @@ public class WeightVectorLinear extends WeightVector {
 	public double[] vec(){
 		return v;
 	}
+	
+	@Override
+	public void scale(double k){
+		for(int i = 0; i != v.length; i++)
+			v[i] /= k;
+	}
 
 }

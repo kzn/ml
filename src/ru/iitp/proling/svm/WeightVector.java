@@ -7,6 +7,7 @@ public abstract class WeightVector {
 	public abstract double norm();
 	public abstract double snorm();
 	public abstract double[] vec();
+	public abstract void scale(double k);
 	
 	
 	

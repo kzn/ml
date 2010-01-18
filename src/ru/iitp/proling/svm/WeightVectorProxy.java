@@ -67,4 +67,9 @@ public class WeightVectorProxy extends WeightVector {
 		return w.vec();
 	}
 
+	@Override
+	public void scale(double k) {
+		w.scale(k);
+	}
+
 }
