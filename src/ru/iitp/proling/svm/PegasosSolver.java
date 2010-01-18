@@ -38,7 +38,7 @@ public class PegasosSolver {
 		    	  ex[ptr++] = idx;
 		    }
 
-		    w.scale(1 - 1.0/(t + start_iter));
+		    w.scale(1 - 1.0/(t + start_iter + 1));
 
 		    for(int i = 0; i != ptr; i++){
 		      w.add(ex[i], eta/k*w.target(ex[i]));
