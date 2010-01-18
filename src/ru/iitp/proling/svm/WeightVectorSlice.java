@@ -1,14 +1,15 @@
 package ru.iitp.proling.svm;
-import java.util.ArrayList;
-import java.util.List;
+import gnu.trove.*;
 
 
 public class WeightVectorSlice extends WeightVectorProxy {
-	protected List<Integer> slice;
+	//protected List<Integer> slice;
+	protected TIntArrayList slice;
 		
 	public WeightVectorSlice(WeightVector base){
 		super(base);
-		slice = new ArrayList<Integer>();
+		//slice = new ArrayList<Integer>();
+		slice = new TIntArrayList();
 	}
 	
 	public void add_vec(int idx){
