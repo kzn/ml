@@ -3,8 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WeightVectorRanking extends WeightVector {
-	protected WeightVector w;
+public class WeightVectorRanking extends WeightVectorProxy {
 	protected double[] alphas;
 	protected double[] targets;
 	protected double[] sqnorms;
@@ -16,7 +15,7 @@ public class WeightVectorRanking extends WeightVector {
 	
 	
 	public WeightVectorRanking(WeightVector base, List<Integer> qids){
-		w = base;
+		super(base);
 		List<Integer> _a = new ArrayList<Integer>();
 		List<Integer> _b = new ArrayList<Integer>();
 		List<Double> _targets = new ArrayList<Double>();
@@ -86,10 +85,6 @@ public class WeightVectorRanking extends WeightVector {
 		return alphas[idx];
 	}
 
-	@Override
-	public int dim() {
-		return w.dim();
-	}
 
 	@Override
 	public double dot(int idx) {
@@ -106,18 +101,8 @@ public class WeightVectorRanking extends WeightVector {
 	}
 
 	@Override
-	public double norm() {
-		return w.norm();
-	}
-
-	@Override
 	public int size() {
 		return a.length;
-	}
-
-	@Override
-	public double snorm() {
-		return w.snorm();
 	}
 
 	@Override
