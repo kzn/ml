@@ -13,5 +13,9 @@ public class WeightVectorOVR extends WeightVectorProxy {
 		super(base);
 		this.positive = positive;
 	}
+	
+	public double target(int idx){
+		return w.target(idx) == positive? 1 : -1;
+	}
 
 }
