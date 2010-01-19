@@ -138,8 +138,24 @@ public class BasicDataset implements Dataset {
 
 	@Override
 	public RWSample vec(int idx) {
-		// TODO Auto-generated method stub
 		return samples.get(idx);
+	}
+
+	@Override
+	public int[] qids() {
+		int qids[] = new int[size()];
+		for(int i = 0; i != size(); i++)
+			qids[i] = vec(i).qid;
+		return qids;
+	}
+
+	@Override
+	public double[] targets() {
+		double targets[] = new double[size()];
+		for(int i = 0; i != size(); i++)
+			targets[i] = vec(i).target;
+		return targets;
+
 	}
 
 }
