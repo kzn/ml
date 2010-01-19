@@ -7,18 +7,19 @@
                    
      ant                                                                
      ====================================================================== -->
-<project name="SVM iitp project" default="compile">
+<project name="SVM iitp project" default="jar">
     <description>
             Basic project for linear SVM DCD solver
     </description>
 	
 	<property name="build.dir" value="build"/>
 	<property name="src.dir" value="src"/>
-	<property name="jar.dir" value="${build.dir}/jar"/>
+	<property name="jar.dir" value="jar"/>
 	<property name="classes.dir" value="${build.dir}/classes"/>
 		
 	<property name="jar.path" value="iitp-svm.jar"/>
 	<property name="main.class" value="HelloWorld"/>
+	<property environment="env"/>
 	
 	<!-- ================================= 
           target: clean              
@@ -32,7 +33,7 @@
          ================================= -->
     <target name="compile" depends="" description="Compile project">
         <mkdir dir="${classes.dir}"/>
-    	<javac srcdir="${src.dir}"  destdir="${classes.dir}"/>    
+    	<javac srcdir="${src.dir}"  destdir="${classes.dir}" classpath="${env.CLASSPATH}:/home/ant/java/jar/trove.jar"/>    
     </target>
 	
 	<!-- ================================= 
