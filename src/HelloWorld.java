@@ -4,7 +4,9 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.LinkedList;
 import java.util.List;
+import java.beans.XMLEncoder;
 import java.io.*;
+
 import ru.iitp.proling.svm.*;
 
 
@@ -25,17 +27,23 @@ public class HelloWorld {
 		System.out.println("Dataset size:" + Integer.toString(dset.size()));
 		System.out.println("Dataset dim:" + Integer.toString(dset.max_dim()));
 		
-		WeightVector vw = new WeightVectorLinear(dset, new LinearKernel());
+		double[] targets = new double[dset.size()];
+		int[] t = dset.targets();
 		
-		DCDSolver.solve(vw, 0.05, 0.05, 500, 0.1, 100000);
+		for(int i = 0; i != dset.size(); i++)
+			targets[i] = t[i] == 1? 1.0 : -1.0;
+		
+		WeightVector vw = new WeightVectorLinear(dset, targets, new PolyKernel(1, 1, dset.max_dim()));
+		DCDSolver.solve(vw, 0.05, 0.05, 500, 0.1, 1000000);
+		
+
 		
 		System.out.println("Norm: " + Double.toString(vw.norm()));
-		
-		
-		
-		
-		
-		
+		System.out.println("Loss:" + vw.loss());
+		System.out.println("Primal objective:" + vw.objectivePrimal(0.05));
+		System.out.println("Dual objective:" + vw.objectiveDual());
+		System.out.println("Zero-one loss:" + vw.zero_one_loss());
+		System.out.println(dset.alphabet());
 		
 	}
 
