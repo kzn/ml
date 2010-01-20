@@ -11,4 +11,19 @@ public abstract class Kernel {
 	public abstract double snorm(SparseVector x);
 	// perform transformation of input sparse vector
 	public abstract SparseVector pipe(SparseVector x); 
+	
+
+	public void wAdder(double[] dense, int idx, double value) {
+		dense[idx] += value;
+	}
+
+
+	public double wGetter(double[] dense, int idx) {
+		return dense[idx];
+	}
+
+
+	public void wSetter(double[] dense, int idx, double value) {
+		dense[idx] = value;
+	}
 }

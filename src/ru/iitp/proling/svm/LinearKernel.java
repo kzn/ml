@@ -29,7 +29,8 @@ public class LinearKernel extends Kernel {
 		double sum = 0;
 		
 		for(int i = 0; i != x.indexes.length; i++){
-			sum += v[x.indexes[i]] * x.values[i];
+			//sum += v[x.indexes[i]] * x.values[i];
+			sum += wGetter(v, x.indexes[i]) * x.values[i];
 		}
 		return sum;
 	}
@@ -47,7 +48,8 @@ public class LinearKernel extends Kernel {
 	@Override
 	public void add(double[] dense, SparseVector x, double factor) {
 		for(int i = 0; i != x.size(); i++){
-			dense[x.indexes[i]] += x.values[i] * factor;
+			wAdder(dense, x.indexes[i], x.values[i] * factor);
+			//dense[x.indexes[i]] += x.values[i] * factor;
 		}
 	}
 
@@ -60,6 +62,8 @@ public class LinearKernel extends Kernel {
 		return sum;
 		
 	}
+
+	
 	
 	
 
