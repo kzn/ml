@@ -39,4 +39,11 @@ public class LinearKernel extends Kernel {
 		return src_dim;
 	}
 
+	@Override
+	public SparseVector pipe(SparseVector x) {
+		return x;
+	}
+	
+	
+
 }
