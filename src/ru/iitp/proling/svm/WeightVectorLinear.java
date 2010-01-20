@@ -5,19 +5,21 @@ public class WeightVectorLinear extends WeightVector {
 	protected double[] alphas;
 	protected double[] v;
 	protected Kernel kernel;
+	protected double[] targets;
 	
-	public WeightVectorLinear(Dataset ds, Kernel kernel){
+	public WeightVectorLinear(Dataset ds, double[] targets, Kernel kernel){
 		dataset = ds;
 		this.kernel = kernel;
+		this.targets = targets;
 		alphas = new double[ds.size()];
-		v = new double[dataset.max_dim() + 1];
+		v = new double[kernel.dim(dataset.max_dim()) + 1];
 	}
 
 	@Override
 	public void add(int idx, double factor) {
-		RWSample s = dataset.vec(idx);
+		SparseVector s = dataset.vec(idx);
 		
-		for(int i = 0; i != s.size; i++){
+		for(int i = 0; i != s.size(); i++){
 			v[s.indexes[i]] += s.values[i] * factor;
 		}
 	}
@@ -34,7 +36,7 @@ public class WeightVectorLinear extends WeightVector {
 
 	@Override
 	public int dim() {
-		return dataset.max_dim();
+		return v.length;
 	}
 
 	@Override
@@ -76,7 +78,7 @@ public class WeightVectorLinear extends WeightVector {
 
 	@Override
 	public double target(int idx) {
-		return dataset.vec(idx).target;
+		return targets[idx];
 	}
 	
 	@Override

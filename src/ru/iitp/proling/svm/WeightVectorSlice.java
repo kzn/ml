@@ -8,7 +8,6 @@ public class WeightVectorSlice extends WeightVectorProxy {
 		
 	public WeightVectorSlice(WeightVector base){
 		super(base);
-		//slice = new ArrayList<Integer>();
 		slice = new TIntArrayList();
 	}
 	

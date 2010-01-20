@@ -11,7 +11,11 @@ public interface Dataset {
 	int max_dim();
 	
 	/// Return sample idx
-	RWSample vec(int idx);
+	SparseVector vec(int idx);
+	
+	int[] targets();
+	int[] qids();
+	Alphabet alphabet();
 
 
 }

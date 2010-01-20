@@ -34,4 +34,9 @@ public class LinearKernel extends Kernel {
 		return sum;
 	}
 
+	@Override
+	public int dim(int src_dim) {		
+		return src_dim;
+	}
+
 }

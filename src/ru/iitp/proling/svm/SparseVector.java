@@ -15,4 +15,12 @@ public class SparseVector {
 			values[i] = vals.get(i);
 		}
 	}
+	
+	public int dim(){
+		return indexes[indexes.length - 1];
+	}
+	
+	public int size(){
+		return indexes.length;
+	}
 };

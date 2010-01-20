@@ -6,4 +6,5 @@ package ru.iitp.proling.svm;
 public abstract class Kernel {
 	public abstract double dot(SparseVector x, SparseVector y);
 	public abstract double dot(double[] dense, SparseVector x);
+	public abstract int dim(int src_dim);
 }
