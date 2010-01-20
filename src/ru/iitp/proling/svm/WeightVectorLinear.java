@@ -6,22 +6,26 @@ public class WeightVectorLinear extends WeightVector {
 	protected double[] v;
 	protected Kernel kernel;
 	protected double[] targets;
+	protected double[] snorms;
 	
 	public WeightVectorLinear(Dataset ds, double[] targets, Kernel kernel){
 		dataset = ds;
 		this.kernel = kernel;
 		this.targets = targets;
+		this.snorms = new double[ds.size()];
 		alphas = new double[ds.size()];
 		v = new double[kernel.dim(dataset.max_dim()) + 1];
+		
+		// precompute squared norms
+		for(int i = 0; i != ds.size(); i++)
+			snorms[i] = kernel.snorm(ds.vec(i));
+		
+		
 	}
 
 	@Override
 	public void add(int idx, double factor) {
-		SparseVector s = dataset.vec(idx);
-		
-		for(int i = 0; i != s.size(); i++){
-			v[s.indexes[i]] += s.values[i] * factor;
-		}
+		kernel.add(v, dataset.vec(idx), factor);
 	}
 
 	@Override
@@ -73,7 +77,7 @@ public class WeightVectorLinear extends WeightVector {
 
 	@Override
 	public double snorm(int idx) {
-		return dataset.snorm(idx);
+		return snorms[idx];
 	}
 
 	@Override

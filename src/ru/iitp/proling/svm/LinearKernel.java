@@ -43,6 +43,23 @@ public class LinearKernel extends Kernel {
 	public SparseVector pipe(SparseVector x) {
 		return x;
 	}
+
+	@Override
+	public void add(double[] dense, SparseVector x, double factor) {
+		for(int i = 0; i != x.size(); i++){
+			dense[x.indexes[i]] += x.values[i] * factor;
+		}
+	}
+
+	@Override
+	public double snorm(SparseVector x) {
+		double sum = 0; 
+		for(int i = 0; i != x.size(); i++)
+			sum += x.values[i] * x.values[i];
+		
+		return sum;
+		
+	}
 	
 	
 
