@@ -36,7 +36,7 @@ public class PolyKernel extends Kernel {
 		double sum = wGetter(w, 0)*c;	// bias
 		for(int i = 0; i != x.size(); i++){
 			double tmp_value = 0;
-			int base = x.indexes[i] * (2*n - x.indexes[i] + 1)/2;
+			long base = (long)x.indexes[i] * (2*n - x.indexes[i] + 1)/2;
 			
 			for(int j = i + 1; j != x.size(); j++){
 				tmp_value += wGetter(w, base + x.indexes[j])*x.values[j];
@@ -58,10 +58,10 @@ public class PolyKernel extends Kernel {
 
 	@Override
 	public void add(double[] w, SparseVector x, double factor) {
-		wAdder(w, 0, factor* c);
+		wAdder(w, 0, factor * c);
 		for(int i = 0; i != x.size(); i++){
 			double tmp_value = factor*x.values[i];
-			int base = x.indexes[i] * (2*n - x.indexes[i] + 1)/2;
+			long base = (long)x.indexes[i] * (2*n - x.indexes[i] + 1)/2;
 			wAdder(w, base + x.indexes[i], g*tmp_value*x.values[i]);
 			for(int j = i + 1; j != x.size(); j++){
 			    wAdder(w, base + x.indexes[j], sqrt2_g*tmp_value*x.values[j]);

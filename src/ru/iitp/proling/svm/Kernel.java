@@ -13,17 +13,17 @@ public abstract class Kernel {
 	public abstract SparseVector pipe(SparseVector x); 
 	
 
-	public void wAdder(double[] dense, int idx, double value) {
-		dense[idx] += value;
+	public void wAdder(double[] dense, long idx, double value) {
+		dense[(int) idx] += value;
 	}
 
 
-	public double wGetter(double[] dense, int idx) {
-		return dense[idx];
+	public double wGetter(double[] dense, long idx) {
+		return dense[(int) idx];
 	}
 
 
-	public void wSetter(double[] dense, int idx, double value) {
-		dense[idx] = value;
+	public void wSetter(double[] dense, long idx, double value) {
+		dense[(int)idx] = value;
 	}
 }
