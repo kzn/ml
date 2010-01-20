@@ -72,4 +72,34 @@ public class WeightVectorProxy extends WeightVector {
 		w.scale(k);
 	}
 
+	@Override
+	public double epsilonProjectedGradient(double c) {
+		return w.epsilonProjectedGradient(c);
+	}
+
+	@Override
+	public double kktViolation(double c) {
+		return w.kktViolation(c);
+	}
+
+	@Override
+	public double loss() {
+		return w.loss();
+	}
+
+	@Override
+	public double objectiveDual() {
+		return w.objectiveDual();
+	}
+
+	@Override
+	public double objectivePrimal(double lambda) {
+		return w.objectivePrimal(lambda);
+	}
+
+	@Override
+	public double zero_one_loss() {
+		return w.zero_one_loss();	
+	}
+
 }

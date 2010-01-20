@@ -23,4 +23,13 @@ public abstract class WeightVector {
 	public abstract double dot(int idx);
 	public abstract double dot(int x, int y);
 	public abstract double snorm(int idx);
+	
+	// statistics 
+	public abstract double loss();
+	public abstract double zero_one_loss();
+	public abstract double objectivePrimal(double c);
+	public abstract double objectiveDual();
+	public abstract double epsilonProjectedGradient(double c);
+	public abstract double kktViolation(double c);
+	
 }

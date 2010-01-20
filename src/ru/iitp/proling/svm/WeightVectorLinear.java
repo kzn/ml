@@ -92,4 +92,81 @@ public class WeightVectorLinear extends WeightVector {
 			v[i] *= k;
 	}
 
+	@Override
+	public double epsilonProjectedGradient(double c) {
+		double min_pg = Double.POSITIVE_INFINITY;
+		double max_pg = Double.NEGATIVE_INFINITY;
+		
+		for(int i = 0; i != size(); i++){
+		    double g = dot(i)*target(i) - 1;
+		    double pg = g;
+		    double alpha = alpha(i);
+
+		    if(alpha == 0.0)
+		      pg = Math.min(g, 0.0);
+		    else if(alpha == c)
+		      pg = Math.max(g, 0.0);
+		    min_pg = Math.min(min_pg, pg);
+		    max_pg = Math.max(max_pg, pg);
+		  }
+		
+		return max_pg - min_pg;
+	}
+
+	@Override
+	public double kktViolation(double c) {
+		double viol = 0;
+
+		for(int i = 0; i != size(); i++){
+			double alpha = alpha(i);
+		    double eval = dot(i)*target(i) - 1;
+
+		    if(alpha == 0.0){
+		      if(eval < 0.0)
+		    	  viol = Math.max(viol, Math.abs(eval));
+		    }else if(alpha == c){
+		      if(eval > 0)
+		    	  viol = Math.max(viol, Math.abs(eval));
+		    }else if(eval >0)
+		    	viol = Math.max(viol, Math.abs(eval));
+		  }
+		  return viol;
+	}
+
+	@Override
+	public double loss() {
+		double sum = 0;
+		for(int i = 0; i != size(); i++){
+			double res = target(i) * dot(i);
+			sum += Math.min(1.0, Math.max(0.0, 1.0 - res));
+		  }
+		return sum/size();
+	}
+
+	@Override
+	public double objectiveDual() {
+	double res = snorm()/2;
+		  
+	for(int i = 0; i != size(); i++)
+		res -= alpha(i);
+
+	return res;
+	}
+
+	@Override
+	public double objectivePrimal(double c) {
+		return snorm()/2.0 + c * size() * loss();
+	}
+
+	@Override
+	public double zero_one_loss() {
+		int misclassified = 0;
+		
+		for(int i =0; i != size(); i++)
+			if(target(i) * dot(i) < 0)
+				misclassified++;
+		
+		return (double)(misclassified)/size();
+	}
+
 }
