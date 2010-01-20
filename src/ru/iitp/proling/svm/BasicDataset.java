@@ -11,11 +11,15 @@ public class BasicDataset implements Dataset {
 	protected int dim;
 	protected List<Double> sqnorms;
 	protected List<RWSample> samples;
+	protected Alphabet<Double> alphabet;
+	protected int[] targets;
 	
 	public BasicDataset(String filename){
 		dim = 0;
+		alphabet = new Alphabet<Double>(10, 0.0);
 		sqnorms = new ArrayList<Double>();
 		samples = new ArrayList<RWSample>();
+		
 		this.read(filename);
 	}
 
@@ -37,6 +41,7 @@ public class BasicDataset implements Dataset {
 			ft.eolIsSignificant(true);
 			
 			int n = 0;
+			List<Integer> t = new ArrayList<Integer>();
 
 
 
@@ -57,6 +62,8 @@ public class BasicDataset implements Dataset {
 
 				assert(ttype == StreamTokenizer.TT_NUMBER);
 				double target = ft.nval;
+				t.add(alphabet.get(target));
+				
 
 				List<Integer> idxs = new ArrayList<Integer>();
 				List<Double> vals = new ArrayList<Double>();
@@ -75,7 +82,8 @@ public class BasicDataset implements Dataset {
 					int idx = 0;
 					if(ttype == StreamTokenizer.TT_NUMBER)
 						idx = (int)ft.nval;
-
+					
+					
 					int idx_type = ttype;
 					String field = null;
 					if(ft.sval != null)
@@ -118,6 +126,10 @@ public class BasicDataset implements Dataset {
 				dim = Math.max(dim, idxs.get(idxs.size()-1));
 			}
 			
+			targets = new int[t.size()];
+			for(int i = 0; i != t.size(); i++)
+				targets[i] = t.get(i);
+			
 			System.out.print(Integer.toString(n - 1) + ".Done!\n");
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -150,12 +162,13 @@ public class BasicDataset implements Dataset {
 	}
 
 	@Override
-	public double[] targets() {
-		double targets[] = new double[size()];
-		for(int i = 0; i != size(); i++)
-			targets[i] = vec(i).target;
+	public int[] targets() {
 		return targets;
+	}
 
+	@Override
+	public Alphabet alphabet() {
+		return alphabet;
 	}
 
 }

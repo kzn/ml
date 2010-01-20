@@ -13,8 +13,9 @@ public interface Dataset {
 	/// Return sample idx
 	SparseVector vec(int idx);
 	
-	double[] targets();
+	int[] targets();
 	int[] qids();
+	Alphabet alphabet();
 
 
 }
