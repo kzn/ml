@@ -18,8 +18,9 @@ public class PegasosSolver {
 		
 	}
 	
-	public double[] solve(WeightVector w){
+	public static double[] solve(WeightVector w, int iter, int k, double c, int start_iter){
 		  int totdocs = w.size();
+		  double lambda = 1/c/w.size();
 		  
 		  Random gen = new Random();
 		  

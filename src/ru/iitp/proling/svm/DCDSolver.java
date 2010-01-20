@@ -16,20 +16,20 @@ public class DCDSolver {
 		this.threshold = threshold;
 	}
 	
-	protected void swap(int[] array, int i, int j){
+	protected static void swap(int[] array, int i, int j){
 		int t = array[i];
 		array[i] = array[j];
 		array[j] = t;
 	}
 	
-	protected void shuffle(int[] array, int active){
+	protected static void shuffle(int[] array, int active){
 		for(int i = 0; i != active; i++){
 			int j = i + (int)(Math.random() * (active - i));
 			swap(array, i, j);
 		}
 	}
 	
-	public double[] solve(WeightVector wv){
+	public static double[] solve(WeightVector wv, double c_pos, double c_neg, int iter, double eps, int threshold){
 			
 		
 		int totdocs = wv.size();
