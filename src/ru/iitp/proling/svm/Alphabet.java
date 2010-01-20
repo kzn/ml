@@ -46,4 +46,19 @@ public class Alphabet<T> {
 	public int size(){
 		return entries.size();
 	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("Alphabet:\n");
+		int i = 0;
+		for(T entry : entries){
+			sb.append(entry.toString());
+			sb.append(" <=> ");
+			sb.append(i++);
+			sb.append("\n");
+		}
+		
+		
+		return sb.toString();
+	}
 }
