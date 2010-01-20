@@ -2,21 +2,34 @@ package ru.iitp.proling.svm;
 import java.util.*;
 
 public class DCDSolver {
+	protected double c_pos;
+	protected double c_neg;
+	protected int iter;
+	protected double eps;
+	protected int threshold;
 	
-	protected static void swap(int[] array, int i, int j){
+	public DCDSolver(double c_pos, double c_neg, int iter, double eps, int threshold){
+		this.c_pos = c_pos;
+		this.c_neg = c_neg;
+		this.iter = iter;
+		this.eps = eps;
+		this.threshold = threshold;
+	}
+	
+	protected void swap(int[] array, int i, int j){
 		int t = array[i];
 		array[i] = array[j];
 		array[j] = t;
 	}
 	
-	protected static void shuffle(int[] array, int active){
+	protected void shuffle(int[] array, int active){
 		for(int i = 0; i != active; i++){
 			int j = i + (int)(Math.random() * (active - i));
 			swap(array, i, j);
 		}
 	}
 	
-	public static void solve(WeightVector wv, double c_pos, double c_neg, int iter, double eps, int threshold){
+	public double[] solve(WeightVector wv){
 			
 		
 		int totdocs = wv.size();
@@ -111,6 +124,7 @@ public class DCDSolver {
 
 	    System.out.printf("Optimization done in: %f secs\n", ((double)elapsed)/1000000000);
 		System.out.println("Done.");
+		return wv.vec();
 	}
 	
 }

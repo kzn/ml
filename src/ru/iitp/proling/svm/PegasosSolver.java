@@ -4,8 +4,21 @@ import java.util.Random;
 
 public class PegasosSolver {
 	public static int ITER_PER_DOT = 1000;
+	protected int iter; 
+	protected int k;
+	protected double lambda;
+	protected int start_iter;
+		
 	
-	public static void solve(WeightVector w, int iter, int k, double lambda, int start_iter){
+	public PegasosSolver(int iter, int k, double lambda, int start_iter){
+		this.iter = iter;
+		this.k = k;
+		this.lambda = lambda;
+		this.start_iter = start_iter;
+		
+	}
+	
+	public double[] solve(WeightVector w){
 		  int totdocs = w.size();
 		  
 		  Random gen = new Random();
@@ -51,6 +64,7 @@ public class PegasosSolver {
 		      w.scale(Math.sqrt(1/(lambda * snorm)));
 		  }
 		  System.out.println("Done.");
+		  return w.vec();
 		} 
 
 }
