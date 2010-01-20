@@ -6,15 +6,15 @@ public class PolyKernel extends Kernel {
 	protected int n;
 	protected LinearKernel lk;
 	
-	protected double  sqrt_2cg;
-	protected double sqrt_2_g;
+	protected double  sqrt2cg;
+	protected double sqrt2_g;
 	
 	public PolyKernel(double g, double c, int n){
 		this.g = g;
 		this.c = c;
 		this.n = n;
-		sqrt_2cg = Math.sqrt(2*c*g);
-		sqrt_2_g = Math.sqrt(2)*g;
+		sqrt2cg = Math.sqrt(2*c*g);
+		sqrt2_g = Math.sqrt(2)*g;
 		lk = new LinearKernel();
 	}
 
@@ -31,20 +31,22 @@ public class PolyKernel extends Kernel {
 	}
 
 	@Override
-	public double dot(double[] dense, SparseVector x) {
-		double sum = 0;
-		sum += dense[0]*c;
+	public double dot(double[] w, SparseVector x) {
+		
+		double sum = w[0]*c;	// bias
 		for(int i = 0; i != x.size(); i++){
-			double tmp = 0;
+			double tmp_value = 0;
 			int base = x.indexes[i] * (2*n - x.indexes[i] + 1)/2;
-			for(int j = i + 1; j != x.size(); j++)
-				tmp += dense[base + x.indexes[j]]*x.values[j];
-
-			tmp *= sqrt_2_g;
-			tmp += dense[base + x.indexes[i]]*x.values[i] * g;
-			tmp += dense[x.indexes[i]]*sqrt_2cg;
-			sum += tmp*x.values[i];
+			
+			for(int j = i + 1; j != x.size(); j++){
+				tmp_value += w[base + x.indexes[j]]*x.values[j];
+			}
+			tmp_value *= sqrt2_g;
+			tmp_value += w[base + x.indexes[i]]*x.values[i]*g;
+			tmp_value += w[x.indexes[i]]*sqrt2cg;
+			sum += tmp_value*x.values[i];
 		}
+
 		return sum;
 
 	}
@@ -55,19 +57,18 @@ public class PolyKernel extends Kernel {
 	}
 
 	@Override
-	public void add(double[] dense, SparseVector x, double factor) {
-		dense[0]+= factor * c;
+	public void add(double[] w, SparseVector x, double factor) {
+		w[0] += factor* c;
 		for(int i = 0; i != x.size(); i++){
+			double tmp_value = factor*x.values[i];
 			int base = x.indexes[i] * (2*n - x.indexes[i] + 1)/2;
-			double tmp = factor * x.values[i];
-	        dense[base + x.indexes[i]] += g*tmp*x.values[i];
-		      
-		      for(int j = i+1; j != x.size(); j++){
-		    	  dense[base + x.indexes[j]] += Math.sqrt(2) * g * tmp * x.values[j];
-		      }
+			w[base + x.indexes[i]] += g*tmp_value*x.values[i];
+			for(int j = i + 1; j != x.size(); j++){
+			    w[base + x.indexes[j]] += sqrt2_g*tmp_value*x.values[j];
+			}
+			w[x.indexes[i]] += tmp_value*sqrt2cg;
+		}
 
-		      dense[x.indexes[i]] += tmp*Math.sqrt(2*c*g);
-		    }
 	}
 
 	@Override
