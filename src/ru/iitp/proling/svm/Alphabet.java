@@ -1,5 +1,7 @@
 package ru.iitp.proling.svm;
+
 import gnu.trove.TObjectIntHashMap;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +9,7 @@ import java.util.ArrayList;
  * @author ant
  *
  */
-public class Alphabet<T> {
+public class Alphabet<T> implements Serializable{
 	protected TObjectIntHashMap<T> map;
 	protected ArrayList<T> entries;
 	
@@ -61,4 +63,5 @@ public class Alphabet<T> {
 		
 		return sb.toString();
 	}
+
 }
