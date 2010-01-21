@@ -1,7 +1,21 @@
 package ru.iitp.proling.svm;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Ranking problem formulation for SVM classifier
+ * @author ant
+ * Assumes, that dataset is divided into ranks - sets of examples weighted by
+ * integer value of example target.
+ * 
+ *  For example, rank of:
+ *  1 v1
+ *  2 v2
+ *  1 v3
+ *  There v2 sample is ranked higher than v1 and v3
+ *  
+ *  Learning is based on pairwise strategy. 
+ *
+ */
 
 public class WeightVectorRanking extends WeightVectorProxy {
 	protected double[] alphas;

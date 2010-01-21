@@ -1,5 +1,13 @@
 package ru.iitp.proling.svm;
 
+import ru.iitp.proling.svm.kernel.Kernel;
+
+/**
+ * Basic problem formulation for binary classification problem
+ * @author ant
+ * 
+ */
+
 public class WeightVectorLinear extends WeightVector {
 	protected Dataset dataset;
 	protected double[] alphas;
