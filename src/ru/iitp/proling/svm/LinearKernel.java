@@ -1,5 +1,7 @@
 package ru.iitp.proling.svm;
 
+import java.util.TreeMap;
+
 public class LinearKernel extends Kernel {
 
 	@Override
@@ -41,8 +43,11 @@ public class LinearKernel extends Kernel {
 	}
 
 	@Override
-	public SparseVector pipe(SparseVector x) {
-		return x;
+	public TreeMap<Long, Double> pipe(SparseVector x) {
+		TreeMap<Long, Double> tm = new TreeMap<Long, Double>();
+		for(int i = 0; i != x.size(); i++)
+			tm.put((long)x.indexes[i], x.values[i]);
+		return tm;
 	}
 
 	@Override

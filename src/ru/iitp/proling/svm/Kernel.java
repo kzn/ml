@@ -1,5 +1,7 @@
 package ru.iitp.proling.svm;
 
+import java.util.TreeMap;
+
 /*
  * Abstract class instead of Interface for efficiency reasons
  */
@@ -10,7 +12,7 @@ public abstract class Kernel {
 	public abstract int dim(int src_dim);
 	public abstract double snorm(SparseVector x);
 	// perform transformation of input sparse vector
-	public abstract SparseVector pipe(SparseVector x); 
+	public abstract TreeMap<Long, Double> pipe(SparseVector x); 
 	
 
 	public void wAdder(double[] dense, long idx, double value) {

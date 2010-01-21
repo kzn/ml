@@ -1,5 +1,7 @@
 package ru.iitp.proling.svm;
 
+import java.util.TreeMap;
+
 public class PolyKernel extends Kernel {
 	protected double g;
 	protected double c;
@@ -52,8 +54,21 @@ public class PolyKernel extends Kernel {
 	}
 
 	@Override
-	public SparseVector pipe(SparseVector x) {
-		return null;
+	public TreeMap<Long, Double> pipe(SparseVector x) {
+		TreeMap<Long, Double> tm = new TreeMap<Long, Double>();
+		tm.put(0L, c);
+		
+		for(int i = 0; i != x.size(); i++){
+			double tmp_value = x.values[i];
+			long base = (long)x.indexes[i] * (2*n - x.indexes[i] + 1)/2;
+			tm.put(base + x.indexes[i], g*tmp_value*x.values[i]);
+			for(int j = i + 1; j != x.size(); j++){
+			    tm.put(base + x.indexes[j], sqrt2_g*tmp_value*x.values[j]);
+			}
+			tm.put((long)x.indexes[i], tmp_value*sqrt2cg);
+		}
+		
+		return tm;
 	}
 
 	@Override
