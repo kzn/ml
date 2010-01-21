@@ -1,5 +1,5 @@
 package ru.iitp.proling.svm;
 
-public interface Solver {
-
+public abstract class Solver {
+	public abstract void solve();
 }
