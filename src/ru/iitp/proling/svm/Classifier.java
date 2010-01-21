@@ -1,6 +1,8 @@
 package ru.iitp.proling.svm;
 import java.util.*;
 
+import ru.iitp.proling.common.Alphabet;
+
 public abstract class Classifier {
 	/// Return actual label index
 	abstract int classify(SparseVector v);
