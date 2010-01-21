@@ -3,7 +3,6 @@ package ru.iitp.proling.svm.kernel;
 import java.util.TreeMap;
 
 import ru.iitp.proling.svm.SparseVector;
-import ru.iitp.proling.svm.wAccessor;
 
 /*
  * Abstract class instead of Interface for efficiency reasons

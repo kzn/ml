@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import ru.iitp.proling.svm.SparseVector;
-import ru.iitp.proling.svm.wAccessorHash;
 
 public class HashKernel extends Kernel {
 	protected Kernel base;
