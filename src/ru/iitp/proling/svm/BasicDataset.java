@@ -6,10 +6,11 @@ import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.iitp.proling.common.Alphabet;
+
 
 public class BasicDataset implements Dataset {
 	protected int dim;
-	protected List<Double> sqnorms;
 	protected List<RWSample> samples;
 	protected Alphabet<Double> alphabet;
 	protected int[] targets;
@@ -17,7 +18,6 @@ public class BasicDataset implements Dataset {
 	public BasicDataset(String filename){
 		dim = 0;
 		alphabet = new Alphabet<Double>(10, 0.0);
-		sqnorms = new ArrayList<Double>();
 		samples = new ArrayList<RWSample>();
 		
 		this.read(filename);
@@ -69,7 +69,6 @@ public class BasicDataset implements Dataset {
 				List<Double> vals = new ArrayList<Double>();
 				int qid = 0;
 				double cost = 1.0;
-				double norm = 0.0;
 
 
 				while(true){
@@ -100,8 +99,6 @@ public class BasicDataset implements Dataset {
 					if(idx_type == StreamTokenizer.TT_NUMBER){
 						idxs.add(idx);
 						vals.add(ft.nval);
-						norm += ft.nval * ft.nval;
-						
 					}else{
 						char c = field.charAt(0);
 
@@ -122,7 +119,6 @@ public class BasicDataset implements Dataset {
 				}
 				
 				samples.add(new RWSample(target, idxs, vals, cost, qid));
-				sqnorms.add(norm);
 				dim = Math.max(dim, idxs.get(idxs.size()-1));
 			}
 			
@@ -140,12 +136,6 @@ public class BasicDataset implements Dataset {
 	@Override
 	public int size() {
 		return samples.size();
-	}
-
-	@Override
-	public double snorm(int idx) {
-		// TODO Auto-generated method stub
-		return sqnorms.get(idx);
 	}
 
 	@Override
@@ -169,6 +159,18 @@ public class BasicDataset implements Dataset {
 	@Override
 	public Alphabet alphabet() {
 		return alphabet;
+	}
+
+	@Override
+	public int qid(int idx) {
+		// TODO Auto-generated method stub
+		return samples.get(idx).qid;
+	}
+
+	@Override
+	public int target(int idx) {
+		// TODO Auto-generated method stub
+		return targets[idx];
 	}
 
 }
