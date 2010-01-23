@@ -2,19 +2,25 @@ package ru.iitp.proling.svm;
 
 import java.util.Random;
 
-public class PegasosSolver {
+public class PegasosSolver extends BinarySolver{
 	public static int ITER_PER_DOT = 1000;
 	protected int iter; 
 	protected int k;
-	protected double lambda;
+	protected double c;
 	protected int start_iter;
 		
 	
-	public PegasosSolver(int iter, int k, double lambda, int start_iter){
+	public PegasosSolver(int iter, int k, double c, int start_iter){
 		this.iter = iter;
 		this.k = k;
-		this.lambda = lambda;
+		this.c = c;
 		this.start_iter = start_iter;
+		
+	}
+	
+	@Override
+	public void solve(WeightVector wv) {
+		solve(wv, iter, k, c, start_iter);
 		
 	}
 	
@@ -66,6 +72,8 @@ public class PegasosSolver {
 		  }
 		  System.out.println("Done.");
 		  return w.vec();
-		} 
+		}
+
+ 
 
 }

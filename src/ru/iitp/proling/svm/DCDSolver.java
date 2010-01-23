@@ -1,7 +1,7 @@
 package ru.iitp.proling.svm;
 import java.util.*;
 
-public class DCDSolver {
+public class DCDSolver extends BinarySolver{
 	protected double c_pos;
 	protected double c_neg;
 	protected int iter;
@@ -14,6 +14,11 @@ public class DCDSolver {
 		this.iter = iter;
 		this.eps = eps;
 		this.threshold = threshold;
+	}
+	
+	@Override
+	public void solve(WeightVector wv) {
+		solve(wv, c_pos, c_neg, iter, eps, threshold);
 	}
 	
 	protected static void swap(int[] array, int i, int j){
@@ -126,6 +131,9 @@ public class DCDSolver {
 		System.out.println("Done.");
 		return wv.vec();
 	}
+
+	
+	
 	
 }
 	
