@@ -1,5 +1,6 @@
 package ru.iitp.proling.svm;
 import java.util.*;
+import ru.iitp.proling.common.ArrayUtils;
 
 public class DCDSolver extends BinarySolver{
 	protected double c_pos;
@@ -21,18 +22,6 @@ public class DCDSolver extends BinarySolver{
 		solve(wv, c_pos, c_neg, iter, eps, threshold);
 	}
 	
-	protected static void swap(int[] array, int i, int j){
-		int t = array[i];
-		array[i] = array[j];
-		array[j] = t;
-	}
-	
-	protected static void shuffle(int[] array, int active){
-		for(int i = 0; i != active; i++){
-			int j = i + (int)(Math.random() * (active - i));
-			swap(array, i, j);
-		}
-	}
 	
 	public static double[] solve(WeightVector wv, double c_pos, double c_neg, int iter, double eps, int threshold){
 			
@@ -60,7 +49,7 @@ public class DCDSolver extends BinarySolver{
 	    	long iter_time = System.nanoTime();
 	    	
 	    	if(threshold > 0 || active < threshold)
-	    		shuffle(index, active);
+	    		ArrayUtils.shuffle(index, active);
 	    	else
 	    		Arrays.sort(index, 0, active);
 	    	
@@ -88,7 +77,7 @@ public class DCDSolver extends BinarySolver{
 	    		
 	    		if(shrink){
 	    			active--;
-	    			swap(index, j, active);
+	    			ArrayUtils.swap(index, j, active);
 	    			j--;
 	    			continue;
 		    	}
