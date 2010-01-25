@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import ru.iitp.proling.common.ArrayUtils;
 import ru.iitp.proling.svm.kernel.Kernel;
+import ru.iitp.proling.svm.kernel.LinearKernel;
 
 public class MulticlassCS {
 
@@ -26,14 +27,14 @@ public class MulticlassCS {
 	protected int n_features;
 	protected int maxiter;
 
-	public MulticlassCS(Dataset ds, int[] targets, double c, double eps, int maxiter, Kernel k){
+	public MulticlassCS(Dataset ds, int[] targets, double c, double eps, int maxiter){
 
 		assert(targets.length == ds.size());
 		this.targets = new int[targets.length];
 		this.eps = eps;
 		this.maxiter = maxiter;
 		this.ds = ds;
-		kernel = k;
+		kernel = new LinearKernel();
 		snorms = new double[ds.size()];
 
 		for(int i = 0; i != snorms.length; i++)
