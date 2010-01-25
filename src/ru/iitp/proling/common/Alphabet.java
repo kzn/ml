@@ -10,6 +10,10 @@ import java.util.ArrayList;
  *
  */
 public class Alphabet<T> implements Serializable{
+	/**
+	 * Current version of alphabet class
+	 */
+	private static final long serialVersionUID = 1L;
 	protected TObjectIntHashMap<T> map;
 	protected ArrayList<T> entries;
 	
