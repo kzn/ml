@@ -53,7 +53,7 @@ public class HashKernel extends Kernel {
 		// TODO Auto-generated method stub
 		TreeMap<Long, Double> v = base.pipe(x);
 		
-		double sum = 0; 
+		double sum = 0;
 		
 		Collection<Double> c = v.values();
 		Iterator<Double> itr = c.iterator();
