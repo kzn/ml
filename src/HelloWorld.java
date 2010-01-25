@@ -8,6 +8,11 @@ import java.beans.XMLEncoder;
 import java.io.*;
 
 import ru.iitp.proling.svm.*;
+import ru.iitp.proling.svm.kernel.Kernel;
+import ru.iitp.proling.svm.kernel.LinearKernel;
+import ru.iitp.proling.svm.kernel.PolyKernel;
+import ru.iitp.proling.svm.kernel.HashKernel;
+
 
 
 public class HelloWorld {
@@ -38,9 +43,15 @@ public class HelloWorld {
 			targets[i] = t[i] == 1? 1.0 : -1.0;
 		//PolyKernel(1, 1, dset.max_dim())
 		
-		Kernel k = new PolyKernel(1, 1, dset.max_dim());
+		//Kernel k = new PolyKernel(1, 1, dset.max_dim());
+		Kernel k = new LinearKernel();
 		WeightVector vw = new WeightVectorLinear(dset, targets, new HashKernel(k, k.dim(dset.max_dim())));
-		DCDSolver.solve(vw, 0.05, 0.05, 500, 0.1, 1000000);
+		//DCDSolver.solve(vw, 0.05, 0.05, 500, 0.1, 1000000);
+		MulticlassCS mc = new MulticlassCS(dset, dset.targets(), 0.05, 0.1, 500, k);
+		mc.solve();
+		
+		System.out.println("MC dual objective:" +  mc.dual_objective());
+		System.out.println("MC Zero-one loss:" + mc.zero_one_loss());
 		
 
 		
