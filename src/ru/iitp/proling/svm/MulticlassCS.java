@@ -9,7 +9,7 @@ import ru.iitp.proling.svm.kernel.Kernel;
 public class MulticlassCS {
 
 	protected Dataset ds; ///< Source dataset
-	protected double[] alpha; ///< Alphas array
+	protected double[][] alpha; ///< Alphas array
 	protected double[] b; ///< 
 	protected double[] g; ///< Gradient vector
 	protected int[] alpha_index;
@@ -21,7 +21,7 @@ public class MulticlassCS {
 
 	protected int[] targets;
 
-	protected double[] w;
+	protected double[][] w;
 
 	protected int n_features;
 	protected int maxiter;
@@ -54,11 +54,12 @@ public class MulticlassCS {
 		System.out.printf("Found: %d classes\n", n_classes);
 
 
-		alpha = new double[ds.size() * n_classes];
+		//alpha = new double[ds.size() * n_classes];
+		alpha = new double[ds.size()][n_classes];
 		b = new double[n_classes];
 		g = new double[n_classes];
 		n_features = kernel.dim(ds.max_dim()) + 1;
-		w = new double[n_classes * n_features];
+		w = new double[n_features][n_classes];
 
 
 		alpha_index = new int[n_classes * ds.size()]; //alpha_index[m][i] = m initially
@@ -71,20 +72,21 @@ public class MulticlassCS {
 
 	// return w[vec_idx][value_idx] for transposed model.data
 	double w(int vec_idx, int value_idx){
-		return w[n_classes*value_idx + vec_idx];
+		return w[value_idx][vec_idx];//w[n_classes*value_idx + vec_idx];
 	}
 
 	void w_add(int vec_idx, int value_idx, double value){
-		w[n_classes*value_idx + vec_idx] += value;
+		w[value_idx][vec_idx] += value;
 
 	}
 
 	double get_alpha(int sample, int cls){
-		return alpha[sample*n_classes + cls];
+		return alpha[sample][cls];//alpha[sample*n_classes + cls];
 	}
 
 	void set_alpha(int sample, int cls, double value){
-		alpha[sample*n_classes + cls] = value;
+		//alpha[sample*n_classes + cls] = value;
+		alpha[sample][cls] = value;
 	}
 
 	int get_alpha_idx(int sample, int cls){
@@ -217,10 +219,9 @@ public class MulticlassCS {
 		for(int t = 0; t !=  maxiter; t++){
 
 			double stopping = Double.NEGATIVE_INFINITY;
+			long iter_start = System.nanoTime();
 			ArrayUtils.shuffle(index, active_size);
 
-			//cout<<"Iteration:"<<t<<" active_size:"<<active_size<<endl;
-			System.out.printf("Iteration: %d active_size:%d\n", t, active_size);
 			for(int j = 0; j != active_size; j++){
 				int i = index[j];
 				double snorm = snorms[i]; 
@@ -261,7 +262,7 @@ public class MulticlassCS {
 								if(!be_shrunken(active_size_i[i], y_index[i],
 										get_alpha(i, get_alpha_idx(i, active_size_i[i])), minG)){
 									ArrayUtils.swap(alpha_index, i*n_classes + m, i*n_classes + active_size_i[i]);
-									ArrayUtils.swap(g, m,active_size_i[i]);
+									ArrayUtils.swap(g, m, active_size_i[i]);
 
 									if(y_index[i] == active_size_i[i])
 										y_index[i] = m;
@@ -308,6 +309,8 @@ public class MulticlassCS {
 					//add_mcalpha(i, delta, delta_size);
 				}
 			}
+			iter_start = System.nanoTime() - iter_start;
+			System.out.printf("Iteration:%d active_size:%d eps=%f time=%f msecs\n", t, active_size, stopping, 1.0*iter_start/1E6);
 
 			if(stopping < eps_shrink){
 
@@ -343,12 +346,13 @@ public class MulticlassCS {
 
 		obj = 0.5 * obj;
 
-		for(int i = 0; i < ds.size()*n_classes; i++)
-			obj += alpha[i];
+		for(int i = 0; i != ds.size(); i++)
+			for(int j = 0; j != n_classes; j++)
+				obj += alpha[i][j];
 		System.out.println("Norms + alpha:" + obj);
 
 		for(int i = 0; i != ds.size(); i++)
-			obj -= alpha[i*n_classes + targets[i]];
+			obj -= alpha[i][targets[i]];
 		//cout<<"Norms + alpha - alpha_prob:"<<obj<<endl;
 		System.out.println("dual objective:" + obj);
 
