@@ -27,15 +27,20 @@ public class DCDSolver extends BinarySolver{
 			
 		
 		int totdocs = wv.size();
-	    double c = c_pos;
 	    int[] index = new int[totdocs];
+	    double[] svm_cost = new double[totdocs];
 	    int active = totdocs;
 	    int iters = 0;
 	    double max_pg_pos = Double.POSITIVE_INFINITY;
 	    double min_pg_neg = Double.NEGATIVE_INFINITY;
 	    
-	    for(int i = 0; i != totdocs; i++)
+	    for(int i = 0; i != totdocs; i++){
 	    	index[i] = i;
+	    	double cost = wv.target(i) == 1? c_pos : c_neg;
+	    	svm_cost[i] = cost * wv.cost(i);
+	    }
+	    
+	    
 	    
 	    System.out.printf("C:%f/%f\n",c_pos, c_neg);
 	    System.out.println("Algorithm: DCD Full");
@@ -59,11 +64,12 @@ public class DCDSolver extends BinarySolver{
 	    		double alpha = wv.alpha(i);
 	    		double target = wv.target(i);
 	    		double g = wv.dot(i)*target - 1;
-	    		double pg = g;
+
 	    		boolean shrink = false;
 	    		
-	    		c = target == 1.0? c_pos : c_neg;
+	    		double c = svm_cost[i];
 	    		
+	    		double pg = g;
 	    		if(alpha == 0){
 	    			pg = Math.min(g, 0.0);
 	    			shrink = g > max_pg_pos;
