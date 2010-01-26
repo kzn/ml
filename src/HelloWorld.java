@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.LinkedList;
@@ -41,17 +42,26 @@ public class HelloWorld {
 		
 		for(int i = 0; i != dset.size(); i++)
 			targets[i] = t[i] == 1? 1.0 : -1.0;
+		
+		double[] costs = new double[dset.size()];
+		Arrays.fill(costs, 1.0);
 		//PolyKernel(1, 1, dset.max_dim())
 		
 		//Kernel k = new PolyKernel(1, 1, dset.max_dim());
 		Kernel k = new LinearKernel();
-		WeightVector vw = new WeightVectorLinear(dset, targets, new HashKernel(k, k.dim(dset.max_dim())));
+		WeightVector vw = new WeightVectorLinear(dset, targets, costs, k);
 		//DCDSolver.solve(vw, 0.05, 0.05, 500, 0.1, 1000000);
-		MulticlassCS mc = new MulticlassCS(dset, dset.targets(), 0.05, 0.1, 500, k);
-		mc.solve();
+		//MulticlassCS mc = new MulticlassCS(dset, dset.targets(), 0.05, 0.1, 1000);
+		//mc.solve();
 		
-		System.out.println("MC dual objective:" +  mc.dual_objective());
-		System.out.println("MC Zero-one loss:" + mc.zero_one_loss());
+		AdaBoostTrainer tr = new AdaBoostTrainer(10, new LinearKernel());
+		
+		tr.train(dset, targets, 10);
+		
+		System.out.println("Adaboost zero-one loss:" + tr.zero_one_loss(dset, targets));
+		
+		//System.out.println("MC dual objective:" +  mc.dual_objective());
+		//System.out.println("MC Zero-one loss:" + mc.zero_one_loss());
 		
 
 		
@@ -60,12 +70,9 @@ public class HelloWorld {
 		System.out.println("Primal objective:" + vw.objectivePrimal(0.05));
 		System.out.println("Dual objective:" + vw.objectiveDual());
 		System.out.println("Zero-one loss:" + vw.zero_one_loss());
-		System.out.println(dset.alphabet());
+		//System.out.println(dset.alphabet());
 		
-		int m = 300000;
-		int n = 1000000;
 		
-		longtest((long)m *n);
 		
 	}
 
