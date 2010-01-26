@@ -1,5 +1,7 @@
 package ru.iitp.proling.svm;
 
+import ru.iitp.proling.svm.kernel.Kernel;
+
 public class WeightVectorProxy extends WeightVector {
 	protected WeightVector w;
 	
@@ -106,6 +108,16 @@ public class WeightVectorProxy extends WeightVector {
 	public void clear() {
 		w.clear();
 		
+	}
+	
+	@Override
+	public Kernel kernel(){
+		return w.kernel();
+	}
+	
+	@Override
+	public double cost(int idx){
+		return w.cost(idx);
 	}
 
 }

@@ -1,4 +1,7 @@
 package ru.iitp.proling.svm;
+
+import ru.iitp.proling.svm.kernel.Kernel;
+
 /**
  * Class for binary classification problem formulation.
  * Also, stores solution to forumlated problem.
@@ -41,6 +44,12 @@ public abstract class WeightVector {
 	 * Reset weight vector to initial state
 	 */
 	public abstract void clear();
+	
+	/**
+	 * Get used kernel for learning 
+	 * @return used kernel
+	 */
+	public abstract Kernel kernel();
 	
 	
 	/**
@@ -136,4 +145,7 @@ public abstract class WeightVector {
 	 */
 	public abstract double kktViolation(double c);
 	
+	public double cost(int idx){
+		return 1.0;
+	}
 }
