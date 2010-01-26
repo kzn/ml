@@ -102,4 +102,10 @@ public class WeightVectorProxy extends WeightVector {
 		return w.zero_one_loss();	
 	}
 
+	@Override
+	public void clear() {
+		w.clear();
+		
+	}
+
 }

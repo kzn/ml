@@ -1,5 +1,8 @@
 package ru.iitp.proling.svm;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import ru.iitp.proling.svm.kernel.Kernel;
 
 /**
@@ -184,6 +187,13 @@ public class WeightVectorLinear extends WeightVector {
 				misclassified++;
 		
 		return (double)(misclassified)/size();
+	}
+
+	@Override
+	public void clear() {
+		Arrays.fill(alphas, 0.0);
+		Arrays.fill(v, 0.0);
+		
 	}
 
 }
