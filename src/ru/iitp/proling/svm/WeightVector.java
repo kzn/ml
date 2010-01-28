@@ -145,6 +145,11 @@ public abstract class WeightVector {
 	 */
 	public abstract double kktViolation(double c);
 	
+	/**
+	 * Get cost of sample idx
+	 * @param idx sample index
+	 * @return cost of sample[idx]
+	 */
 	public double cost(int idx){
 		return 1.0;
 	}
