@@ -153,4 +153,5 @@ public abstract class WeightVector {
 	public double cost(int idx){
 		return 1.0;
 	}
+
 }

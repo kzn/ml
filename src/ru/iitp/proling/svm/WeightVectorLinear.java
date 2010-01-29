@@ -1,6 +1,5 @@
 package ru.iitp.proling.svm;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import ru.iitp.proling.svm.kernel.Kernel;
@@ -18,7 +17,6 @@ public class WeightVectorLinear extends WeightVector {
 	protected Kernel kernel;
 	protected double[] targets;
 	protected double[] snorms;
-	protected double[] costs;
 	
 	public WeightVectorLinear(Dataset ds, double[] targets, double[] costs, double[] v, Kernel kernel){
 		dataset = ds;
@@ -26,7 +24,6 @@ public class WeightVectorLinear extends WeightVector {
 		this.targets = targets;
 		this.snorms = new double[ds.size()];
 		this.v = v;
-		this.costs = costs;
 		assert(v.length == kernel.dim(dataset.max_dim()) + 1);
 		alphas = new double[ds.size()];
 	
@@ -202,10 +199,4 @@ public class WeightVectorLinear extends WeightVector {
 	public Kernel kernel(){
 		return kernel;
 	}
-	
-	@Override
-	public double cost(int idx){
-		return costs[idx];
-	}
-
 }
