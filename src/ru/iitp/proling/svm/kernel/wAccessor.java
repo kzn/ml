@@ -7,7 +7,12 @@ public class wAccessor {
 
 
 	public double wGetter(double[] dense, long idx) {
+		try{
 		return dense[(int) idx];
+		}
+		catch(ArrayIndexOutOfBoundsException e){
+			return 0;
+		}
 	}
 
 
