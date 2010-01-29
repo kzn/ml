@@ -24,13 +24,13 @@ public class AdaBoostTrainer {
 	
 	public void train(WeightVector wv, BinarySolver solver){
 		
-		double[] D = new double[wv.size()];
-		double m = wv.size();
+		double[] D = new double[wv.size()]; // D is maintained in such manner that initial D[i] = 1.0 instead of D[i] = 1/m
 		
 		
-		Arrays.fill(D, 1/m);
+		Arrays.fill(D, 1.0);
 		
 		for(int t = 0; t != iter; t++){
+			
 						
 			WeightVectorCost w = new WeightVectorCost(wv, D);
 			w.clear();
@@ -43,6 +43,7 @@ public class AdaBoostTrainer {
 				if(w.dot(i)*w.target(i) < 0)
 					e += D[i];
 			}
+			e /= w.size();
 			
 			// terminate if learning is useless
 			if(e > 0.5)
@@ -59,6 +60,8 @@ public class AdaBoostTrainer {
 			double sum = 0;
 			for(double k: D)
 			sum += k;
+			
+			sum /= w.size();
 			
 			for(int i = 0; i != D.length; i++)
 				D[i] /= sum;
