@@ -52,11 +52,11 @@ public class WeightVectorRanking extends WeightVectorProxy {
 				if(w.target(i) > w.target(j)){ // pair a > b
 					_a.add(i);
 					_b.add(j);
-					_targets.add(1.0);
+					_targets.add(1.0 + w.cost(i) - w.cost(j));
 				}else{ // pair b > a
 					_a.add(j);
 					_b.add(i);
-					_targets.add(1.0);
+					_targets.add(1.0 + w.cost(j) - w.cost(i));
 				}
 			}
 		}
