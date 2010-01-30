@@ -4,19 +4,17 @@ import ru.iitp.proling.svm.kernel.Kernel;
 
 /**
  * Binary classification common class. Basic interface to binary predictor that has 2 outcomes.
- * This a indirect interface, as any binary classfier expected to conform to defined functions
+ * This a indirect interface, as any binary classifier expected to conform to defined functions
  * @author ant
  *
  */
 public class BinaryClassifier{
-	protected double[] w;
-	protected Kernel kernel;
+	protected Scorer scorer;
 	int positive;
 	int negative;
 	
-	public BinaryClassifier(double[] w, Kernel kernel, int positive, int negative){
-		this.w = w;
-		this.kernel = kernel;
+	public BinaryClassifier(Scorer scorer, int positive, int negative){
+		this.scorer = scorer;
 		this.positive = positive;
 		this.negative = negative;
 	}
@@ -28,7 +26,7 @@ public class BinaryClassifier{
 	 * @return class of vector, -1 if negative in case of indicator classification
 	 */
 	int classify(SparseVector v) {
-		return kernel.dot(w, v) > 0.0? positive : negative;
+		return score(v) > 0.0? positive : negative;
 	}
 	
 	/**
@@ -37,7 +35,7 @@ public class BinaryClassifier{
 	 * @return score 
 	 */
 	double score(SparseVector v){
-		return kernel.dot(w, v);
+		return scorer.score(v);
 	}
 
 

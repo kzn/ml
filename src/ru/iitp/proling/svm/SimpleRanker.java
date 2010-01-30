@@ -8,11 +8,10 @@ import ru.iitp.proling.svm.kernel.Kernel;
 
 public class SimpleRanker implements Ranker {
 	protected Kernel k;
-	protected double[] w;
+	protected Scorer scorer;
 	
-	public SimpleRanker(double[] vec, Kernel k){
-		this.w = vec;
-		this.k = k;
+	public SimpleRanker(Scorer scorer){
+		this.scorer = scorer;
 	}
 
 	@Override
@@ -27,7 +26,7 @@ public class SimpleRanker implements Ranker {
 
 	@Override
 	public double score(SparseVector x) {
-		return k.dot(w, x);
+		return scorer.score(x);
 	}
 
 }
