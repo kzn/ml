@@ -157,7 +157,7 @@ public class BasicDataset implements Dataset {
 	}
 
 	@Override
-	public Alphabet alphabet() {
+	public Alphabet<Double> alphabet() {
 		return alphabet;
 	}
 
@@ -171,6 +171,16 @@ public class BasicDataset implements Dataset {
 	public int target(int idx) {
 		// TODO Auto-generated method stub
 		return targets[idx];
+	}
+	
+	public double[] labels(){
+		double[] labels = new double[size()];
+		
+		for(int i = 0; i != labels.length; i++)
+			labels[i] = alphabet.get(targets[i]);
+		
+		return labels;
+		
 	}
 
 }
