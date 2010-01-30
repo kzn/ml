@@ -8,6 +8,7 @@ public class DCDSolver extends BinarySolver{
 	protected int iter;
 	protected double eps;
 	protected int threshold;
+	public static int verbosity = 0;
 	
 	public DCDSolver(double c_pos, double c_neg, int iter, double eps, int threshold){
 		this.c_pos = c_pos;
@@ -18,12 +19,12 @@ public class DCDSolver extends BinarySolver{
 	}
 	
 	@Override
-	public void solve(WeightVector wv) {
-		solve(wv, c_pos, c_neg, iter, eps, threshold);
+	public Scorer solve(WeightVector wv) {
+		return solve(wv, c_pos, c_neg, iter, eps, threshold); 
 	}
 	
 	
-	public static double[] solve(WeightVector wv, double c_pos, double c_neg, int iter, double eps, int threshold){
+	public static TrivialScorer solve(WeightVector wv, double c_pos, double c_neg, int iter, double eps, int threshold){
 			
 		
 		int totdocs = wv.size();
@@ -41,9 +42,10 @@ public class DCDSolver extends BinarySolver{
 	    }
 	    
 	    
-	    
-	    System.out.printf("C:%f/%f\n",c_pos, c_neg);
-	    System.out.println("Algorithm: DCD Full");
+	    if(verbosity > 0){
+	    	System.out.printf("C:%f/%f\n",c_pos, c_neg);
+	    	System.out.println("Algorithm: DCD Full");
+	    }
 	    
 	    long elapsed = System.nanoTime();
 	    
@@ -95,16 +97,21 @@ public class DCDSolver extends BinarySolver{
 	    			wv.add(i, target*(alpha_new - alpha_old));
 			    }
 	    	}
-	    	System.out.printf("Iter %d: active: %d\t eps=%f\t elapsed: %d msecs\n", t, active, max_pg - min_pg, (System.nanoTime() - iter_time)/1000000);
+	    	if(verbosity > 1)
+	    		System.out.printf("Iter %d: active: %d\t eps=%f\t elapsed: %d msecs\n", t, active, max_pg - min_pg, (System.nanoTime() - iter_time)/1000000);
 	    	double diff = max_pg - min_pg;
 
 			if(diff <= eps && active == totdocs){
-				System.out.println("Reached min eps at:" + Integer.toString(t));
-				System.out.println("Eps:" + Double.toString(diff));
+				if(verbosity > 0){
+					System.out.println("Reached min eps at:" + Integer.toString(t));
+					System.out.println("Eps:" + Double.toString(diff));
+				}
 				break;
 			}else if(diff <= 0.8*eps){
-				System.out.print('*');
-				System.out.flush();
+				if(verbosity > 2){
+					System.out.print('*');
+					System.out.flush();
+				}
 				active = totdocs;
 			    max_pg_pos = Double.POSITIVE_INFINITY;
 			    min_pg_neg = Double.NEGATIVE_INFINITY;
@@ -121,10 +128,12 @@ public class DCDSolver extends BinarySolver{
 	    }
 	    
 	    elapsed = System.nanoTime() - elapsed;
-
-	    System.out.printf("Optimization done in: %f secs\n", ((double)elapsed)/1000000000);
-		System.out.println("Done.");
-		return wv.vec();
+	    
+	    if(verbosity > 0){
+	    	System.out.printf("Optimization done in: %f secs\n", ((double)elapsed)/1000000000);
+	    	System.out.println("Done.");
+	    }
+		return new TrivialScorer(wv.vec(), wv.kernel());
 	}
 
 	

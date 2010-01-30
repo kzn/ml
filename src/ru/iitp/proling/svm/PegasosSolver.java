@@ -19,12 +19,13 @@ public class PegasosSolver extends BinarySolver{
 	}
 	
 	@Override
-	public void solve(WeightVector wv) {
-		solve(wv, iter, k, c, start_iter);
+	public Scorer solve(WeightVector wv) {
+		return solve(wv, iter, k, c, start_iter);
 		
 	}
-	
-	public static double[] solve(WeightVector w, int iter, int k, double c, int start_iter){
+	// this code assumes that c is fixed for all samples
+	// Doesn't use w.cost(i)
+	public static TrivialScorer solve(WeightVector w, int iter, int k, double c, int start_iter){
 		  int totdocs = w.size();
 		  double lambda = 1/c/w.size();
 		  
@@ -71,9 +72,6 @@ public class PegasosSolver extends BinarySolver{
 		      w.scale(Math.sqrt(1/(lambda * snorm)));
 		  }
 		  System.out.println("Done.");
-		  return w.vec();
+		  return new TrivialScorer(w.vec(), w.kernel());
 		}
-
- 
-
 }
