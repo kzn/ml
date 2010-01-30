@@ -1,5 +1,6 @@
 package ru.iitp.proling.svm;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -27,6 +28,46 @@ public class SimpleRanker implements Ranker {
 	@Override
 	public double score(SparseVector x) {
 		return scorer.score(x);
+	}
+	
+	public double[] score(List<SparseVector> vec){
+		double[] res = new double[vec.size()];
+		int i = 0;
+		
+		for(SparseVector v : vec)
+			res[i++] = score(v);
+		
+		return res;
+			
+	}
+	
+	
+	int swappedPairs(double[] correct, double[] predicted){
+		int n = 0;
+		for(int i = 0; i != correct.length; i++){
+			for(int j = 0; j != correct.length; j++){
+				if(correct[i] > correct[j] && predicted[i] <= predicted[j])
+					n++;
+			}
+		}
+		return n;
+	}
+	
+	double avgSwappedPairs(double[] correct, double[] predicted){
+		int n = 0;
+		int total = 0;
+		
+		for(int i = 0; i != correct.length; i++){
+			for(int j = 0; j != correct.length; j++){
+				if(correct[i] > correct[j]){
+					total++;
+					if(predicted[i] <= predicted[j])
+						n++;
+				}
+			}
+		}
+		
+		return 1.0*n/total;
 	}
 
 }
