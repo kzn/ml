@@ -42,7 +42,7 @@ public class SimpleRanker implements Ranker {
 	}
 	
 	
-	int swappedPairs(double[] correct, double[] predicted){
+	public int swappedPairs(double[] correct, double[] predicted){
 		int n = 0;
 		for(int i = 0; i != correct.length; i++){
 			for(int j = 0; j != correct.length; j++){
@@ -53,7 +53,7 @@ public class SimpleRanker implements Ranker {
 		return n;
 	}
 	
-	double avgSwappedPairs(double[] correct, double[] predicted){
+	public double avgSwappedPairs(double[] correct, double[] predicted){
 		int n = 0;
 		int total = 0;
 		
