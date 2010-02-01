@@ -10,9 +10,8 @@ public class EnsembleScorer extends Scorer {
 	
 	protected List<Scorer> scorers;
 	protected TDoubleArrayList alpha;
-	protected Kernel kernel;
 	
-	public EnsembleScorer(List<Scorer> scorers, TDoubleArrayList alpha, Kernel kernel){
+	public EnsembleScorer(List<Scorer> scorers, TDoubleArrayList alpha){
 		assert(scorers.size() == alpha.size());
 		this.scorers = scorers;
 		this.alpha = alpha;
