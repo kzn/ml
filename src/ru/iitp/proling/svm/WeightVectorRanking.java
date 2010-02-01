@@ -128,5 +128,14 @@ public class WeightVectorRanking extends WeightVectorProxy {
 	public double target(int idx) {
 		return targets[idx];
 	}
+	
+	// pair accessors. a[idx] must be ranked higher, than b[idx]
+	public int a(int idx){
+		return a[idx];
+	}
+	
+	public int b(int idx){
+		return b[idx];
+	}
 
 }
