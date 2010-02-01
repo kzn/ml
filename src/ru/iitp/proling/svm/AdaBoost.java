@@ -61,6 +61,6 @@ public class AdaBoost {
 			vecs.add(s);
 		}
 		
-		return new EnsembleScorer(vecs, alpha, wv.kernel());
+		return new EnsembleScorer(vecs, alpha);
 	}
 }

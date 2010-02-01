@@ -1,21 +1,19 @@
 package ru.iitp.proling.svm;
 
+import gnu.trove.TDoubleArrayList;
 import gnu.trove.TIntArrayList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import ru.iitp.proling.svm.kernel.Kernel;
 
-public class AdaBoostDTrainer extends AdaBoostTrainer {
+public class AdaBoostDTrainer{
 	
-	protected double threshold; // if weight if less than threshold, then skip this sample for this round
-	
-	public AdaBoostDTrainer(int iter, Kernel kernel,double threshold){
-		super(iter, kernel);
-		this.threshold = threshold;
-	}
-	
-	public void train(WeightVector wv, BinarySolver solver){
+	public static EnsembleScorer train(WeightVector wv, BinarySolver solver, int iter, double threshold){
+		TDoubleArrayList alpha = new TDoubleArrayList();
+		List<Scorer> vecs = new ArrayList<Scorer>();
 		
 		double[] D = new double[wv.size()]; 
 		//double[] D1 = new double[D.length];
@@ -44,7 +42,7 @@ public class AdaBoostDTrainer extends AdaBoostTrainer {
 				
 			
 			w_slice.clear();
-			solver.solve(w_slice);
+			Scorer s = solver.solve(w_slice);
 			
 			
 			double e = 0; // e_t
@@ -74,8 +72,10 @@ public class AdaBoostDTrainer extends AdaBoostTrainer {
 				D[i] /= sum;
 			
 			alpha.add(a);
-			vecs.add(Arrays.copyOf(w.vec(), w.vec().length));
+			vecs.add(s);
 		}
+		
+		return new EnsembleScorer(vecs, alpha);
 	}
 
 
