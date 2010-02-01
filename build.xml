@@ -33,7 +33,7 @@
          ================================= -->
     <target name="compile" depends="" description="Compile project">
         <mkdir dir="${classes.dir}"/>
-    	<javac srcdir="${src.dir}"  destdir="${classes.dir}" classpath="${env.CLASSPATH}:/home/ant/java/jar/trove.jar"/>    
+	<javac srcdir="${src.dir}"  destdir="${classes.dir}" classpath="${env.CLASSPATH}:/home/ant/java/jar/trove.jar:../common/iitp-common.jar"/>    
     </target>
 	
 	<!-- ================================= 
