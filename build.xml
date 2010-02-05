@@ -15,11 +15,15 @@
 	<property name="build.dir" value="build"/>
 	<property name="src.dir" value="src"/>
 	<property name="jar.dir" value="jar"/>
-	<property name="classes.dir" value="${build.dir}/classes"/>
 		
 	<property name="jar.path" value="iitp-svm.jar"/>
 	<property name="main.class" value="HelloWorld"/>
 	<property environment="env"/>
+	
+	
+	<path id="jar.classpath">
+		<fileset dir="jar" includes="**/*.jar"/>
+	</path>
 	
 	<!-- ================================= 
           target: clean              
@@ -32,17 +36,29 @@
           target: compile              
          ================================= -->
     <target name="compile" depends="" description="Compile project">
-        <mkdir dir="${classes.dir}"/>
-	<javac srcdir="${src.dir}"  destdir="${classes.dir}" classpath="${env.CLASSPATH}:/home/ant/java/jar/trove.jar:../common/iitp-common.jar"/>    
+        <mkdir dir="${build.dir}"/>
+	<javac srcdir="${src.dir}"  destdir="${build.dir}" classpath="${jar.classpath}">
+		<classpath refid="jar.classpath"/>
+	</javac>
+    	<mkdir dir="${build.dir}/jar"/>
+		<copy todir="${build.dir}/jar">
+			<path refid="jar.classpath"/>
+			
+    	</copy>
     </target>
 	
 	<!-- ================================= 
           target: jar              
          ================================= -->
     <target name="jar" depends="compile" description="Build a jar file">
-        <jar destfile="${jar.path}" basedir="${classes.dir}">
+    	<manifestclasspath property="jar.classpath" jarfile="${jar.path}">
+    	      <classpath refid="jar.classpath"/>
+    	</manifestclasspath>
+    	
+        <jar destfile="${jar.path}" basedir="${build.dir}">
         	<manifest>
-        		<attribute name="Main-Class" value="HelloWorld"/>
+        		<attribute name="Main-Class" value="${main.class}"/>
+        		<attribute name="Class-Path" value="${jar.classpath}"/>
         	</manifest>
         </jar>
     </target>
