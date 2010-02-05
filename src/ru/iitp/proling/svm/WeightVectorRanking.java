@@ -1,5 +1,6 @@
 package ru.iitp.proling.svm;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /**
  * Ranking problem formulation for SVM classifier
@@ -127,6 +128,12 @@ public class WeightVectorRanking extends WeightVectorProxy {
 	@Override
 	public double target(int idx) {
 		return targets[idx];
+	}
+	
+	@Override
+	public void clear(){
+		w.clear();
+		Arrays.fill(alphas, 0.0);
 	}
 	
 	// pair accessors. a[idx] must be ranked higher, than b[idx]
