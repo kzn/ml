@@ -26,36 +26,7 @@ public class HelloWorld {
 		System.out.println(k);
 	}
 	
-	public static void eval_dataset(BasicDataset dtest, SimpleRanker sr){
-		List<TIntArrayList> sample_lists = new ArrayList<TIntArrayList>();
-		
-		for(int i = 0; i != dtest.size(); i++){
-			int query_id = dtest.qid(i);
-			if(sample_lists.size() < query_id)
-				sample_lists.add(new TIntArrayList());
-			
-			sample_lists.get(query_id - 1).add(i);
-		}
-		
-		int swapped = 0;
-		// for each query id
-		for(int i = 0; i != sample_lists.size(); i++){
-			List<SparseVector> vecs = new ArrayList<SparseVector>();
-			double[] ref = new double[sample_lists.get(i).size()];
-			for(int j = 0; j != sample_lists.get(i).size(); j++){
-				int idx = sample_lists.get(i).get(j);
-				vecs.add(dtest.vec(idx));
-				ref[j] = dtest.alphabet().get(dtest.target(idx));
-			}
-			
-			double[] predicted = sr.score(vecs);
-			swapped += sr.swappedPairs(ref, predicted);
-		}
-		
-		System.out.println("Swapped pairs on test set:" + swapped);
-
-		
-	}
+	
 	public static void main(String[] args){
 		
 		if(args.length > 0)
@@ -96,13 +67,28 @@ public class HelloWorld {
 		}
 		
 		//RankBoost rb = new RankBoost(10, new LinearKernel());
-		DCDSolver.verbosity = 2;
+		DCDSolver.verbosity = 0;
 		
 		//Scorer s = DCDSolver.solve(new WeightVectorRanking(vw, q), 0.05, 0.05, 500, 0.1, 1000000);
-		Scorer s = RankBoost.train(new WeightVectorRanking(vw, q), new DCDSolver(0.05, 0.05, 500, 0.1, 1000000), 2); 
+		
+		WeightVectorRanking wvr = new WeightVectorRanking(vw, q);
+		
+		Scorer s_naive = DCDSolver.solve(wvr, 0.001, 0.001, 500, 0.1, 1000000);
+		System.out.println("SVMRank.");
+		SimpleRanker srn = new SimpleRanker(s_naive);
+		ClassifierEval.evalRanker(dset, srn);
+		ClassifierEval.evalRanker(dtest, srn);
+		
+		wvr.clear();
+
+		
+		
+		//Scorer s = RankBoost.train(wv, new DCDSolver(0.05, 0.05, 500, 0.1, 10000000), 2, q);
+		Scorer s = RankBoost.train(wvr, new DCDSolver(0.001, 0.001, 5000, 0.1, 1000000), 5);
 		SimpleRanker sr = new SimpleRanker(s);
-		eval_dataset(dset, sr);
-		eval_dataset(dtest, sr);
+		System.out.println("RankBoost.");
+		ClassifierEval.evalRanker(dset, sr);
+		ClassifierEval.evalRanker(dtest, sr);
 		// list of instancelists indexes
 		
 		//MulticlassCS mc = new MulticlassCS(dset, dset.targets(), 0.05, 0.1, 1000);
