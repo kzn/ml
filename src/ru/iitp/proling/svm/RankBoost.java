@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ru.iitp.proling.svm.kernel.Kernel;
-import ru.iitp.proling.svm.kernel.LinearKernel;
-
 // N.B. It is a pair-wise algorithm, so we can use WeightVectorRanking problem formulation
 public class RankBoost {
 	// classifier is sign(sum(alpha(i)*<vec_i, sample>))
