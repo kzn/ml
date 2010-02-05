@@ -8,7 +8,7 @@ import ru.iitp.proling.common.Alphabet;
  * @author ant
  *
  */
-public interface Dataset {
+public interface Dataset<T> {
 	/**
 	 * Get number of samples in the dataset
 	 * @return Number of samples in the dataset
@@ -57,7 +57,7 @@ public interface Dataset {
 	 * Get the alphabet used.
 	 * @return Alphabet, used to map input label to int
 	 */
-	Alphabet alphabet();
+	Alphabet<T> alphabet();
 
 
 }

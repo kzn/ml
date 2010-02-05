@@ -9,7 +9,7 @@ import java.util.List;
 import ru.iitp.proling.common.Alphabet;
 
 
-public class BasicDataset implements Dataset {
+public class BasicDataset implements Dataset<Double> {
 	protected int dim;
 	protected List<RWSample> samples;
 	protected Alphabet<Double> alphabet;

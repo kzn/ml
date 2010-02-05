@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import ru.iitp.proling.common.Alphabet;
 import gnu.trove.TIntArrayList;
 
-public class VirtualDataset<T> implements Dataset {
+public class VirtualDataset<T> implements Dataset<T> {
 	protected Alphabet<T> alphabet;
 	protected ArrayList<SparseVector> samples;
 	protected TIntArrayList targets;
