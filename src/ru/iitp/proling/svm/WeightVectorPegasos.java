@@ -1,6 +1,5 @@
 package ru.iitp.proling.svm;
 
-import java.util.Arrays;
 
 public class WeightVectorPegasos extends WeightVectorProxy {
 	protected double k;
