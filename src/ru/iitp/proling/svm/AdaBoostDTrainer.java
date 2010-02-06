@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ru.iitp.proling.svm.kernel.Kernel;
-
 public class AdaBoostDTrainer{
 	
 	public static EnsembleScorer train(WeightVector wv, BinarySolver solver, int iter, double threshold){

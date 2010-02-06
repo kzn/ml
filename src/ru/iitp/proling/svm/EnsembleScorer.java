@@ -4,7 +4,6 @@ import gnu.trove.TDoubleArrayList;
 
 import java.util.List;
 
-import ru.iitp.proling.svm.kernel.Kernel;
 
 public class EnsembleScorer extends Scorer {
 	

@@ -5,8 +5,6 @@ import gnu.trove.TDoubleArrayList;
 import java.util.List;
 import java.util.ArrayList;
 
-import ru.iitp.proling.svm.kernel.Kernel;
-import ru.iitp.proling.svm.kernel.LinearKernel;
 
 public class AdaBoost {
 	public static EnsembleScorer train(WeightVector wv, BinarySolver solver, int iter){
