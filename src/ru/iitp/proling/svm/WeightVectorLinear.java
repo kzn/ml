@@ -18,7 +18,7 @@ public class WeightVectorLinear extends WeightVector {
 	protected double[] targets;
 	protected double[] snorms;
 	
-	public WeightVectorLinear(Dataset ds, double[] targets, double[] costs, double[] v, Kernel kernel){
+	public WeightVectorLinear(Dataset ds, double[] targets, double[] v, Kernel kernel){
 		dataset = ds;
 		this.kernel = kernel;
 		this.targets = targets;
@@ -32,8 +32,8 @@ public class WeightVectorLinear extends WeightVector {
 			snorms[i] = kernel.snorm(ds.vec(i));
 	}
 	
-	public WeightVectorLinear(Dataset ds, double[] targets, double[] costs, Kernel kernel){
-		this(ds, targets, costs, new double[kernel.dim(ds.max_dim()) + 1], kernel);
+	public WeightVectorLinear(Dataset ds, double[] targets, Kernel kernel){
+		this(ds, targets, new double[kernel.dim(ds.max_dim()) + 1], kernel);
 	}
 	
 	
