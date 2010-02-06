@@ -9,7 +9,7 @@ import ru.iitp.proling.svm.kernel.Kernel;
  * @author ant
  * 
  */
-
+@SuppressWarnings("unchecked")
 public class WeightVectorLinear extends WeightVector {
 	protected Dataset dataset;
 	protected double[] alphas;
