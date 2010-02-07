@@ -2,16 +2,22 @@ package ru.iitp.proling.svm;
 
 import ru.iitp.proling.common.ArrayUtils;
 
+/**
+ * Create cross validation subsets from base dataset
+ * @author ant
+ *
+ * @param <T>
+ */
 public class CrossValidate<T> {
-	public VirtualDataset<T> train;
-	public VirtualDataset<T> test;
+	public final VirtualDataset<T> train;
+	public final VirtualDataset<T> test;
 	protected Dataset<T> base;
 	
 	public CrossValidate(Dataset<T> base, int nfold){
 		this.base = base;
 		
-		train = new VirtualDataset<T>(base.alphabet());
-		test = new VirtualDataset<T>(base.alphabet());
+		VirtualDataset<T> train = new VirtualDataset<T>(base.alphabet());
+		VirtualDataset<T> test = new VirtualDataset<T>(base.alphabet());
 		
 		int[] indexes = new int[base.size()];
 		for(int i = 0; i != indexes.length; i++)
@@ -27,6 +33,9 @@ public class CrossValidate<T> {
 			else
 				test.add(base.vec(i), base.target(i));
 		}
+		
+		this.train = train;
+		this.test = test;
 		
 	}
 }
