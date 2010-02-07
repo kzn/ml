@@ -2,7 +2,6 @@ package ru.iitp.proling.svm.kernel;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.TreeMap;
 
 import ru.iitp.proling.svm.SparseVector;
