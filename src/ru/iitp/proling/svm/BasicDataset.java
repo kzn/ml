@@ -17,7 +17,7 @@ public class BasicDataset implements Dataset<Double> {
 	
 	public BasicDataset(String filename){
 		dim = 0;
-		alphabet = new Alphabet<Double>(10, 0.0);
+		alphabet = new Alphabet<Double>(0.0);
 		samples = new ArrayList<RWSample>();
 		
 		this.read(filename);
