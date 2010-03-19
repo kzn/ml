@@ -8,12 +8,12 @@ import ru.iitp.proling.common.ArrayUtils;
  *
  * @param <T>
  */
-public class CrossValidate<T> {
+public class SplitDataset<T> {
 	public final VirtualDataset<T> train;
 	public final VirtualDataset<T> test;
 	protected Dataset<T> base;
 	
-	public CrossValidate(Dataset<T> base, int nfold){
+	public SplitDataset(Dataset<T> base, int nfold){
 		this.base = base;
 		
 		VirtualDataset<T> train = new VirtualDataset<T>(base.alphabet());
