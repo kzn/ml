@@ -1,8 +1,5 @@
 package ru.iitp.proling.ml.core;
 
-import gnu.trove.TDoubleArrayList;
-import gnu.trove.TIntArrayList;
-
 import java.util.Iterator;
 import java.util.List;
 
