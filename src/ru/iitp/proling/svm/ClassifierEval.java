@@ -3,7 +3,9 @@ package ru.iitp.proling.svm;
 import gnu.trove.TIntArrayList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class ClassifierEval {
 	
@@ -53,24 +55,26 @@ public class ClassifierEval {
 	
 	
 	public static double evalRanker(BasicDataset dtest, SimpleRanker sr){
-		List<TIntArrayList> sample_lists = new ArrayList<TIntArrayList>();
+		HashMap<Integer, TIntArrayList> sample_lists = new HashMap<Integer, TIntArrayList>();
 		
 		for(int i = 0; i != dtest.size(); i++){
 			int query_id = dtest.qid(i);
-			if(sample_lists.size() < query_id)
-				sample_lists.add(new TIntArrayList());
+			if(!sample_lists.containsKey(query_id))
+				sample_lists.put(query_id, new TIntArrayList());
 			
-			sample_lists.get(query_id - 1).add(i);
+			sample_lists.get(query_id).add(i);
 		}
 		
 		int swapped = 0;
 		int correct = 0;
+		
 		// for each query id
-		for(int i = 0; i != sample_lists.size(); i++){
+		//for(int i = 0; i != sample_lists.size(); i++){
+		for(Entry<Integer, TIntArrayList> entry : sample_lists.entrySet()){
 			List<SparseVector> vecs = new ArrayList<SparseVector>();
-			double[] ref = new double[sample_lists.get(i).size()];
-			for(int j = 0; j != sample_lists.get(i).size(); j++){
-				int idx = sample_lists.get(i).get(j);
+			double[] ref = new double[entry.getValue().size()];
+			for(int j = 0; j != entry.getValue().size(); j++){
+				int idx = entry.getValue().get(j);
 				vecs.add(dtest.vec(idx));
 				ref[j] = dtest.alphabet().get(dtest.target(idx));
 			}
