@@ -1,12 +1,12 @@
 package ru.iitp.proling.svm;
 import java.util.List;
 
-public class Sample extends SparseVector {
-	public double target;
+public class Sample<T> extends SparseVector<T> {
+	public T target;
 	
 	
-	Sample(double target, List<Integer> idxs, List<Double> vals){
-		super(idxs, vals);
+	Sample(T target, List<Integer> idxs, List<Double> vals){
+		super(idxs, vals, target);
 		this.target = target;
 	}
 }

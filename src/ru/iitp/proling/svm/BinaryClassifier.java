@@ -6,12 +6,12 @@ package ru.iitp.proling.svm;
  * @author ant
  *
  */
-public class BinaryClassifier{
+public class BinaryClassifier<T>{
 	protected Scorer scorer;
-	int positive;
-	int negative;
+	T positive;
+	T negative;
 	
-	public BinaryClassifier(Scorer scorer, int positive, int negative){
+	public BinaryClassifier(Scorer scorer, T positive, T negative){
 		this.scorer = scorer;
 		this.positive = positive;
 		this.negative = negative;
@@ -23,7 +23,7 @@ public class BinaryClassifier{
 	 * @param v vector
 	 * @return class of vector, -1 if negative in case of indicator classification
 	 */
-	int classify(SparseVector v) {
+	T classify(SparseVector<?> v) {
 		return score(v) > 0.0? positive : negative;
 	}
 	
@@ -32,7 +32,7 @@ public class BinaryClassifier{
 	 * @param v vector
 	 * @return score 
 	 */
-	double score(SparseVector v){
+	double score(SparseVector<?> v){
 		return scorer.score(v);
 	}
 

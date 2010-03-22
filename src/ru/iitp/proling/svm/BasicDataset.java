@@ -11,14 +11,14 @@ import ru.iitp.proling.common.Alphabet;
 
 public class BasicDataset implements Dataset<Double> {
 	protected int dim;
-	protected List<RWSample> samples;
+	protected List<RWSample<Double>> samples;
 	protected Alphabet<Double> alphabet;
 	protected int[] targets;
 	
 	public BasicDataset(String filename){
 		dim = 0;
 		alphabet = new Alphabet<Double>(0.0);
-		samples = new ArrayList<RWSample>();
+		samples = new ArrayList<RWSample<Double>>();
 		
 		this.read(filename);
 	}
@@ -118,7 +118,7 @@ public class BasicDataset implements Dataset<Double> {
 
 				}
 				
-				samples.add(new RWSample(target, idxs, vals, cost, qid));
+				samples.add(new RWSample<Double>(target, idxs, vals, cost, qid));
 				dim = Math.max(dim, idxs.get(idxs.size()-1));
 			}
 			
@@ -139,7 +139,7 @@ public class BasicDataset implements Dataset<Double> {
 	}
 
 	@Override
-	public RWSample get(int idx) {
+	public RWSample<Double> get(int idx) {
 		return samples.get(idx);
 	}
 
@@ -156,10 +156,10 @@ public class BasicDataset implements Dataset<Double> {
 		return targets;
 	}
 
-	@Override
+	/*@Override
 	public Alphabet<Double> alphabet() {
 		return alphabet;
-	}
+	}*/
 
 	@Override
 	public int qid(int idx) {
@@ -167,11 +167,11 @@ public class BasicDataset implements Dataset<Double> {
 		return samples.get(idx).qid;
 	}
 
-	@Override
+	/*@Override
 	public int target(int idx) {
 		// TODO Auto-generated method stub
 		return targets[idx];
-	}
+	}*/
 	
 	public double[] labels(){
 		double[] labels = new double[size()];

@@ -6,14 +6,12 @@ import ru.iitp.proling.common.Alphabet;
 import gnu.trove.TIntArrayList;
 
 public class VirtualDataset<T> implements Dataset<T> {
-	protected Alphabet<T> alphabet;
 	protected ArrayList<SparseVector> samples;
 	protected TIntArrayList targets;
 	protected TIntArrayList qids;
 	protected int dim;
 	
-	public VirtualDataset(Alphabet<T> alphabet){
-		this.alphabet = alphabet;
+	public VirtualDataset(){
 		samples = new ArrayList<SparseVector>();
 		targets = new TIntArrayList();
 		qids = new TIntArrayList();
@@ -33,13 +31,10 @@ public class VirtualDataset<T> implements Dataset<T> {
 	}
 	
 	public int add(SparseVector v, T target){
-		return add(v, alphabet.get(target), 0);
+		// FIXME target is not 0
+		return add(v, 0, 0);
 	}
 
-	@Override
-	public Alphabet<T> alphabet() {
-		return alphabet;
-	}
 
 	@Override
 	public int dim() {
@@ -61,11 +56,11 @@ public class VirtualDataset<T> implements Dataset<T> {
 		return samples.size();
 	}
 
-	@Override
+	/*@Override
 	public int target(int idx) {
 		// TODO Auto-generated method stub
 		return targets.get(idx);
-	}
+	}*/
 
 	@Override
 	public int[] targets() {

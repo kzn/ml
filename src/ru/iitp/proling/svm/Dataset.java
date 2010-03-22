@@ -26,14 +26,14 @@ public interface Dataset<T> {
 	 * @param idx index of the sample
 	 * @return SparseVector representing the sample. 
 	 */
-	SparseVector get(int idx);
+	SparseVector<T> get(int idx);
 	
 	/**
 	 * Return target index of label of sample \a idx, as mapped by internal alphabet
 	 * @param idx sample index
 	 * @return index of the target
 	 */
-	int target(int idx);
+	//int target(int idx);
 	/**
 	 * Return query id of sample \a idx
 	 * @param idx sample index
@@ -57,7 +57,7 @@ public interface Dataset<T> {
 	 * Get the alphabet used.
 	 * @return Alphabet, used to map input label to int
 	 */
-	Alphabet<T> alphabet();
+	//Alphabet<T> alphabet();
 
 
 }

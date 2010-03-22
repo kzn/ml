@@ -7,9 +7,9 @@ package ru.iitp.proling.svm;
  *
  */
 
-public class OVRClassifier extends BinaryClassifier {
-	public OVRClassifier(Scorer scorer, int positive){
-		super(scorer, positive, -1);
+public class OVRClassifier<T> extends BinaryClassifier<T> {
+	public OVRClassifier(Scorer scorer, T positive){
+		super(scorer, positive, null);
 	}
 	
 }

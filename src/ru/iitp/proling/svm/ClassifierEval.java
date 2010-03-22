@@ -9,13 +9,13 @@ import java.util.Map.Entry;
 
 public class ClassifierEval {
 	
-	public static double evalBinaryClassifier(Dataset dataset, BinaryClassifier classifier){
+	public static <T> double evalBinaryClassifier(Dataset<T> dataset, BinaryClassifier<T> classifier){
 		int misclassified = 0;
 		
 		
 		
 		for(int i = 0; i != dataset.size(); i++){
-			if(classifier.classify(dataset.get(i)) != dataset.target(i))
+			if(classifier.classify(dataset.get(i)) != dataset.get(i).value())
 				misclassified++;
 		}
 		
@@ -27,18 +27,18 @@ public class ClassifierEval {
 		return accuracy; 
 	}
 	
-	public static double evalOVRClassifier(Dataset dataset, OVRClassifier classifier){
+	public static <T> double evalOVRClassifier(Dataset<T> dataset, OVRClassifier<T> classifier){
 		int misclassified = 0;
 		
 		
 		
 		for(int i = 0; i != dataset.size(); i++){
-			int cls = classifier.classify(dataset.get(i));
-			if(cls != -1){
-				if(cls == dataset.target(i))
+			T cls = classifier.classify(dataset.get(i));
+			if(cls != null){
+				if(cls == dataset.get(i).value())
 					misclassified++;
 			}else{
-				if(dataset.target(i) == classifier.positive)
+				if(dataset.get(i).value() == classifier.positive)
 					misclassified++;
 			}
 				
@@ -71,15 +71,20 @@ public class ClassifierEval {
 		// for each query id
 		//for(int i = 0; i != sample_lists.size(); i++){
 		for(Entry<Integer, TIntArrayList> entry : sample_lists.entrySet()){
-			List<SparseVector> vecs = new ArrayList<SparseVector>();
+			List<SparseVector<Double>> vecs = new ArrayList<SparseVector<Double>>();
 			double[] ref = new double[entry.getValue().size()];
 			for(int j = 0; j != entry.getValue().size(); j++){
 				int idx = entry.getValue().get(j);
 				vecs.add(dtest.get(idx));
-				ref[j] = dtest.alphabet().get(dtest.target(idx));
+				ref[j] = dtest.get(idx).value();
 			}
 			
-			double[] predicted = sr.score(vecs);
+			double[] predicted = new double[vecs.size()];
+			int i = 0;
+			for(SparseVector<?> v : vecs){
+				predicted[i++] = sr.score(v);
+			}
+			
 			int this_swapped = sr.swappedPairs(ref, predicted);
 			if(this_swapped == 0)
 				correct++;

@@ -16,8 +16,8 @@ public class SplitDataset<T> {
 	public SplitDataset(Dataset<T> base, int nfold){
 		this.base = base;
 		
-		VirtualDataset<T> train = new VirtualDataset<T>(base.alphabet());
-		VirtualDataset<T> test = new VirtualDataset<T>(base.alphabet());
+		VirtualDataset<T> train = new VirtualDataset<T>();
+		VirtualDataset<T> test = new VirtualDataset<T>();
 		
 		int[] indexes = new int[base.size()];
 		for(int i = 0; i != indexes.length; i++)
@@ -29,9 +29,9 @@ public class SplitDataset<T> {
 		
 		for(int i = 0; i != base.size(); i++){
 			if(i > stop)
-				train.add(base.get(i), base.target(i));
+				train.add(base.get(i), base.get(i).value());
 			else
-				test.add(base.get(i), base.target(i));
+				test.add(base.get(i), base.get(i).value());
 		}
 		
 		this.train = train;
