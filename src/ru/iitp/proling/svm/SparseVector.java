@@ -2,8 +2,8 @@ package ru.iitp.proling.svm;
 import java.util.List;
 
 public class SparseVector {
-	public int indexes[];
-	public double values[];
+	final int indexes[];
+	final double values[];
 	
 	SparseVector(List<Integer> idxs, List<Double> vals){
 		assert(idxs.size() == vals.size());
@@ -36,5 +36,13 @@ public class SparseVector {
 		}
 		
 		return sb.toString();
+	}
+	
+	public int[] indexes(){
+		return indexes;
+	}
+	
+	public double[] values(){
+		return values;
 	}
 };
