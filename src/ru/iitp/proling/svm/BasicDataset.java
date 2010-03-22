@@ -5,21 +5,18 @@ import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 
 import ru.iitp.proling.common.Alphabet;
 
 
 public class BasicDataset implements Dataset<Double> {
-	protected int dim;
-	protected List<RWSample<Double>> samples;
-	protected Alphabet<Double> alphabet;
+	protected int dim = 0;
+	protected List<RWSample<Double>> samples = new ArrayList<RWSample<Double>>();
+	protected Alphabet<Double> alphabet = new Alphabet<Double>();
 	protected int[] targets;
 	
 	public BasicDataset(String filename){
-		dim = 0;
-		alphabet = new Alphabet<Double>(0.0);
-		samples = new ArrayList<RWSample<Double>>();
-		
 		this.read(filename);
 	}
 
@@ -143,6 +140,7 @@ public class BasicDataset implements Dataset<Double> {
 		return samples.get(idx);
 	}
 
+	/*
 	@Override
 	public int[] qids() {
 		int qids[] = new int[size()];
@@ -156,16 +154,17 @@ public class BasicDataset implements Dataset<Double> {
 		return targets;
 	}
 
+	 */
 	/*@Override
 	public Alphabet<Double> alphabet() {
 		return alphabet;
 	}*/
 
-	@Override
+	/*@Override
 	public int qid(int idx) {
 		// TODO Auto-generated method stub
 		return samples.get(idx).qid;
-	}
+	}*/
 
 	/*@Override
 	public int target(int idx) {
@@ -181,6 +180,11 @@ public class BasicDataset implements Dataset<Double> {
 		
 		return labels;
 		
+	}
+
+	@Override
+	public SortedSet<Double> classes() {
+		return null;
 	}
 
 }

@@ -1,24 +1,25 @@
 package ru.iitp.proling.svm;
 
 import java.util.ArrayList;
+import java.util.SortedSet;
 
 import ru.iitp.proling.common.Alphabet;
 import gnu.trove.TIntArrayList;
 
 public class VirtualDataset<T> implements Dataset<T> {
-	protected ArrayList<SparseVector> samples;
+	protected ArrayList<SparseVector<T>> samples;
 	protected TIntArrayList targets;
 	protected TIntArrayList qids;
 	protected int dim;
 	
 	public VirtualDataset(){
-		samples = new ArrayList<SparseVector>();
+		samples = new ArrayList<SparseVector<T>>();
 		targets = new TIntArrayList();
 		qids = new TIntArrayList();
 		dim = 0;
 	}
 	
-	public int add(SparseVector v, int target, int qid){
+	public int add(SparseVector<T> v, int target, int qid){
 		int idx = samples.size();
 		samples.add(v);
 		targets.add(target);
@@ -26,11 +27,11 @@ public class VirtualDataset<T> implements Dataset<T> {
 		return idx;
 	}
 	
-	public int add(SparseVector v, int target){
+	public int add(SparseVector<T> v, int target){
 		return add(v, target, 0);
 	}
 	
-	public int add(SparseVector v, T target){
+	public int add(SparseVector<T> v, T target){
 		// FIXME target is not 0
 		return add(v, 0, 0);
 	}
@@ -42,35 +43,19 @@ public class VirtualDataset<T> implements Dataset<T> {
 	}
 
 	@Override
-	public int qid(int idx) {
-		return qids.get(idx);
-	}
-
-	@Override
-	public int[] qids() {
-		return qids.toNativeArray();
-	}
-
-	@Override
 	public int size() {
 		return samples.size();
 	}
 
-	/*@Override
-	public int target(int idx) {
-		// TODO Auto-generated method stub
-		return targets.get(idx);
-	}*/
 
 	@Override
-	public int[] targets() {
-		return targets.toNativeArray();
+	public SparseVector<T> get(int idx) {
+		return samples.get(idx);
 	}
 
 	@Override
-	public SparseVector get(int idx) {
-		// TODO Auto-generated method stub
-		return samples.get(idx);
+	public SortedSet<T> classes() {
+		return null;
 	}
 
 }

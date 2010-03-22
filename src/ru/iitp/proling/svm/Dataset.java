@@ -1,6 +1,7 @@
 package ru.iitp.proling.svm;
 
-import ru.iitp.proling.common.Alphabet;
+import java.util.SortedSet;
+
 /**
  * Dataset interface. Dataset is a set of samples, represented by vector and it's labeling.
  * Additionally, dataset provides a qid metadata - query id of the sample, if any. This is used
@@ -13,51 +14,26 @@ public interface Dataset<T> {
 	 * Get number of samples in the dataset
 	 * @return Number of samples in the dataset
 	 */
-	int size();
+	public int size();
 	
 	/**
 	 * Find dimension of dataset. Find the maximal used vector dimension of samples
 	 * @return Maximal dataset dimension
 	 */
-	int dim();
+	public int dim();
 	
 	/**
 	 * Get sample from the dataset. Returns a reference, not a fresh object 
 	 * @param idx index of the sample
 	 * @return SparseVector representing the sample. 
 	 */
-	SparseVector<T> get(int idx);
+	public SparseVector<T> get(int idx);
 	
 	/**
-	 * Return target index of label of sample \a idx, as mapped by internal alphabet
-	 * @param idx sample index
-	 * @return index of the target
+	 * Return all classes found in dataset
+	 * @return
 	 */
-	//int target(int idx);
-	/**
-	 * Return query id of sample \a idx
-	 * @param idx sample index
-	 * @return query id, 0 if none
-	 */
-	int qid(int idx);
+	public SortedSet<T> classes();
 	
-	/**
-	 * Return array of targets of all samples.
-	 * @return array of size size() of targets of all samples
-	 */
-	int[] targets();
-	
-	/**
-	 * Return array of query ids of all samples
-	 * @return array of size size() of query ids of all samples
-	 */
-	int[] qids();
-	
-	/**
-	 * Get the alphabet used.
-	 * @return Alphabet, used to map input label to int
-	 */
-	//Alphabet<T> alphabet();
-
 
 }
