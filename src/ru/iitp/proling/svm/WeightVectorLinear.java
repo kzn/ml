@@ -24,23 +24,23 @@ public class WeightVectorLinear extends WeightVector {
 		this.targets = targets;
 		this.snorms = new double[ds.size()];
 		this.v = v;
-		assert(v.length == kernel.dim(dataset.max_dim()) + 1);
+		assert(v.length == kernel.dim(dataset.dim()) + 1);
 		alphas = new double[ds.size()];
 	
 		// precompute squared norms
 		for(int i = 0; i != ds.size(); i++)
-			snorms[i] = kernel.snorm(ds.vec(i));
+			snorms[i] = kernel.snorm(ds.get(i));
 	}
 	
 	public WeightVectorLinear(Dataset ds, double[] targets, Kernel kernel){
-		this(ds, targets, new double[kernel.dim(ds.max_dim()) + 1], kernel);
+		this(ds, targets, new double[kernel.dim(ds.dim()) + 1], kernel);
 	}
 	
 	
 
 	@Override
 	public void add(int idx, double factor) {
-		kernel.add(v, dataset.vec(idx), factor);
+		kernel.add(v, dataset.get(idx), factor);
 	}
 
 	@Override
@@ -60,12 +60,12 @@ public class WeightVectorLinear extends WeightVector {
 
 	@Override
 	public double dot(int idx) {
-		return kernel.dot(v, dataset.vec(idx));
+		return kernel.dot(v, dataset.get(idx));
 	}
 	
 	@Override
 	public double dot(int x, int y) {
-		return kernel.dot(dataset.vec(x), dataset.vec(y));
+		return kernel.dot(dataset.get(x), dataset.get(y));
 	}
 	
 

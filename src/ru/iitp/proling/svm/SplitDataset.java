@@ -29,9 +29,9 @@ public class SplitDataset<T> {
 		
 		for(int i = 0; i != base.size(); i++){
 			if(i > stop)
-				train.add(base.vec(i), base.target(i));
+				train.add(base.get(i), base.target(i));
 			else
-				test.add(base.vec(i), base.target(i));
+				test.add(base.get(i), base.target(i));
 		}
 		
 		this.train = train;

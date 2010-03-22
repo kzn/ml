@@ -38,7 +38,7 @@ public class MulticlassCS {
 		snorms = new double[ds.size()];
 
 		for(int i = 0; i != snorms.length; i++)
-			snorms[i] = kernel.snorm(ds.vec(i));
+			snorms[i] = kernel.snorm(ds.get(i));
 
 
 		// compute number of classes
@@ -59,7 +59,7 @@ public class MulticlassCS {
 		alpha = new double[ds.size()][n_classes];
 		b = new double[n_classes];
 		g = new double[n_classes];
-		n_features = kernel.dim(ds.max_dim()) + 1;
+		n_features = kernel.dim(ds.dim()) + 1;
 		w = new double[n_features][n_classes];
 
 
@@ -141,7 +141,7 @@ public class MulticlassCS {
 	     @param active_size - number of active classes
 	 */
 	void grad_add_dot(double[] g, int idx, int active_size){
-		SparseVector vec = ds.vec(idx);
+		SparseVector vec = ds.get(idx);
 
 		for(int i = 0; i != vec.size(); i++){
 			for(int m = 0; m < active_size; m++)
@@ -152,7 +152,7 @@ public class MulticlassCS {
 	     Compute <w_idx, v_idx>
 	 */
 	double dot(int w_idx, int v_idx){
-		SparseVector vec = ds.vec(v_idx);
+		SparseVector vec = ds.get(v_idx);
 		double sum = 0;
 
 		for(int i = 0; i != vec.size(); i++){
@@ -375,7 +375,7 @@ public class MulticlassCS {
 	     @param factor factor coefficient
 	 */
 	void add(int w_idx, int vec_idx, double factor){
-		SparseVector vec = ds.vec(vec_idx);
+		SparseVector vec = ds.get(vec_idx);
 		for(int i = 0; i != vec.size(); i++)
 			w_add(w_idx, vec.indexes[i], factor*vec.values[i]);
 	}

@@ -24,7 +24,7 @@ public class BasicDataset implements Dataset<Double> {
 	}
 
 	@Override
-	public int max_dim() {
+	public int dim() {
 		return dim;
 	}
 
@@ -139,7 +139,7 @@ public class BasicDataset implements Dataset<Double> {
 	}
 
 	@Override
-	public RWSample vec(int idx) {
+	public RWSample get(int idx) {
 		return samples.get(idx);
 	}
 
@@ -147,7 +147,7 @@ public class BasicDataset implements Dataset<Double> {
 	public int[] qids() {
 		int qids[] = new int[size()];
 		for(int i = 0; i != size(); i++)
-			qids[i] = vec(i).qid;
+			qids[i] = get(i).qid;
 		return qids;
 	}
 

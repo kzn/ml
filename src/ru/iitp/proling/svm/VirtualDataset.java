@@ -42,7 +42,7 @@ public class VirtualDataset<T> implements Dataset<T> {
 	}
 
 	@Override
-	public int max_dim() {
+	public int dim() {
 		return dim;
 	}
 
@@ -73,7 +73,7 @@ public class VirtualDataset<T> implements Dataset<T> {
 	}
 
 	@Override
-	public SparseVector vec(int idx) {
+	public SparseVector get(int idx) {
 		// TODO Auto-generated method stub
 		return samples.get(idx);
 	}

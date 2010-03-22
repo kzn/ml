@@ -15,7 +15,7 @@ public class ClassifierEval {
 		
 		
 		for(int i = 0; i != dataset.size(); i++){
-			if(classifier.classify(dataset.vec(i)) != dataset.target(i))
+			if(classifier.classify(dataset.get(i)) != dataset.target(i))
 				misclassified++;
 		}
 		
@@ -33,7 +33,7 @@ public class ClassifierEval {
 		
 		
 		for(int i = 0; i != dataset.size(); i++){
-			int cls = classifier.classify(dataset.vec(i));
+			int cls = classifier.classify(dataset.get(i));
 			if(cls != -1){
 				if(cls == dataset.target(i))
 					misclassified++;
@@ -75,7 +75,7 @@ public class ClassifierEval {
 			double[] ref = new double[entry.getValue().size()];
 			for(int j = 0; j != entry.getValue().size(); j++){
 				int idx = entry.getValue().get(j);
-				vecs.add(dtest.vec(idx));
+				vecs.add(dtest.get(idx));
 				ref[j] = dtest.alphabet().get(dtest.target(idx));
 			}
 			

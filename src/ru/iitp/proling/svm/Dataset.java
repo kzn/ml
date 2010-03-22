@@ -19,14 +19,14 @@ public interface Dataset<T> {
 	 * Find dimension of dataset. Find the maximal used vector dimension of samples
 	 * @return Maximal dataset dimension
 	 */
-	int max_dim();
+	int dim();
 	
 	/**
 	 * Get sample from the dataset. Returns a reference, not a fresh object 
 	 * @param idx index of the sample
 	 * @return SparseVector representing the sample. 
 	 */
-	SparseVector vec(int idx);
+	SparseVector get(int idx);
 	
 	/**
 	 * Return target index of label of sample \a idx, as mapped by internal alphabet
