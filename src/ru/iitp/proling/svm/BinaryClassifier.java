@@ -23,7 +23,7 @@ public class BinaryClassifier<T>{
 	 * @param v vector
 	 * @return class of vector, -1 if negative in case of indicator classification
 	 */
-	T classify(SparseVector<?> v) {
+	T classify(Instance<?> v) {
 		return score(v) > 0.0? positive : negative;
 	}
 	
@@ -32,7 +32,7 @@ public class BinaryClassifier<T>{
 	 * @param v vector
 	 * @return score 
 	 */
-	double score(SparseVector<?> v){
+	double score(Instance<?> v){
 		return scorer.score(v);
 	}
 

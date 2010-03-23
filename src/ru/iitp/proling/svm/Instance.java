@@ -1,12 +1,12 @@
 package ru.iitp.proling.svm;
 import java.util.List;
 
-public class SparseVector<T> {
+public class Instance<T> {
 	final int indexes[];
 	final double values[];
 	T value;
 	
-	SparseVector(List<Integer> idxs, List<Double> vals, T value){
+	Instance(List<Integer> idxs, List<Double> vals, T value){
 		assert(idxs.size() == vals.size());
 		indexes = new int[idxs.size()];
 		values = new double[idxs.size()];

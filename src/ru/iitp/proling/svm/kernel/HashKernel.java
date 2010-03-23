@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-import ru.iitp.proling.svm.SparseVector;
+import ru.iitp.proling.svm.Instance;
 
 public class HashKernel extends Kernel {
 	protected Kernel base;
@@ -17,7 +17,7 @@ public class HashKernel extends Kernel {
 	}
 
 	@Override
-	public void add(double[] dense, SparseVector x, double factor) {
+	public void add(double[] dense, Instance x, double factor) {
 		// TODO Auto-generated method stub
 		base.add(dense, x, factor);
 
@@ -30,25 +30,25 @@ public class HashKernel extends Kernel {
 	}
 
 	@Override
-	public double dot(SparseVector x, SparseVector y) {
+	public double dot(Instance x, Instance y) {
 		// TODO Auto-generated method stub
 		return base.dot(x, y);
 	}
 
 	@Override
-	public double dot(double[] dense, SparseVector x) {
+	public double dot(double[] dense, Instance x) {
 		// TODO Auto-generated method stub
 		return base.dot(dense, x);
 	}
 
 	@Override
-	public TreeMap<Long, Double> pipe(SparseVector x) {
+	public TreeMap<Long, Double> pipe(Instance x) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public double snorm(SparseVector x) {
+	public double snorm(Instance x) {
 		// TODO Auto-generated method stub
 		TreeMap<Long, Double> v = base.pipe(x);
 		

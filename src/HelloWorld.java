@@ -42,7 +42,7 @@ public class HelloWorld {
 		BasicDataset dtest= new BasicDataset(args[1]);
 	
 		System.out.println("Dataset size:" + Integer.toString(dset.size()));
-		System.out.println("Dataset dim:" + Integer.toString(dset.max_dim()));
+		System.out.println("Dataset dim:" + Integer.toString(dset.dim()));
 		
 		double[] targets = dset.labels();
 		//int[] t = dset.targets();
@@ -56,7 +56,7 @@ public class HelloWorld {
 		
 		//Kernel k = new PolyKernel(1, 1, dset.max_dim());
 		Kernel k = new LinearKernel();
-		WeightVector vw = new WeightVectorLinear(dset, targets, costs, k);
+		WeightVector vw = new WeightVectorLinear(dset, targets, k);
 		DCDSolver.verbosity = 0;
 		//DCDSolver.solve(vw, 0.05, 0.05, 500, 0.1, 1000000);
 		ArrayList<Integer> q = new ArrayList<Integer>();
@@ -67,13 +67,13 @@ public class HelloWorld {
 		}
 		
 		//RankBoost rb = new RankBoost(10, new LinearKernel());
-		DCDSolver.verbosity = 0;
+		DCDSolver.verbosity = 1;
 		
 		//Scorer s = DCDSolver.solve(new WeightVectorRanking(vw, q), 0.05, 0.05, 500, 0.1, 1000000);
 		
 		WeightVectorRanking wvr = new WeightVectorRanking(vw, q);
 		
-		Scorer s_naive = DCDSolver.solve(wvr, 0.001, 0.001, 500, 0.1, 1000000);
+		Scorer s_naive = DCDSolver.solve(wvr, 0.05, 0.05, 500, 0.1, 1000000);
 		System.out.println("SVMRank.");
 		SimpleRanker srn = new SimpleRanker(s_naive);
 		ClassifierEval.evalRanker(dset, srn);
@@ -83,7 +83,7 @@ public class HelloWorld {
 
 		
 		
-		//Scorer s = RankBoost.train(wv, new DCDSolver(0.05, 0.05, 500, 0.1, 10000000), 2, q);
+		/*//Scorer s = RankBoost.train(wv, new DCDSolver(0.05, 0.05, 500, 0.1, 10000000), 2, q);
 		Scorer s = RankBoost.train(wvr, new DCDSolver(0.001, 0.001, 5000, 0.1, 1000000), 5);
 		SimpleRanker sr = new SimpleRanker(s);
 		System.out.println("RankBoost.");
@@ -114,7 +114,7 @@ public class HelloWorld {
 		//System.out.println(dset.alphabet());
 		
 		
-		
+		*/
 	}
 
 }

@@ -4,6 +4,6 @@ import java.util.List;
 import java.util.SortedMap;
 
 public interface Ranker {
-	SortedMap<Double, SparseVector<?>> rank(List<SparseVector<?>> lst);
-	double score(SparseVector<?> v);
+	SortedMap<Double, Instance<?>> rank(List<Instance<?>> lst);
+	double score(Instance<?> v);
 }

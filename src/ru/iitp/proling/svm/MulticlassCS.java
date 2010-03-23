@@ -141,7 +141,7 @@ public class MulticlassCS {
 	     @param active_size - number of active classes
 	 */
 	void grad_add_dot(double[] g, int idx, int active_size){
-		SparseVector vec = ds.get(idx);
+		Instance vec = ds.get(idx);
 
 		for(int i = 0; i != vec.size(); i++){
 			for(int m = 0; m < active_size; m++)
@@ -152,7 +152,7 @@ public class MulticlassCS {
 	     Compute <w_idx, v_idx>
 	 */
 	double dot(int w_idx, int v_idx){
-		SparseVector vec = ds.get(v_idx);
+		Instance vec = ds.get(v_idx);
 		double sum = 0;
 
 		for(int i = 0; i != vec.size(); i++){
@@ -375,7 +375,7 @@ public class MulticlassCS {
 	     @param factor factor coefficient
 	 */
 	void add(int w_idx, int vec_idx, double factor){
-		SparseVector vec = ds.get(vec_idx);
+		Instance vec = ds.get(vec_idx);
 		for(int i = 0; i != vec.size(); i++)
 			w_add(w_idx, vec.indexes[i], factor*vec.values[i]);
 	}

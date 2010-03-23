@@ -2,7 +2,7 @@ package ru.iitp.proling.svm.kernel;
 
 import java.util.TreeMap;
 
-import ru.iitp.proling.svm.SparseVector;
+import ru.iitp.proling.svm.Instance;
 
 public class PolyKernel extends Kernel {
 	protected double g;
@@ -28,14 +28,14 @@ public class PolyKernel extends Kernel {
 	}
 
 	@Override
-	public double dot(SparseVector x, SparseVector y) {
+	public double dot(Instance x, Instance y) {
 		// TODO Auto-generated method stub
 		double res = g*lk.dot(x, y) + c;
 		return res * res;
 	}
 
 	@Override
-	public double dot(double[] w, SparseVector x) {
+	public double dot(double[] w, Instance x) {
 		
 		double sum = this.wGetter(w, 0)*c;	// bias
 		for(int i = 0; i != x.size(); i++){
@@ -56,7 +56,7 @@ public class PolyKernel extends Kernel {
 	}
 
 	@Override
-	public TreeMap<Long, Double> pipe(SparseVector x) {
+	public TreeMap<Long, Double> pipe(Instance x) {
 		TreeMap<Long, Double> tm = new TreeMap<Long, Double>();
 		tm.put(0L, c);
 		
@@ -74,7 +74,7 @@ public class PolyKernel extends Kernel {
 	}
 
 	@Override
-	public void add(double[] w, SparseVector x, double factor) {
+	public void add(double[] w, Instance x, double factor) {
 		wAdder(w, 0, factor * c);
 		for(int i = 0; i != x.size(); i++){
 			double tmp_value = factor*x.values()[i];
@@ -89,7 +89,7 @@ public class PolyKernel extends Kernel {
 	}
 
 	@Override
-	public double snorm(SparseVector x) {
+	public double snorm(Instance x) {
 		// TODO Auto-generated method stub
 		double res = g * lk.snorm(x) + c;
 		return res * res;

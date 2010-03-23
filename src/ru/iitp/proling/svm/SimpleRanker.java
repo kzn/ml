@@ -15,9 +15,9 @@ public class SimpleRanker implements Ranker {
 	}
 
 	@Override
-	public SortedMap<Double, SparseVector<?>> rank(List<SparseVector<?>> lst) {
-		SortedMap<Double, SparseVector<?>> sm = new TreeMap<Double, SparseVector<?>>();
-		for(SparseVector<?> v : lst)
+	public SortedMap<Double, Instance<?>> rank(List<Instance<?>> lst) {
+		SortedMap<Double, Instance<?>> sm = new TreeMap<Double, Instance<?>>();
+		for(Instance<?> v : lst)
 			sm.put(score(v), v);
 		
 		
@@ -25,15 +25,15 @@ public class SimpleRanker implements Ranker {
 	}
 
 	@Override
-	public double score(SparseVector<?> x) {
+	public double score(Instance<?> x) {
 		return scorer.score(x);
 	}
 	
-	public double[] score(List<SparseVector<?>> vec){
+	public double[] score(List<Instance<?>> vec){
 		double[] res = new double[vec.size()];
 		int i = 0;
 		
-		for(SparseVector<?> v : vec)
+		for(Instance<?> v : vec)
 			res[i++] = score(v);
 		
 		return res;

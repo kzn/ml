@@ -2,12 +2,12 @@ package ru.iitp.proling.svm.kernel;
 
 import java.util.TreeMap;
 
-import ru.iitp.proling.svm.SparseVector;
+import ru.iitp.proling.svm.Instance;
 
 public class LinearKernel extends Kernel {
 
 	@Override
-	public double dot(SparseVector x, SparseVector y) {
+	public double dot(Instance x, Instance y) {
 		double res = 0;
 		int j = 0;
 		int k = 0;
@@ -29,7 +29,7 @@ public class LinearKernel extends Kernel {
 	}
 
 	@Override
-	public double dot(double[] v, SparseVector x) {
+	public double dot(double[] v, Instance x) {
 		double sum = 0;
 		
 		for(int i = 0; i != x.indexes().length; i++){
@@ -45,7 +45,7 @@ public class LinearKernel extends Kernel {
 	}
 
 	@Override
-	public TreeMap<Long, Double> pipe(SparseVector x) {
+	public TreeMap<Long, Double> pipe(Instance x) {
 		TreeMap<Long, Double> tm = new TreeMap<Long, Double>();
 		for(int i = 0; i != x.size(); i++)
 			tm.put((long)x.indexes()[i], x.values()[i]);
@@ -53,7 +53,7 @@ public class LinearKernel extends Kernel {
 	}
 
 	@Override
-	public void add(double[] dense, SparseVector x, double factor) {
+	public void add(double[] dense, Instance x, double factor) {
 		for(int i = 0; i != x.size(); i++){
 			wAdder(dense, x.indexes()[i], x.values()[i] * factor);
 			//dense[x.indexes[i]] += x.values[i] * factor;
@@ -61,7 +61,7 @@ public class LinearKernel extends Kernel {
 	}
 
 	@Override
-	public double snorm(SparseVector x) {
+	public double snorm(Instance x) {
 		double sum = 0; 
 		for(int i = 0; i != x.size(); i++)
 			sum += x.values()[i] * x.values()[i];

@@ -27,7 +27,7 @@ public interface Dataset<T> {
 	 * @param idx index of the sample
 	 * @return SparseVector representing the sample. 
 	 */
-	public SparseVector<T> get(int idx);
+	public Instance<T> get(int idx);
 	
 	/**
 	 * Return all classes found in dataset

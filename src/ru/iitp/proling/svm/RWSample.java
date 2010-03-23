@@ -2,7 +2,7 @@ package ru.iitp.proling.svm;
 import java.util.List;
 
 // ranked and weighted sample	
-public class RWSample<T> extends SparseVector<T> {
+public class RWSample<T> extends Instance<T> {
 	public double weight; // weight
 	public int qid; // query id
 

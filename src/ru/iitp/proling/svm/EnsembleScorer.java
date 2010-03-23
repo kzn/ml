@@ -17,7 +17,7 @@ public class EnsembleScorer extends Scorer {
 	}
 
 	@Override
-	public double score(SparseVector v) {
+	public double score(Instance v) {
 		double res = 0;
 		for(int i = 0; i != scorers.size(); i++)
 			res += scorers.get(i).score(v)* alpha.get(i);

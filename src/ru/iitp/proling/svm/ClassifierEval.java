@@ -60,8 +60,8 @@ public class ClassifierEval {
 		
 		// for each query
 		for(int k = 0; k != dtest.size(); k++){
-			List<SparseVector<Double>> entry = dtest.get(k);
-			List<SparseVector<Double>> vecs = new ArrayList<SparseVector<Double>>();
+			List<Instance<Double>> entry = dtest.get(k);
+			List<Instance<Double>> vecs = new ArrayList<Instance<Double>>();
 			
 			double[] ref = new double[entry.size()];
 			for(int j = 0; j != entry.size(); j++){
@@ -73,7 +73,7 @@ public class ClassifierEval {
 			double[] predicted = new double[vecs.size()];
 			int i = 0;
 			
-			for(SparseVector<?> v : vecs){
+			for(Instance<?> v : vecs){
 				predicted[i++] = sr.score(v);
 			}
 			

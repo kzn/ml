@@ -5,7 +5,7 @@ import java.util.SortedSet;
 
 public interface DatasetList<T>{
 	
-	public List<SparseVector<T>> get(int idx);
+	public List<Instance<T>> get(int idx);
 	public int size();
 	public int dim();
 	

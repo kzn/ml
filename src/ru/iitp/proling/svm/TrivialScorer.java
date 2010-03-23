@@ -15,7 +15,7 @@ public class TrivialScorer extends Scorer {
 	
 
 	@Override
-	public double score(SparseVector v) {
+	public double score(Instance v) {
 		return kernel.dot(model, v);
 	}
 
