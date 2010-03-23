@@ -9,15 +9,15 @@ import ru.iitp.proling.common.ArrayUtils;
  * @param <T>
  */
 public class SplitDataset<T> {
-	public final VirtualDataset<T> train;
-	public final VirtualDataset<T> test;
+	public final DefaultDataset<T> train;
+	public final DefaultDataset<T> test;
 	protected Dataset<T> base;
 	
 	public SplitDataset(Dataset<T> base, int nfold){
 		this.base = base;
 		
-		VirtualDataset<T> train = new VirtualDataset<T>();
-		VirtualDataset<T> test = new VirtualDataset<T>();
+		DefaultDataset<T> train = new DefaultDataset<T>();
+		DefaultDataset<T> test = new DefaultDataset<T>();
 		
 		int[] indexes = new int[base.size()];
 		for(int i = 0; i != indexes.length; i++)
@@ -29,9 +29,9 @@ public class SplitDataset<T> {
 		
 		for(int i = 0; i != base.size(); i++){
 			if(i > stop)
-				train.add(base.get(i), base.get(i).value());
+				train.add(base.get(i));
 			else
-				test.add(base.get(i), base.get(i).value());
+				test.add(base.get(i));
 		}
 		
 		this.train = train;
