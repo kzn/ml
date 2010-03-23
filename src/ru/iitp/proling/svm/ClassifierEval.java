@@ -54,33 +54,25 @@ public class ClassifierEval {
 	}
 	
 	
-	public static double evalRanker(BasicDataset dtest, SimpleRanker sr){
-		HashMap<Integer, TIntArrayList> sample_lists = new HashMap<Integer, TIntArrayList>();
-		
-		for(int i = 0; i != dtest.size(); i++){
-			int query_id = dtest.qid(i);
-			if(!sample_lists.containsKey(query_id))
-				sample_lists.put(query_id, new TIntArrayList());
-			
-			sample_lists.get(query_id).add(i);
-		}
-		
+	public static double evalRanker(DatasetList<Double> dtest, SimpleRanker sr){
 		int swapped = 0;
 		int correct = 0;
 		
-		// for each query id
-		//for(int i = 0; i != sample_lists.size(); i++){
-		for(Entry<Integer, TIntArrayList> entry : sample_lists.entrySet()){
+		// for each query
+		for(int k = 0; k != dtest.size(); k++){
+			List<SparseVector<Double>> entry = dtest.get(k);
 			List<SparseVector<Double>> vecs = new ArrayList<SparseVector<Double>>();
-			double[] ref = new double[entry.getValue().size()];
-			for(int j = 0; j != entry.getValue().size(); j++){
-				int idx = entry.getValue().get(j);
-				vecs.add(dtest.get(idx));
-				ref[j] = dtest.get(idx).value();
+			
+			double[] ref = new double[entry.size()];
+			for(int j = 0; j != entry.size(); j++){
+				//int idx = entry.get(j);
+				vecs.add(entry.get(j));
+				ref[j] = entry.get(j).value();
 			}
 			
 			double[] predicted = new double[vecs.size()];
 			int i = 0;
+			
 			for(SparseVector<?> v : vecs){
 				predicted[i++] = sr.score(v);
 			}
@@ -92,8 +84,8 @@ public class ClassifierEval {
 		}
 		
 		System.out.println("Swapped pairs on test set:" + swapped);
-		System.out.printf("Correct rankings:%d/%d\n", correct, sample_lists.size());
-		return 1.0*correct/sample_lists.size();
+		System.out.printf("Correct rankings:%d/%d\n", correct, dtest.size());
+		return 1.0*correct/dtest.size();
 	}
 
 		
