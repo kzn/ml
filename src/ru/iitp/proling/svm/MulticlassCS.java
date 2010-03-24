@@ -9,7 +9,7 @@ import ru.iitp.proling.svm.kernel.LinearKernel;
 
 public class MulticlassCS {
 
-	protected Dataset ds; ///< Source dataset
+	protected LabeledDataset ds; ///< Source dataset
 	protected double[][] alpha; ///< Alphas array
 	protected double[] b; ///< 
 	protected double[] g; ///< Gradient vector
@@ -27,7 +27,7 @@ public class MulticlassCS {
 	protected int n_features;
 	protected int maxiter;
 
-	public MulticlassCS(Dataset ds, int[] targets, double c, double eps, int maxiter){
+	public MulticlassCS(LabeledDataset ds, int[] targets, double c, double eps, int maxiter){
 
 		assert(targets.length == ds.size());
 		this.targets = new int[targets.length];

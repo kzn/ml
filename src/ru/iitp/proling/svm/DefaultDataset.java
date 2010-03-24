@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 import ru.iitp.proling.common.Alphabet;
 
-public class DefaultDataset<T> implements Dataset<T> {
+public class DefaultDataset<T> implements LabeledDataset<T> {
 	protected ArrayList<Instance<T>> samples = new ArrayList<Instance<T>>();
 	protected Alphabet<T> alphabet = new Alphabet<T>();
 	protected int dim = 0;

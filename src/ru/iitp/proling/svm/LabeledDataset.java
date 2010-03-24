@@ -9,7 +9,7 @@ import java.util.SortedSet;
  * @author ant
  *
  */
-public interface Dataset<T> {
+public interface LabeledDataset<T> {
 	/**
 	 * Get number of samples in the dataset
 	 * @return Number of samples in the dataset

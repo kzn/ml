@@ -10,7 +10,7 @@ import java.util.SortedSet;
 import ru.iitp.proling.common.Alphabet;
 
 
-public class BasicDataset implements Dataset<Double> {
+public class BasicDataset implements LabeledDataset<Double> {
 	protected int dim = 0;
 	protected List<RWSample<Double>> samples = new ArrayList<RWSample<Double>>();
 	protected Alphabet<Double> alphabet = new Alphabet<Double>();

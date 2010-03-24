@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 public class ClassifierEval {
 	
-	public static <T> double evalBinaryClassifier(Dataset<T> dataset, BinaryClassifier<T> classifier){
+	public static <T> double evalBinaryClassifier(LabeledDataset<T> dataset, BinaryClassifier<T> classifier){
 		int misclassified = 0;
 		
 		
@@ -27,7 +27,7 @@ public class ClassifierEval {
 		return accuracy; 
 	}
 	
-	public static <T> double evalOVRClassifier(Dataset<T> dataset, OVRClassifier<T> classifier){
+	public static <T> double evalOVRClassifier(LabeledDataset<T> dataset, OVRClassifier<T> classifier){
 		int misclassified = 0;
 		
 		
