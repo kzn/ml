@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="/home/ant/java/jar/trove.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/common"/>
 	<classpathentry kind="lib" path="/common/iitp-common.jar"/>
+	<classpathentry kind="lib" path="/home/ant/java/jar/log4j.jar"/>
+	<classpathentry kind="lib" path="/home/ant/java/jar/log5j-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

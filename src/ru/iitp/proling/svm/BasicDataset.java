@@ -10,9 +10,9 @@ import java.util.SortedSet;
 import ru.iitp.proling.common.Alphabet;
 
 
-public class BasicDataset implements LabeledDataset<Double> {
+public class BasicDataset implements Dataset<Double> {
 	protected int dim = 0;
-	protected List<RWSample<Double>> samples = new ArrayList<RWSample<Double>>();
+	protected List<Instance<Double>> samples = new ArrayList<Instance<Double>>();
 	protected Alphabet<Double> alphabet = new Alphabet<Double>();
 	protected int[] targets;
 	
@@ -136,55 +136,12 @@ public class BasicDataset implements LabeledDataset<Double> {
 	}
 
 	@Override
-	public RWSample<Double> get(int idx) {
+	public Instance<Double> get(int idx) {
 		return samples.get(idx);
 	}
-
-	/*
-	@Override
-	public int[] qids() {
-		int qids[] = new int[size()];
-		for(int i = 0; i != size(); i++)
-			qids[i] = get(i).qid;
-		return qids;
-	}
-
-	@Override
-	public int[] targets() {
-		return targets;
-	}
-
-	 */
-	/*@Override
-	public Alphabet<Double> alphabet() {
-		return alphabet;
-	}*/
-
-	/*@Override
-	public int qid(int idx) {
-		// TODO Auto-generated method stub
-		return samples.get(idx).qid;
-	}*/
-
-	/*@Override
-	public int target(int idx) {
-		// TODO Auto-generated method stub
-		return targets[idx];
-	}*/
 	
-	public double[] labels(){
-		double[] labels = new double[size()];
-		
-		for(int i = 0; i != labels.length; i++)
-			labels[i] = alphabet.get(targets[i]);
-		
-		return labels;
-		
-	}
-
 	@Override
-	public SortedSet<Double> classes() {
-		return null;
+	public Alphabet<Double> alphabet(){
+		return alphabet;
 	}
-
 }

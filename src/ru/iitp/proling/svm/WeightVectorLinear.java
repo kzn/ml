@@ -11,14 +11,14 @@ import ru.iitp.proling.svm.kernel.Kernel;
  */
 @SuppressWarnings("unchecked")
 public class WeightVectorLinear extends WeightVector {
-	protected LabeledDataset dataset;
+	protected Dataset<?> dataset;
 	protected double[] alphas;
 	protected double[] v;
 	protected Kernel kernel;
 	protected double[] targets;
 	protected double[] snorms;
 	
-	public WeightVectorLinear(LabeledDataset ds, double[] targets, double[] v, Kernel kernel){
+	public WeightVectorLinear(Dataset<?> ds, double[] targets, double[] v, Kernel kernel){
 		dataset = ds;
 		this.kernel = kernel;
 		this.targets = targets;
@@ -32,7 +32,7 @@ public class WeightVectorLinear extends WeightVector {
 			snorms[i] = kernel.snorm(ds.get(i));
 	}
 	
-	public WeightVectorLinear(LabeledDataset ds, double[] targets, Kernel kernel){
+	public WeightVectorLinear(Dataset<?> ds, double[] targets, Kernel kernel){
 		this(ds, targets, new double[kernel.dim(ds.dim()) + 1], kernel);
 	}
 	

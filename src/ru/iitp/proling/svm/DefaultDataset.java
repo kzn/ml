@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 import ru.iitp.proling.common.Alphabet;
 
-public class DefaultDataset<T> implements LabeledDataset<T> {
+public class DefaultDataset<T> implements Dataset<T> {
 	protected ArrayList<Instance<T>> samples = new ArrayList<Instance<T>>();
 	protected Alphabet<T> alphabet = new Alphabet<T>();
 	protected int dim = 0;
@@ -36,10 +36,9 @@ public class DefaultDataset<T> implements LabeledDataset<T> {
 	}
 
 	@Override
-	public SortedSet<T> classes() {
-		TreeSet<T> ts = new TreeSet<T>();
-		ts.addAll(alphabet.entries());
-		return ts;
+	public Alphabet<T> alphabet() {
+		return alphabet;
 	}
+
 
 }

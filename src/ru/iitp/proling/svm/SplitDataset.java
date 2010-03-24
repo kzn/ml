@@ -9,11 +9,11 @@ import ru.iitp.proling.common.ArrayUtils;
  * @param <T>
  */
 public class SplitDataset<T> {
-	public final DefaultDataset<T> train;
-	public final DefaultDataset<T> test;
-	protected LabeledDataset<T> base;
+	public final Dataset<T> train;
+	public final Dataset<T> test;
+	protected Dataset<T> base;
 	
-	public SplitDataset(LabeledDataset<T> base, int nfold){
+	public SplitDataset(Dataset<T> base, int nfold){
 		this.base = base;
 		
 		DefaultDataset<T> train = new DefaultDataset<T>();

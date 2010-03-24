@@ -44,7 +44,7 @@ public class HelloWorld {
 		System.out.println("Dataset size:" + Integer.toString(dset.size()));
 		System.out.println("Dataset dim:" + Integer.toString(dset.dim()));
 		
-		double[] targets = dset.labels();
+/*	// double[] targets = dset.labels();
 		//int[] t = dset.targets();
 		
 		//for(int i = 0; i != dset.size(); i++)
@@ -83,7 +83,7 @@ public class HelloWorld {
 
 		
 		
-		/*//Scorer s = RankBoost.train(wv, new DCDSolver(0.05, 0.05, 500, 0.1, 10000000), 2, q);
+		//Scorer s = RankBoost.train(wv, new DCDSolver(0.05, 0.05, 500, 0.1, 10000000), 2, q);
 		Scorer s = RankBoost.train(wvr, new DCDSolver(0.001, 0.001, 5000, 0.1, 1000000), 5);
 		SimpleRanker sr = new SimpleRanker(s);
 		System.out.println("RankBoost.");
@@ -114,7 +114,7 @@ public class HelloWorld {
 		//System.out.println(dset.alphabet());
 		
 		
-		*/
-	}
+		
+*/	}
 
 }
