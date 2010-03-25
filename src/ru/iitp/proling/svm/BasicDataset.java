@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.SortedSet;
 
 import ru.iitp.proling.common.Alphabet;
+import ru.iitp.proling.ml.core.Dataset;
 import ru.iitp.proling.ml.core.Instance;
 
 

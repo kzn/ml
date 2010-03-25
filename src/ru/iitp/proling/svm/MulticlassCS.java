@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import ru.iitp.proling.common.ArrayUtils;
+import ru.iitp.proling.ml.core.Dataset;
 import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.svm.kernel.Kernel;
 import ru.iitp.proling.svm.kernel.LinearKernel;
@@ -146,7 +147,7 @@ public class MulticlassCS {
 
 		for(int i = 0; i != vec.size(); i++){
 			for(int m = 0; m < active_size; m++)
-				g[m] += w(get_alpha_idx(idx, m), vec.indexes[i]) * vec.values[i];
+				g[m] += w(get_alpha_idx(idx, m), vec.indexes()[i]) * vec.values()[i];
 		}
 	}
 	/**
@@ -157,7 +158,7 @@ public class MulticlassCS {
 		double sum = 0;
 
 		for(int i = 0; i != vec.size(); i++){
-			sum += w(w_idx, vec.indexes[i]) * vec.values[i];
+			sum += w(w_idx, vec.indexes()[i]) * vec.values()[i];
 		}
 
 		return sum;
@@ -378,7 +379,7 @@ public class MulticlassCS {
 	void add(int w_idx, int vec_idx, double factor){
 		Instance vec = ds.get(vec_idx);
 		for(int i = 0; i != vec.size(); i++)
-			w_add(w_idx, vec.indexes[i], factor*vec.values[i]);
+			w_add(w_idx, vec.indexes()[i], factor*vec.values()[i]);
 	}
 
 

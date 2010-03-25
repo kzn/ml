@@ -3,6 +3,7 @@ package ru.iitp.proling.svm;
 import gnu.trove.TObjectDoubleHashMap;
 import ru.iitp.proling.common.Alphabet;
 import ru.iitp.proling.ml.core.Classifier;
+import ru.iitp.proling.ml.core.Dataset;
 import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.svm.kernel.Kernel;
 

@@ -1,6 +1,7 @@
 package ru.iitp.proling.svm;
 
 import ru.iitp.proling.common.ArrayUtils;
+import ru.iitp.proling.ml.core.Dataset;
 
 /**
  * Create cross validation subsets from base dataset

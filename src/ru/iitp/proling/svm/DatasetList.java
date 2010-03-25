@@ -2,6 +2,7 @@ package ru.iitp.proling.svm;
 
 import java.util.List;
 
+import ru.iitp.proling.ml.core.Dataset;
 import ru.iitp.proling.ml.core.Instance;
 
 

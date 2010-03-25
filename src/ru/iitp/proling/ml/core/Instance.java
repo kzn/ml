@@ -71,5 +71,4 @@ public class Instance<T> {
 	public double weight(){
 		return weight;
 	}
-	}
-};
+}
