@@ -2,6 +2,8 @@ package ru.iitp.proling.svm;
 
 import java.util.List;
 
+import ru.iitp.proling.ml.core.Instance;
+
 
 public interface DatasetList<T>{
 	

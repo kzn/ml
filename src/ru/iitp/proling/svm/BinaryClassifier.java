@@ -1,5 +1,7 @@
 package ru.iitp.proling.svm;
 
+import ru.iitp.proling.ml.core.Instance;
+
 /**
  * Binary classification common class. Basic interface to binary predictor that has 2 outcomes.
  * This a indirect interface, as any binary classifier expected to conform to defined functions

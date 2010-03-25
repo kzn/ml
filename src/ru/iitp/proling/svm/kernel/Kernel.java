@@ -2,7 +2,7 @@ package ru.iitp.proling.svm.kernel;
 
 import java.util.TreeMap;
 
-import ru.iitp.proling.svm.Instance;
+import ru.iitp.proling.ml.core.Instance;
 
 /*
  * Abstract class instead of Interface for efficiency reasons

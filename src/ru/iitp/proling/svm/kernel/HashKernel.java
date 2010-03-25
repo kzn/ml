@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-import ru.iitp.proling.svm.Instance;
+import ru.iitp.proling.ml.core.Instance;
 
 public class HashKernel extends Kernel {
 	protected Kernel base;

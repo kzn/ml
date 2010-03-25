@@ -2,7 +2,6 @@ package ru.iitp.proling.ml.core;
 
 import gnu.trove.TObjectDoubleHashMap;
 import ru.iitp.proling.svm.Dataset;
-import ru.iitp.proling.svm.Instance;
 /**
  * End user classifier 
  * @author ant

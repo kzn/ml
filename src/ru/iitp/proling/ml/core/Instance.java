@@ -1,12 +1,19 @@
-package ru.iitp.proling.svm;
+package ru.iitp.proling.ml.core;
 import java.util.List;
 
+/**
+ * Generic instance class. Represent an ML learning/testing instance.
+ * @author ant
+ *
+ * @param <T>
+ */
 public class Instance<T> {
 	final int indexes[];
 	final double values[];
+	double weight = 1.0;
 	T value;
 	
-	Instance(List<Integer> idxs, List<Double> vals, T value){
+	public Instance(List<Integer> idxs, List<Double> vals){
 		assert(idxs.size() == vals.size());
 		indexes = new int[idxs.size()];
 		values = new double[idxs.size()];
@@ -15,8 +22,16 @@ public class Instance<T> {
 			indexes[i] = idxs.get(i);
 			values[i] = vals.get(i);
 		}
-		
+	}
+	
+	public Instance(List<Integer> idxs, List<Double> vals, T value){
+		this(idxs, vals);
 		this.value = value;
+	}
+	
+	public Instance(List<Integer> idxs, List<Double> vals, T value, double weight){
+		this(idxs, vals, value);
+		this.weight = weight;
 	}
 	
 	public int dim(){
@@ -51,5 +66,10 @@ public class Instance<T> {
 	
 	public T value(){
 		return value;
+	}
+	
+	public double weight(){
+		return weight;
+	}
 	}
 };

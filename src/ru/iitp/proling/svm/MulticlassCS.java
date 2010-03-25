@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import ru.iitp.proling.common.ArrayUtils;
+import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.svm.kernel.Kernel;
 import ru.iitp.proling.svm.kernel.LinearKernel;
 

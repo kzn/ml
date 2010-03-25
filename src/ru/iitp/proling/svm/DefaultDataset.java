@@ -5,6 +5,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import ru.iitp.proling.common.Alphabet;
+import ru.iitp.proling.ml.core.Instance;
 
 public class DefaultDataset<T> implements Dataset<T> {
 	protected ArrayList<Instance<T>> samples = new ArrayList<Instance<T>>();

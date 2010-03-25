@@ -1,6 +1,8 @@
 package ru.iitp.proling.svm;
 import java.util.List;
 
+import ru.iitp.proling.ml.core.Instance;
+
 // ranked and weighted sample	
 public class RWSample<T> extends Instance<T> {
 	public double weight; // weight
