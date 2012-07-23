@@ -100,7 +100,7 @@ public class TrainMulticlass {
 		System.out.printf("Done.%n");
 		dsReader.close();
 		
-		MulticlassProblemBasic p = new MulticlassProblemBasic(instances, targets.toNativeArray(), new LinearKernel());
+		MulticlassProblemBasic p = new MulticlassProblemBasic(instances, targets.toArray(), new LinearKernel());
 		//MulticlassCSSolver.MulticlassCS solver = new MulticlassCSSolver.MulticlassCS(p, optSet.valueOf(opC), optSet.valueOf(opEps), 500);
 		MulticlassCSSolver.AbstractHashMCCS solver = new MCSolver(p, 1 << 22, optSet.valueOf(opC), optSet.valueOf(opEps), 500);
 		solver.solve();

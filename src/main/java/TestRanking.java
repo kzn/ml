@@ -8,8 +8,6 @@ import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
 
-import gnu.trove.TDoubleArrayList;
-import gnu.trove.TIntArrayList;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.svm.BasicDataset;
