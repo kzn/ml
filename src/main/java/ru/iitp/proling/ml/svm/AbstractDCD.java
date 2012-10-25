@@ -43,6 +43,10 @@ public abstract class AbstractDCD {
 		this.threshold = threshold;
 	}
 	
+	public void setVerbosity(int verbosity) {
+		this.verbosity = verbosity;
+	}
+	
 	/**
 	 * Perform problem initialization
 	 */
