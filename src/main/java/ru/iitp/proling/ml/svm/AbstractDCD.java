@@ -24,7 +24,7 @@ public abstract class AbstractDCD {
 	protected int iter;
 	protected double eps;
 	protected int threshold;
-	public static int VERBOSITY = 0;
+	protected int verbosity;
 
 	/**
 	 * Base constructor for DCD Solver for Linear SVMs
@@ -89,7 +89,7 @@ public abstract class AbstractDCD {
 	    int[] index = new int[size];
 	    double[] alphas = new double[size];
 	    double[] snorms = new double[size];
-	    double[] costs = new double[size];
+	    //double[] costs = new double[size];
 	    
 	    int active = size; // number of active variables in current iteration
 	    int iters = 0;
@@ -98,12 +98,12 @@ public abstract class AbstractDCD {
 	    
 	    for(int i = 0; i != size; i++){
 	    	index[i] = i;
-	    	costs[i] = target(i) == 1.0? c_pos : c_neg;
+	    	//costs[i] = target(i) == 1.0? c_pos : c_neg;
 	    	snorms[i] = snorm(i);
 	    }
 
 	    
-	    if(VERBOSITY > 0){
+	    if(verbosity > 0){
 	    	System.out.printf("C:%f/%f\n",c_pos, c_neg);
 	    	System.out.println("Algorithm: DCD Full");
 	    	System.out.printf("Problem size: %dn", size());
@@ -115,7 +115,7 @@ public abstract class AbstractDCD {
 	    	double max_pg = Double.NEGATIVE_INFINITY;
 	    	double min_pg = Double.POSITIVE_INFINITY;
 	    	
-	    	long iter_time = System.nanoTime();
+	    	long iter_time = System.currentTimeMillis();
 	    	
 	    	if(threshold > 0 || active <= threshold)
 	    		ArrayUtils.shuffle(index, active);
@@ -127,7 +127,8 @@ public abstract class AbstractDCD {
 	    		int i = index[j];
 	    		double alpha = alphas[i]; 
 	    		double target = target(i);
-	    		double d_ii = norm == 2? 0.5/costs[i] : 0;
+	    		double cost = target(i) == 1.0? c_pos : c_neg;
+	    		double d_ii = norm == 2? 0.5/cost : 0;
 	    		double g = 0;
 	    		//Instance vec = ds.get(i);
 	    		
@@ -143,7 +144,7 @@ public abstract class AbstractDCD {
 
 	    		boolean shrink = false;
 	    		
-	    		double c = norm == 1? costs[i] : Double.POSITIVE_INFINITY;
+	    		double c = norm == 1? cost : Double.POSITIVE_INFINITY;
 	    		//double c = target == 1.0? c_pos : c_neg;
 	    		//c *= costs[i];
 	    		//double c = costs[i];
@@ -177,18 +178,19 @@ public abstract class AbstractDCD {
 
 			    }
 	    	}
-	    	if(VERBOSITY > 1)
-	    		System.out.printf("Iter %d: active: %d\t eps=%f\t elapsed: %d msecs\n", t, active, max_pg - min_pg, (System.nanoTime() - iter_time)/1000000);
+	    	if(verbosity > 1)
+	    		System.out.printf("Iter %d: active: %d\t eps=%f\t elapsed: %d msecs\n", t, active, max_pg - min_pg, 
+	    				System.currentTimeMillis() - iter_time);
 	    	double diff = max_pg - min_pg;
 
 			if(diff <= eps && active == size){
-				if(VERBOSITY > 0){
+				if(verbosity > 0){
 					System.out.println("Reached min eps at:" + Integer.toString(t));
 					System.out.println("Eps:" + Double.toString(diff));
 				}
 				break;
 			}else if(diff <= eps){
-				if(VERBOSITY > 2){
+				if(verbosity > 2){
 					System.out.print('*');
 					System.out.flush();
 				}
@@ -207,10 +209,10 @@ public abstract class AbstractDCD {
 				min_pg_neg = Double.NEGATIVE_INFINITY;
 	    }
 	    
-	    elapsed = System.nanoTime() - elapsed;
+	    elapsed = System.currentTimeMillis() - elapsed;
 	    
-	    if(VERBOSITY > 0){
-	    	System.out.printf("Optimization done in: %f secs\n", elapsed*1.0E-9); 
+	    if(verbosity > 0){
+	    	System.out.printf("Optimization done in: %f secs\n", elapsed / 1.0E3); 
 	    	System.out.println("Done.");
 	    }
 	}
