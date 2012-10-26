@@ -179,8 +179,8 @@ public abstract class AbstractDCDMC {
 
 		if(verbosity > 0){
 			System.out.printf("C:%.4f/%.4f\n",c_pos, c_neg);
-			System.out.println("Algorithm: DCD Full");
-			System.out.printf("Problem size: %d%n", size());
+			System.out.println("Algorithm: DCD-MC");
+			System.out.printf("Problem size: %d samples (%d classes)%n", size, numClasses);
 		}
 
 		long elapsed = System.currentTimeMillis();
@@ -213,11 +213,10 @@ public abstract class AbstractDCDMC {
 					double g = 0;
 
 					g = dot(cls, x);
-
+					
 					g *= target;
 					g -= 1;
 					g += alpha*d_ii;
-
 
 					boolean shrink = false;
 
@@ -244,7 +243,7 @@ public abstract class AbstractDCDMC {
 
 					if(pg != 0.0) {
 						double alpha_old = alpha;
-						double q = snorm(x) + d_ii;
+						double q = snorms[x] + d_ii;
 						double alpha_new = Math.min(Math.max(alpha - g/q, 0.0), c);
 						alphas[i] += alpha_new - alpha_old;
 						double f = target*(alpha_new - alpha_old);
