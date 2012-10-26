@@ -162,9 +162,14 @@ public abstract class AbstractDCDMC {
 		int[] index = new int[size * numClasses];
 		double[] alphas = new double[size * numClasses];
 		double[] snorms = new double[size];
+		int samples = numClasses * size;
 
-		int active = size * numClasses; // number of active variables in current iteration
+		int active = samples; // number of active variables in current iteration
+		BitSet a = new BitSet(samples);
+		a.set(0, active);
+		
 		int iters = 0;
+
 		double max_pg_pos = Double.POSITIVE_INFINITY; // maximum positive projected gradient(PG)
 		double min_pg_neg = Double.NEGATIVE_INFINITY; // minimum negative projected gradient(PG)
 
@@ -201,6 +206,7 @@ public abstract class AbstractDCDMC {
 					iters++;
 					
 					int i = index[j];
+
 					
 					int cls = i % numClasses;
 					int x = i / numClasses;
@@ -236,6 +242,7 @@ public abstract class AbstractDCDMC {
 
 					if(shrink){
 						active--;
+						a.clear(i);
 						ArrayUtils.swap(index, j, active);
 						j--;
 						continue;
@@ -257,7 +264,7 @@ public abstract class AbstractDCDMC {
 						System.currentTimeMillis() - iter_time);
 			double diff = max_pg - min_pg;
 
-			if(diff <= eps && active == size) {
+			if(diff <= eps && active == samples) {
 				if(verbosity > 0) {
 					System.out.println("Reached min eps at:" + Integer.toString(t));
 					System.out.println("Eps:" + Double.toString(diff));
@@ -268,7 +275,8 @@ public abstract class AbstractDCDMC {
 					System.out.print('*');
 					System.out.flush();
 				}
-				active = size;
+				active = samples;
+				a.set(0, active);
 				max_pg_pos = Double.POSITIVE_INFINITY;
 				min_pg_neg = Double.NEGATIVE_INFINITY;
 				continue; // perform full gradient check on next iteration
