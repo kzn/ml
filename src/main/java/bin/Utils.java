@@ -1,5 +1,6 @@
 package bin;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,5 +25,21 @@ public class Utils {
 		
 		return stream;
 	}
+	
+	public static OutputStream openWriteFile(File s) throws IOException {
+		OutputStream stream = new FileOutputStream(s);
+		if(s.getName().endsWith(".gz"))
+			stream = new GZIPOutputStream(stream);
+		return stream;
+	}
+	
+	public static InputStream openReadFile(File s) throws IOException {
+		InputStream stream = new FileInputStream(s);
+		if(s.getName().endsWith(".gz"))
+			stream = new GZIPInputStream(stream);
+		
+		return stream;
+	}
+
 
 }
