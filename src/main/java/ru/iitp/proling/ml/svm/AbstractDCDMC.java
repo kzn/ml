@@ -165,8 +165,6 @@ public abstract class AbstractDCDMC {
 		int samples = numClasses * size;
 
 		int active = samples; // number of active variables in current iteration
-		BitSet a = new BitSet(samples);
-		a.set(0, active);
 		
 		int iters = 0;
 
@@ -242,7 +240,6 @@ public abstract class AbstractDCDMC {
 
 					if(shrink){
 						active--;
-						a.clear(i);
 						ArrayUtils.swap(index, j, active);
 						j--;
 						continue;
@@ -266,8 +263,8 @@ public abstract class AbstractDCDMC {
 
 			if(diff <= eps && active == samples) {
 				if(verbosity > 0) {
-					System.out.println("Reached min eps at:" + Integer.toString(t));
-					System.out.println("Eps:" + Double.toString(diff));
+					System.out.printf("Reached min eps at: %d, ", t);
+					System.out.printf("eps: %.4f%n",diff);
 				}
 				break;
 			} else if(diff <= eps) {
@@ -276,7 +273,6 @@ public abstract class AbstractDCDMC {
 					System.out.flush();
 				}
 				active = samples;
-				a.set(0, active);
 				max_pg_pos = Double.POSITIVE_INFINITY;
 				min_pg_neg = Double.NEGATIVE_INFINITY;
 				continue; // perform full gradient check on next iteration
