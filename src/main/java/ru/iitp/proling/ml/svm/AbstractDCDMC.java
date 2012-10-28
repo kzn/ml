@@ -290,7 +290,8 @@ public abstract class AbstractDCDMC {
 		elapsed = System.currentTimeMillis() - elapsed;
 
 		if(verbosity > 0){
-			System.out.printf("Optimization done in: %.2f secs\n", elapsed / 1.0E3); 
+			System.out.printf("Optimization done in: %.2f secs\n", elapsed / 1.0E3);
+			System.out.printf("Total evals: %d%n", iters);
 			System.out.println("Done.");
 		}
 	}

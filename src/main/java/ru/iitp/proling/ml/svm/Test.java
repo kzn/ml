@@ -85,6 +85,44 @@ public class Test {
 		
 	}
 	
+	public static class Solver2 extends PegasosHKOVR {
+
+		int sdim;
+		public Solver2(List<Instance> instances, int[] targets, int dim, int numClasses, int sdim) {
+			super(instances, targets, numClasses, dim, 1000000, 1, 0.1, 0);
+
+			this.sdim = sdim;
+		}
+
+		@Override
+		public int hash(int c, int index) {
+
+			return c * sdim + index;
+		}
+		
+		public int predict(Instance x) {
+			double score = Double.NEGATIVE_INFINITY;
+			int cls = 0;
+			for(int c = 0; c < numClasses()
+					; c++) {
+				double z = 0;
+				for(int i = 0; i < x.size(); i++) {
+					z += w[hash(c, x.indexAt(i))] * x.valueAt(i);
+				}
+				
+				if(z > score) {
+					score = z;
+					cls = c;
+				}
+			}
+			
+			return cls;
+		}
+
+		
+	}
+
+	
 	public static void main(String[] args) throws IOException {
 		BasicDataset ds = BasicDataset.readText("dna.scale");
 		TIntArrayList targets = new TIntArrayList();
@@ -96,11 +134,12 @@ public class Test {
 		}
 		
 		MulticlassProblemBasic p = new MulticlassProblemBasic(instances, targets.toArray());
-		
-		Solver1 solver = new Solver1(instances, targets.toArray(), (DatasetUtils.dim(instances) + 1)*(p.classes() + 1), p.classes(), 0.1, 0.1, 500, 0.1, 0, DatasetUtils.dim(instances));
+		int dim = (DatasetUtils.dim(instances) + 1)*(p.classes() + 1);
+		//Solver1 solver = new Solver1(instances, targets.toArray(), (DatasetUtils.dim(instances) + 1)*(p.classes() + 1), p.classes(), 0.1, 0.1, 500, 0.1, 0, DatasetUtils.dim(instances));
+		Solver2 solver = new Solver2(instances, targets.toArray(), dim, p.classes(), DatasetUtils.dim(instances));
 		//CSSolver solver = new CSSolver(p, (DatasetUtils.dim(instances) + 1)*(p.classes() + 1), 0.1, 0.1, 500, DatasetUtils.dim(instances));
-		solver.setVerbosity(5);
-		solver.solve(1);
+		//solver.setVerbosity(5);
+		solver.solve();
 		
 		
 		BasicDataset dsTest = BasicDataset.readText("dna.scale.t");
