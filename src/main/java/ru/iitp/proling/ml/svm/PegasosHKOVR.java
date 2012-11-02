@@ -10,6 +10,7 @@ public abstract class PegasosHKOVR extends AbstractPegasosOVR {
 	List<Instance> instances;
 	int[] targets;
 	double[] w;
+	double[] w_avg;
 	double f;
 	double sqnorm;
 	int nClasses;
@@ -22,6 +23,7 @@ public abstract class PegasosHKOVR extends AbstractPegasosOVR {
 		this.instances = instances;
 		this.targets = targets;
 		this.w = new double[dim];
+		this.w_avg = new double[dim];
 		f = 1.0;
 		this.nClasses = numClasses;
 	}
@@ -33,6 +35,7 @@ public abstract class PegasosHKOVR extends AbstractPegasosOVR {
 	@Override
 	public void init() {
 		Arrays.fill(w, 0.0);
+		Arrays.fill(w_avg, 0);
 		f = 1.0;
 	}
 
