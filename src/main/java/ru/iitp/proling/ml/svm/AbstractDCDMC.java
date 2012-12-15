@@ -5,6 +5,8 @@ import java.util.BitSet;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.primitives.Doubles;
+
 import ru.iitp.proling.common.ArrayUtils;
 import ru.iitp.proling.ml.core.DatasetUtils;
 import ru.iitp.proling.ml.core.Instance;
@@ -18,7 +20,7 @@ public abstract class AbstractDCDMC {
 //	List<Instance> dataset;
 //	double w[];
 //	double targets[];
-	int nClasses;
+//	int nClasses;
 	
 //	protected AbstractDCDMC(double c_pos, double c_neg, int iter, double eps, int threshold) {
 //		super(c_pos, c_neg, iter, eps, threshold);
@@ -168,8 +170,10 @@ public abstract class AbstractDCDMC {
 		
 		int iters = 0;
 
-		double max_pg_pos = Double.POSITIVE_INFINITY; // maximum positive projected gradient(PG)
-		double min_pg_neg = Double.NEGATIVE_INFINITY; // minimum negative projected gradient(PG)
+		double[] max_pg_pos = new double[numClasses];
+		Arrays.fill(max_pg_pos, Double.POSITIVE_INFINITY); // maximum positive projected gradient(PG)
+		double[] min_pg_neg = new double[numClasses];
+		Arrays.fill(min_pg_neg, Double.NEGATIVE_INFINITY); // minimum negative projected gradient(PG)
 
 		for(int i = 0; i != size; i++) {
 			snorms[i] = snorm(i);
@@ -188,9 +192,14 @@ public abstract class AbstractDCDMC {
 
 		long elapsed = System.currentTimeMillis();
 
-		for(int t = 1; t != iter; t++){
-			double max_pg = Double.NEGATIVE_INFINITY;
-			double min_pg = Double.POSITIVE_INFINITY;
+		double[] max_pg = new double[numClasses];			
+		double[] min_pg = new double[numClasses];
+		
+		
+
+		for(int t = 1; t != iter; t++) {
+			Arrays.fill(max_pg, Double.NEGATIVE_INFINITY);
+			Arrays.fill(min_pg, Double.POSITIVE_INFINITY);
 
 			long iter_time = System.currentTimeMillis();
 
@@ -200,66 +209,69 @@ public abstract class AbstractDCDMC {
 				Arrays.sort(index, 0, active);
 
 
-				for(int j = 0; j != active; j++){
-					iters++;
-					
-					int i = index[j];
+			for(int j = 0; j != active; j++) {
+				iters++;
 
-					
-					int cls = i % numClasses;
-					int x = i / numClasses;
+				int i = index[j];
 
 
-					double alpha = alphas[i]; 
-					double target = target(cls, x);
-					double cost = target == 1.0? c_pos : c_neg;
-					double d_ii = norm == 2? 0.5/cost : 0;
-					double g = 0;
+				int cls = i % numClasses;
+				int x = i / numClasses;
 
-					g = dot(cls, x);
-					
-					g *= target;
-					g -= 1;
-					g += alpha*d_ii;
 
-					boolean shrink = false;
+				double alpha = alphas[i]; 
+				double target = target(cls, x);
+				double cost = target == 1.0? c_pos : c_neg;
+				double d_ii = norm == 2? 0.5/cost : 0;
+				double g = 0;
 
-					double c = norm == 1? cost : Double.POSITIVE_INFINITY;
+				g = dot(cls, x);
 
-					double pg = g; // projected gradient
-					if(alpha == 0) {
-						pg = Math.min(g, 0.0);
-						shrink = g > max_pg_pos;
-					} else if(alpha == c) {
-						pg = Math.max(g, 0);
-						shrink = g < min_pg_neg;
-					}
+				g *= target;
+				g -= 1;
+				g += alpha*d_ii;
 
-					min_pg = Math.min(min_pg, pg);
-					max_pg = Math.max(max_pg, pg);
+				boolean shrink = false;
 
-					if(shrink){
-						active--;
-						ArrayUtils.swap(index, j, active);
-						j--;
-						continue;
-					}
+				double c = norm == 1? cost : Double.POSITIVE_INFINITY;
 
-					if(pg != 0.0) {
-						double alpha_old = alpha;
-						double q = snorms[x] + d_ii;
-						double alpha_new = Math.min(Math.max(alpha - g/q, 0.0), c);
-						alphas[i] += alpha_new - alpha_old;
-						double f = target*(alpha_new - alpha_old);
-						add(cls, x, f);
-					}
-				
+				double pg = g; // projected gradient
+				if(alpha == 0) {
+					pg = Math.min(g, 0.0);
+					shrink = g > max_pg_pos[cls];
+				} else if(alpha == c) {
+					pg = Math.max(g, 0);
+					shrink = g < min_pg_neg[cls];
+				}
+
+				min_pg[cls] = Math.min(min_pg[cls], pg);
+				max_pg[cls] = Math.max(max_pg[cls], pg);
+
+				if(shrink) {
+					active--;
+					ArrayUtils.swap(index, j, active);
+					j--;
+					continue;
+				}
+
+				if(pg != 0.0) {
+					double alpha_old = alpha;
+					double q = snorms[x] + d_ii;
+					double alpha_new = Math.min(Math.max(alpha - g/q, 0.0), c);
+					alphas[i] = alpha_new;
+					double f = target*(alpha_new - alpha_old);
+					add(cls, x, f);
+				}
+
 			}
-			
+
+			double diff =  Doubles.max(max_pg) - Doubles.min(min_pg);
 			if(verbosity > 1)
-				System.out.printf("Iter %d: active: %d\t eps=%.4f\t elapsed: %d msecs\n", t, active, max_pg - min_pg, 
+				System.out.printf("Iter %d: active: %d\t eps=%.4f\t elapsed: %d msecs\n", t, active, diff, 
 						System.currentTimeMillis() - iter_time);
-			double diff = max_pg - min_pg;
+
+
+
 
 			if(diff <= eps && active == samples) {
 				if(verbosity > 0) {
@@ -268,23 +280,30 @@ public abstract class AbstractDCDMC {
 				}
 				break;
 			} else if(diff <= eps) {
-				if(verbosity > 2){
+				if(verbosity > 2) {
 					System.out.print('*');
 					System.out.flush();
 				}
 				active = samples;
-				max_pg_pos = Double.POSITIVE_INFINITY;
-				min_pg_neg = Double.NEGATIVE_INFINITY;
+				Arrays.fill(max_pg_pos, Double.POSITIVE_INFINITY);
+				Arrays.fill(min_pg_neg, Double.NEGATIVE_INFINITY);
 				continue; // perform full gradient check on next iteration
 			}
 
-			max_pg_pos = max_pg;
-			if(max_pg <= 0) // max_pg_pos must be strictly positive
-				max_pg_pos = Double.POSITIVE_INFINITY;
+			System.arraycopy(max_pg, 0, max_pg_pos, 0, max_pg.length);
 
-			min_pg_neg = min_pg;
-			if(min_pg >= 0) // m must be strictly negative
-				min_pg_neg = Double.NEGATIVE_INFINITY;
+			for(int i = 0; i < numClasses; i++) {
+				if(max_pg[i] <= 0)
+					max_pg_pos[i] = Double.POSITIVE_INFINITY;
+			}
+
+			System.arraycopy(min_pg, 0, min_pg_neg, 0, min_pg.length);
+
+			for(int i = 0; i < numClasses; i++) {
+				if(min_pg[i] >= 0) // m must be strictly negative
+					min_pg_neg[i] = Double.NEGATIVE_INFINITY;
+
+			}
 		}
 
 		elapsed = System.currentTimeMillis() - elapsed;
@@ -295,5 +314,5 @@ public abstract class AbstractDCDMC {
 			System.out.println("Done.");
 		}
 	}
-	
+
 }
