@@ -48,19 +48,19 @@ public abstract class AbstractDCDWeighted extends AbstractDCD {
 	    }
 
 	    
-	    if(VERBOSITY > 0){
+	    if(verbosity > 0){
 	    	System.out.printf("C:%f/%f\n",c_pos, c_neg);
 	    	System.out.println("Algorithm: DCD Full");
 	    	System.out.printf("Problem size: %dn", size());
 	    }
 	    
-	    long elapsed = System.nanoTime();
+	    long elapsed = System.currentTimeMillis();
 	    
 	    for(int t = 1; t != iter; t++){
 	    	double max_pg = Double.NEGATIVE_INFINITY;
 	    	double min_pg = Double.POSITIVE_INFINITY;
 	    	
-	    	long iter_time = System.nanoTime();
+	    	long iter_time = System.currentTimeMillis();
 	    	
 	    	if(threshold > 0 || active <= threshold)
 	    		ArrayUtils.shuffle(index, active);
@@ -116,18 +116,18 @@ public abstract class AbstractDCDWeighted extends AbstractDCD {
 
 			    }
 	    	}
-	    	if(VERBOSITY > 1)
-	    		System.out.printf("Iter %d: active: %d\t eps=%f\t elapsed: %d msecs\n", t, active, max_pg - min_pg, (System.nanoTime() - iter_time)/1000000);
+	    	if(verbosity > 1)
+	    		System.out.printf("Iter %d: active: %d\t eps=%f\t elapsed: %d msecs\n", t, active, max_pg - min_pg, System.currentTimeMillis() - iter_time);
 	    	double diff = max_pg - min_pg;
 
 			if(diff <= eps && active == totdocs){
-				if(VERBOSITY > 0){
+				if(verbosity > 0){
 					System.out.println("Reached min eps at:" + Integer.toString(t));
 					System.out.println("Eps:" + Double.toString(diff));
 				}
 				break;
 			}else if(diff <= eps){
-				if(VERBOSITY > 2){
+				if(verbosity > 2){
 					System.out.print('*');
 					System.out.flush();
 				}
@@ -148,9 +148,8 @@ public abstract class AbstractDCDWeighted extends AbstractDCD {
 	    
 	    elapsed = System.nanoTime() - elapsed;
 	    
-	    if(VERBOSITY > 0){
-	    	System.out.printf("Optimization done in: %f secs\n", elapsed*1.0E-9);
-	    	double n = 0; 
+	    if(verbosity > 0){
+	    	System.out.printf("Optimization done in: %f secs\n", elapsed/1.0E3);
 	    	System.out.println("Done.");
 	    }
 	}

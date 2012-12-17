@@ -33,10 +33,10 @@ public class TestMulticlass {
 		for(int i = 0; i != dset.size(); i++)
 			data.add(dset.get(i));
 		
-		MulticlassProblem p = new MulticlassProblemBasic(data, dset.targets(), new LinearKernel());
+		MulticlassProblem p = new MulticlassProblemBasic(data, dset.targets());
 		
 		//MulticlassCSSolver solver = new MulticlassCSSolver(0.1, 0.1, 5000);
-		MulticlassSolver solver = new MulticlassOVOSolver(0.1, new DCDSolver(0.1, 0.1, 500, 0.1, 500000));
+		MulticlassSolver solver = new MulticlassOVOSolver(0.1, new DCDSolver(0.1, 0.1, 500, 0.1, 500000), new LinearKernel());
 		MultiScorer s = solver.solve(p);
 		int errs = 0;
 		for(int i = 0; i != dtest.size(); i++){
