@@ -78,4 +78,12 @@ public abstract class AbstractSVMLightReader implements Closeable {
 	}
 
 	protected abstract void parseLabel(String nextToken);
+	
+	public int[] indexes() {
+		return indexes.toArray();
+	}
+	
+	public double[] values() {
+		return values.toArray();
+	}
 }
