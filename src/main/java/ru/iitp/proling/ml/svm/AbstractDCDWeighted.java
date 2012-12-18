@@ -2,7 +2,7 @@ package ru.iitp.proling.ml.svm;
 
 import java.util.Arrays;
 
-import ru.iitp.proling.common.ArrayUtils;
+import name.kazennikov.common.ArrayUtils;
 /**
  * Weighted DCD Solver for Linear SVMs. Each sample could have a weight
  * to measure importance of its misclassification

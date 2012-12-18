@@ -1,7 +1,7 @@
 package ru.iitp.proling.svm;
 import java.util.*;
 
-import ru.iitp.proling.common.ArrayUtils;
+import name.kazennikov.common.ArrayUtils;
 import ru.iitp.proling.ml.core.Boostable;
 import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.core.WeightVector;

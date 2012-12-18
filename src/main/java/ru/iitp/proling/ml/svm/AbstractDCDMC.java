@@ -7,7 +7,7 @@ import java.util.Random;
 
 import com.google.common.primitives.Doubles;
 
-import ru.iitp.proling.common.ArrayUtils;
+import name.kazennikov.common.ArrayUtils;
 import ru.iitp.proling.ml.core.DatasetUtils;
 import ru.iitp.proling.ml.core.Instance;
 

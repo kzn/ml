@@ -2,7 +2,6 @@ package ru.iitp.proling.ml.sgd;
 
 import gnu.trove.list.array.TDoubleArrayList;
 
-import java.util.Arrays;
 import java.util.List;
 
 import ru.iitp.proling.ml.core.Instance;

@@ -1,7 +1,7 @@
 package ru.iitp.proling.svm;
 
 import java.util.ArrayList;
-import ru.iitp.proling.common.Alphabet;
+import name.kazennikov.common.Alphabet;
 import ru.iitp.proling.ml.core.Dataset;
 import ru.iitp.proling.ml.core.NativeInstance;
 

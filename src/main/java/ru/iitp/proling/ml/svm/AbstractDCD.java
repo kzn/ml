@@ -2,7 +2,7 @@ package ru.iitp.proling.ml.svm;
 
 import java.util.Arrays;
 
-import ru.iitp.proling.common.ArrayUtils;
+import name.kazennikov.common.ArrayUtils;
 
 /**
  * Dual Coordinate Descent solver for Linear SVM<br>

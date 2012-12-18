@@ -2,8 +2,8 @@ package ru.iitp.proling.svm;
 
 import java.util.Arrays;
 
-import ru.iitp.proling.common.ArrayUtils;
-import ru.iitp.proling.common.MurmurHash;
+import name.kazennikov.common.ArrayUtils;
+import name.kazennikov.common.MurmurHash;
 import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.core.MultiScorer;
 import ru.iitp.proling.ml.core.MulticlassProblem;

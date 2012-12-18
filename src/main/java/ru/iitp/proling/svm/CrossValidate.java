@@ -1,6 +1,6 @@
 package ru.iitp.proling.svm;
 
-import ru.iitp.proling.common.ArrayUtils;
+import name.kazennikov.common.ArrayUtils;
 import ru.iitp.proling.ml.core.WeightVector;
 
 public class CrossValidate {

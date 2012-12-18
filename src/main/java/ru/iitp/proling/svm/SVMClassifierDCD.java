@@ -2,7 +2,7 @@ package ru.iitp.proling.svm;
 
 
 import gnu.trove.map.hash.TObjectDoubleHashMap;
-import ru.iitp.proling.common.Alphabet;
+import name.kazennikov.common.Alphabet;
 import ru.iitp.proling.ml.core.Classifier;
 import ru.iitp.proling.ml.core.Dataset;
 import ru.iitp.proling.ml.core.Instance;

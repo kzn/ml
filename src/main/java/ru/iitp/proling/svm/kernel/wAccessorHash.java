@@ -2,7 +2,7 @@ package ru.iitp.proling.svm.kernel;
 
 import java.io.Serializable;
 
-import ru.iitp.proling.common.MurmurHash;
+import name.kazennikov.common.MurmurHash;
 
 public class wAccessorHash extends wAccessor implements Serializable{
 	protected int n;

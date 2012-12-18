@@ -1,6 +1,6 @@
 package ru.iitp.proling.svm;
 
-import ru.iitp.proling.common.ArrayUtils;
+import name.kazennikov.common.ArrayUtils;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.ml.scorer.TrivialScorer;
