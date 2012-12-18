@@ -165,6 +165,11 @@ public class ASGD {
 		renorm();
 		return w;
 	}
+	
+	public double[] a() {
+		renorm();
+		return a;
+	}
 
 
 //	/// Perform a test pass
