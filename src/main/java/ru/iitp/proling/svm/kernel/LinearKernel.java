@@ -3,9 +3,10 @@ package ru.iitp.proling.svm.kernel;
 import java.io.Serializable;
 import java.util.TreeMap;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.SparseVector;
 
-import ru.iitp.proling.ml.core.Instance;
 
 public class LinearKernel extends Kernel implements Serializable{
 

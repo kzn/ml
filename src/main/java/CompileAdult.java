@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
+
 import ru.iitp.proling.ml.core.MalletInstance;
 import ru.iitp.proling.svm.DCDSolver;
 import ru.iitp.proling.svm.SVMBinarySolver;

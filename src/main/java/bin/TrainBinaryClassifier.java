@@ -10,11 +10,12 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
+import name.kazennikov.ml.dataset.BinaryDatasetReaderDouble;
+import name.kazennikov.ml.dataset.BinaryModels;
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
 
-import ru.iitp.proling.ml.dataset.BinaryDatasetReaderDouble;
-import ru.iitp.proling.ml.dataset.BinaryModels;
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.svm.BasicDataset;
 import ru.iitp.proling.svm.DCDSolver;

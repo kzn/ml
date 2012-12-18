@@ -44,7 +44,7 @@ public class SVMBinaryClassifierTrainer extends ClassifierTrainer<SVMBinaryClass
 		if(trainingSet.getTargetAlphabet().size() > 2)
 			throw new IllegalArgumentException("Training set has more than 2 classes. Illegal for binary SVM problem");
 		
-		List<ru.iitp.proling.ml.core.Instance> instances = new ArrayList<ru.iitp.proling.ml.core.Instance>();
+		List<name.kazennikov.ml.core.Instance> instances = new ArrayList<name.kazennikov.ml.core.Instance>();
 		double[] targets = new double[trainingSet.size()];
 		
 		for(int i = 0; i != trainingSet.size(); i++){

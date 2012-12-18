@@ -6,6 +6,8 @@ import gnu.trove.list.array.TDoubleArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
+import name.kazennikov.ml.core.Instance;
+
 import ru.iitp.proling.svm.BasicDataset;
 import cc.mallet.types.SparseVector;
 

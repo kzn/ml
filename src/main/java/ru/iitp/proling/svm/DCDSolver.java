@@ -2,8 +2,8 @@ package ru.iitp.proling.svm;
 import java.util.*;
 
 import name.kazennikov.common.ArrayUtils;
+import name.kazennikov.ml.core.Instance;
 import ru.iitp.proling.ml.core.Boostable;
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.ml.scorer.TrivialScorer;

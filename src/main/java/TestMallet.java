@@ -215,9 +215,9 @@ public class TestMallet {
 		}*/
 		
 		// 2 compute 'train' and test subsets
-		List<ru.iitp.proling.ml.core.Instance> trainSet = new ArrayList<ru.iitp.proling.ml.core.Instance>();
+		List<name.kazennikov.ml.core.Instance> trainSet = new ArrayList<name.kazennikov.ml.core.Instance>();
 		TDoubleArrayList trainSetTargets = new TDoubleArrayList();
-		List<ru.iitp.proling.ml.core.Instance> testSet = new ArrayList<ru.iitp.proling.ml.core.Instance>();
+		List<name.kazennikov.ml.core.Instance> testSet = new ArrayList<name.kazennikov.ml.core.Instance>();
 		TDoubleArrayList testSetTargets = new TDoubleArrayList();
 		
 		int split = 50000;

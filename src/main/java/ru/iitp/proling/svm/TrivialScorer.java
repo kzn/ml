@@ -2,7 +2,8 @@ package ru.iitp.proling.svm;
 
 import java.util.Arrays;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
+
 import ru.iitp.proling.svm.kernel.Kernel;
 
 public class TrivialScorer extends Scorer {

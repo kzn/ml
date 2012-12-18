@@ -5,8 +5,9 @@ import gnu.trove.map.hash.TIntDoubleHashMap;
 import java.io.Serializable;
 import java.util.List;
 
-import ru.iitp.proling.ml.core.NativeInstance;
-import ru.iitp.proling.ml.core.SimpleInstance;
+import name.kazennikov.ml.core.NativeInstance;
+import name.kazennikov.ml.core.SimpleInstance;
+
 
 // ranked and weighted sample	
 public class RWSample<T> extends NativeInstance<T> implements Serializable{

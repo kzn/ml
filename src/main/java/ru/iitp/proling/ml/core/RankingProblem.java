@@ -2,6 +2,8 @@ package ru.iitp.proling.ml.core;
 
 import java.util.List;
 
+import name.kazennikov.ml.core.Instance;
+
 /**
  * Rank problem formulation. Target represent instance places in ranking.
  * That means than '1' is the first element, '2' - means that is ranked after '1' etc.

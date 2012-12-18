@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import name.kazennikov.ml.core.DatasetUtils;
+import name.kazennikov.ml.core.Instance;
+import name.kazennikov.ml.svm.AbstractPegasos;
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
 
-import ru.iitp.proling.ml.core.DatasetUtils;
-import ru.iitp.proling.ml.core.Instance;
-import ru.iitp.proling.ml.svm.AbstractPegasos;
 import ru.iitp.proling.svm.BasicDataset;
 
 

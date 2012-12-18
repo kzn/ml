@@ -10,9 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import name.kazennikov.ml.core.Instance;
+import name.kazennikov.ml.core.NativeInstance;
+
 import ru.iitp.proling.ml.core.Dataset;
-import ru.iitp.proling.ml.core.Instance;
-import ru.iitp.proling.ml.core.NativeInstance;
 
 public class ClassifierEval {
 	

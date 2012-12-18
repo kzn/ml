@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
+
 import ru.iitp.proling.ml.core.Ranker;
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.svm.kernel.Kernel;

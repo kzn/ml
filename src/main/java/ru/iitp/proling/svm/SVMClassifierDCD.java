@@ -3,9 +3,9 @@ package ru.iitp.proling.svm;
 
 import gnu.trove.map.hash.TObjectDoubleHashMap;
 import name.kazennikov.common.Alphabet;
+import name.kazennikov.ml.core.Instance;
 import ru.iitp.proling.ml.core.Classifier;
 import ru.iitp.proling.ml.core.Dataset;
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.svm.kernel.Kernel;
 
 public class SVMClassifierDCD<T> implements Classifier<T>{

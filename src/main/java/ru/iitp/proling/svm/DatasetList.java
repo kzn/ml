@@ -2,8 +2,9 @@ package ru.iitp.proling.svm;
 
 import java.util.List;
 
+import name.kazennikov.ml.core.NativeInstance;
+
 import ru.iitp.proling.ml.core.Dataset;
-import ru.iitp.proling.ml.core.NativeInstance;
 
 
 public interface DatasetList<T>{

@@ -6,7 +6,8 @@ import gnu.trove.list.array.TDoubleArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
+
 import ru.iitp.proling.ml.scorer.EnsembleScorer;
 import ru.iitp.proling.ml.scorer.Scorer;
 /**

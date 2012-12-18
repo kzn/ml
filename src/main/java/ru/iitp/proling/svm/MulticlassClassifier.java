@@ -1,6 +1,6 @@
 package ru.iitp.proling.svm;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
 
 /**
  * Generic multiclass classifier interface

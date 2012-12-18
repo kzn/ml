@@ -1,7 +1,7 @@
 package ru.iitp.proling.ml.scorer;
 
+import name.kazennikov.ml.core.Instance;
 import cc.mallet.types.SparseVector;
-import ru.iitp.proling.ml.core.Instance;
 
 public class DiscreteScorer extends Scorer {
 	final Scorer base;

@@ -1,10 +1,11 @@
 import java.io.IOException;
 import java.util.Random;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.SparseVector;
 import cc.mallet.util.Randoms;
 
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.svm.BasicDataset;
 import ru.iitp.proling.svm.RWSample;
 

@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.pipe.Pipe;
 import cc.mallet.pipe.Target2Label;
 import cc.mallet.types.Alphabet;
@@ -10,7 +12,6 @@ import cc.mallet.types.InstanceList;
 
 import ru.iitp.proling.ml.boosting.AdaBoostReal;
 import ru.iitp.proling.ml.boosting.CappedLinearSVMLearner;
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.svm.BasicDataset;
 import ru.iitp.proling.svm.BinaryClassifier;

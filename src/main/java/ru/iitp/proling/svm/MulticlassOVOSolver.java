@@ -7,12 +7,13 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import java.util.ArrayList;
 import java.util.List;
 
+import name.kazennikov.ml.core.Instance;
+import name.kazennikov.ml.core.MulticlassProblem;
+import name.kazennikov.ml.core.MulticlassSolver;
+
 import cc.mallet.types.SparseVector;
 
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.core.MultiScorer;
-import ru.iitp.proling.ml.core.MulticlassProblem;
-import ru.iitp.proling.ml.core.MulticlassSolver;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.svm.kernel.Kernel;
 

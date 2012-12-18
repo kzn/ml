@@ -1,6 +1,6 @@
 package ru.iitp.proling.svm;
 
-import ru.iitp.proling.ml.core.MulticlassProblem;
+import name.kazennikov.ml.core.MulticlassProblem;
 
 public class MulticlassProblemCost extends MulticlassProblemProxy {
 	final double[] costs;

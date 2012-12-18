@@ -1,6 +1,7 @@
 package ru.iitp.proling.ml.core;
 
 import name.kazennikov.common.Alphabet;
+import name.kazennikov.ml.core.NativeInstance;
 
 /**
  * Dataset - collection of type T

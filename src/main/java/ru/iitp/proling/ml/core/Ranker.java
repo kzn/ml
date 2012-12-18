@@ -3,6 +3,8 @@ package ru.iitp.proling.ml.core;
 import java.util.List;
 import java.util.SortedMap;
 
+import name.kazennikov.ml.core.Instance;
+
 
 public interface Ranker {
 	SortedMap<Double, Instance> rank(List<Instance> lst);

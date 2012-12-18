@@ -7,7 +7,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.SparseVector;
 
 public class PolyHashKernel extends Kernel implements Serializable {

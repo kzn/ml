@@ -5,7 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
+
 
 public abstract class HashKernel extends Kernel implements Serializable{
 	protected Kernel base;

@@ -2,9 +2,10 @@ package ru.iitp.proling.svm.kernel;
 
 import java.util.TreeMap;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.SparseVector;
 
-import ru.iitp.proling.ml.core.Instance;
 
 /*
  * Abstract class instead of Interface for efficiency reasons

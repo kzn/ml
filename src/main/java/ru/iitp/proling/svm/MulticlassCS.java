@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import name.kazennikov.common.ArrayUtils;
+import name.kazennikov.ml.core.Instance;
 import ru.iitp.proling.ml.core.Dataset;
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.svm.kernel.Kernel;
 import ru.iitp.proling.svm.kernel.LinearKernel;
 

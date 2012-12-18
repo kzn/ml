@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
+import name.kazennikov.ml.core.Instance;
+
 import ru.iitp.proling.ml.boosting.AdaBoost;
 import ru.iitp.proling.ml.boosting.LinearSVMWeakLearner;
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.core.SimpleDataset;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.ml.scorer.Scorer;

@@ -5,7 +5,8 @@ import gnu.trove.list.array.TDoubleArrayList;
 
 import java.util.List;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
+
 
 
 public class EnsembleScorer extends Scorer {

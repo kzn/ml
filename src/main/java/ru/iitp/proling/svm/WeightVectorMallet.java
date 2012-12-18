@@ -3,10 +3,11 @@ package ru.iitp.proling.svm;
 import java.util.Arrays;
 import java.util.List;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.SparseVector;
 
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.svm.kernel.Kernel;
 

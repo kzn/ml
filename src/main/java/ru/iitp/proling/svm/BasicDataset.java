@@ -24,9 +24,9 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import name.kazennikov.common.Alphabet;
+import name.kazennikov.ml.core.Instance;
+import name.kazennikov.ml.core.NativeInstance;
 import ru.iitp.proling.ml.core.Dataset;
-import ru.iitp.proling.ml.core.Instance;
-import ru.iitp.proling.ml.core.NativeInstance;
 
 
 public class BasicDataset implements Dataset<Double>, Serializable {

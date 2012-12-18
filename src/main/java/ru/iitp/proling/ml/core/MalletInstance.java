@@ -1,5 +1,6 @@
 package ru.iitp.proling.ml.core;
 
+import name.kazennikov.ml.core.Instance;
 import cc.mallet.types.SparseVector;
 
 public class MalletInstance implements Instance {

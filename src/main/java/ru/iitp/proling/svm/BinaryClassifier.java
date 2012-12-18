@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.SparseVector;
 import ru.iitp.proling.ml.core.Classifier;
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.scorer.Scorer;
 
 /**

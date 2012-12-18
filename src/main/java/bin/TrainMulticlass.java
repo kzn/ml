@@ -15,15 +15,16 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
+import name.kazennikov.ml.core.Instance;
+import name.kazennikov.ml.core.MulticlassProblem;
+import name.kazennikov.ml.core.SimpleInstance;
+import name.kazennikov.ml.dataset.BinaryDatasetReaderDouble;
+import name.kazennikov.ml.dataset.BinaryModels;
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
 
-import ru.iitp.proling.common.MurmurHash;
-import ru.iitp.proling.ml.core.Instance;
-import ru.iitp.proling.ml.core.MulticlassProblem;
-import ru.iitp.proling.ml.core.SimpleInstance;
-import ru.iitp.proling.ml.dataset.BinaryDatasetReaderDouble;
-import ru.iitp.proling.ml.dataset.BinaryModels;
+import name.kazennikov.common.MurmurHash;
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.svm.BasicDataset;
 import ru.iitp.proling.svm.DCDSolver;

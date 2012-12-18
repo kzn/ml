@@ -2,7 +2,8 @@ package ru.iitp.proling.ml.boosting;
 
 import java.util.List;
 
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.ml.core.Instance;
+
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.svm.DCDSolver;
 import ru.iitp.proling.svm.WeightVectorCost;

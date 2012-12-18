@@ -13,11 +13,12 @@ import java.util.List;
 
 import javax.net.ssl.SSLContext;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.SparseVector;
 
 //import cc.mallet.types.Instance;
 
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.core.MalletInstance;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.ml.scorer.Scorer;

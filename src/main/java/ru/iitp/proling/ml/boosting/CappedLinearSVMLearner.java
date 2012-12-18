@@ -2,9 +2,10 @@ package ru.iitp.proling.ml.boosting;
 
 import java.util.List;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.SparseVector;
 
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.scorer.ScoreProcessor;
 import ru.iitp.proling.ml.scorer.Scorer;
 

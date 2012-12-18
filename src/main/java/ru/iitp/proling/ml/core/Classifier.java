@@ -2,6 +2,8 @@ package ru.iitp.proling.ml.core;
 
 import java.io.Serializable;
 
+import name.kazennikov.ml.core.Instance;
+
 import cc.mallet.types.SparseVector;
 
 /**

@@ -3,9 +3,10 @@ package ru.iitp.proling.ml.mallet;
 import java.util.ArrayList;
 import java.util.List;
 
+import name.kazennikov.ml.core.MulticlassProblem;
+import name.kazennikov.ml.core.MulticlassSolver;
+
 import ru.iitp.proling.ml.core.MultiScorer;
-import ru.iitp.proling.ml.core.MulticlassProblem;
-import ru.iitp.proling.ml.core.MulticlassSolver;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.ml.scorer.Scorer;
 import ru.iitp.proling.svm.DCDSolver;
@@ -35,7 +36,7 @@ public class SVMMultiClassifierTrainer extends ClassifierTrainer<SVMMultiClassif
 
 	@Override
 	public SVMMultiClassifier train(InstanceList trainingSet) {
-		List<ru.iitp.proling.ml.core.Instance> instances = new ArrayList<ru.iitp.proling.ml.core.Instance>();
+		List<name.kazennikov.ml.core.Instance> instances = new ArrayList<name.kazennikov.ml.core.Instance>();
 		int[] targets = new int[trainingSet.size()];
 		
 		for(int i = 0; i != trainingSet.size(); i++){

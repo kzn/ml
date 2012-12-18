@@ -3,8 +3,9 @@ package ru.iitp.proling.svm;
 import java.util.Arrays;
 import java.util.List;
 
+import name.kazennikov.ml.core.Instance;
+
 import ru.iitp.proling.ml.core.Dataset;
-import ru.iitp.proling.ml.core.Instance;
 import ru.iitp.proling.ml.core.WeightVector;
 import ru.iitp.proling.svm.kernel.Kernel;
 

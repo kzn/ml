@@ -7,13 +7,14 @@ import java.io.PrintWriter;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
+import name.kazennikov.ml.core.Instance;
+import name.kazennikov.ml.dataset.BinaryDatasetReaderDouble;
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
 
-import ru.iitp.proling.common.MurmurHash;
-import ru.iitp.proling.ml.core.Instance;
+import name.kazennikov.common.MurmurHash;
 import ru.iitp.proling.ml.core.MalletInstance;
-import ru.iitp.proling.ml.dataset.BinaryDatasetReaderDouble;
 import ru.iitp.proling.svm.RWSample;
 
 import cc.mallet.types.SparseVector;
