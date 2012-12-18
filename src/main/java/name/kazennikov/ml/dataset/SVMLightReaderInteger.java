@@ -12,6 +12,9 @@ public class SVMLightReaderInteger extends AbstractSVMLightReader {
 
 	@Override
 	protected void parseLabel(String nextToken) {
+		if(nextToken.charAt(0) == '+') {
+			nextToken = nextToken.substring(1);
+		}
 		label = Integer.parseInt(nextToken);
 	}
 	
