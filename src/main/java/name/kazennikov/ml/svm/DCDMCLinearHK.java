@@ -14,8 +14,8 @@ public abstract class DCDMCLinearHK extends AbstractDCDMC {
 	int dim;
 	
 	public DCDMCLinearHK(List<Instance> instances, int[] targets, int dim, int numClasses, 
-			double c_pos, double c_neg, int iter, double eps, int threshold) {
-		super(c_pos, c_neg, iter, eps, threshold);
+			double c, int iter, double eps, int threshold) {
+		super(c, iter, eps, threshold);
 		this.instances = instances;
 		this.targets = targets;
 		w = new double[dim];
