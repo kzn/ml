@@ -51,9 +51,9 @@ public class Test {
 	public static class Solver1 extends DCDMCLinearHK {
 
 		int sdim;
-		public Solver1(List<Instance> instances, int[] targets, int dim, int numClasses, double c_pos, double c_neg, int iter, double eps,
+		public Solver1(List<Instance> instances, int[] targets, int dim, int numClasses, double c, int iter, double eps,
 				int threshold, int sdim) {
-			super(instances, targets, dim, numClasses, c_pos, c_neg, iter, eps, threshold);
+			super(instances, targets, dim, numClasses, c, iter, eps, threshold);
 
 			this.sdim = sdim;
 		}

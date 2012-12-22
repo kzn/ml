@@ -17,112 +17,17 @@ import name.kazennikov.ml.core.Instance;
  *
  */
 public abstract class AbstractDCDMC {
-//	List<Instance> dataset;
-//	double w[];
-//	double targets[];
-//	int nClasses;
-	
-//	protected AbstractDCDMC(double c_pos, double c_neg, int iter, double eps, int threshold) {
-//		super(c_pos, c_neg, iter, eps, threshold);
-//	}
-//	
-//	/**
-//	 * Return current value of the weight vector
-//	 */
-//	public double[] w() {
-//		return w;
-//	}
-//	
-//	public abstract int h(int vec, int index);
-//
-//	/**
-//	 * Construct solver
-//	 * @param dataset sample dataset
-//	 * @param targets sample target values
-//	 * @param c_pos C for positive samples
-//	 * @param c_neg C for negative examples
-//	 * @param iter max number of iterations to perform
-//	 * @param eps epsilon to stop within optimal solution
-//	 * @param threshold active vars threshold between shuffling and sorting
-//	 */
-//	public AbstractDCDMC(List<Instance> dataset, double[] targets, int dim, int nClasses, double c_pos, double c_neg, 
-//			int iter, double eps, int threshold) {
-//		super(c_pos, c_neg, iter, eps, threshold);
-//		this.dataset = dataset;
-//		this.targets = targets;
-//		w = new double[dim + 1];
-//		this.nClasses = nClasses;
-//	}
-//	
-//
-//	@Override
-//	public void init() {
-//		for(int i = 0; i != w.length; i++) {
-//			w[i] = 0;
-//		}
-//	}
-//
-//	@Override
-//	public double snorm(int vec) {
-//		vec = vec / size();
-//		
-//		Instance v = dataset.get(vec);
-//		double snorm = 0;
-//		for(int i = 0; i != v.size(); i++) {
-//			snorm += v.valueAt(i) * v.valueAt(i);
-//		}
-//
-//		return snorm;
-//	}
-//
-//	@Override
-//	public int size() {
-//		return dataset.size();
-//	}
-//
-//	@Override
-//	public double dot(int vec) {
-//		int c = vec % size();
-//		vec = vec / size();
-//		
-//		Instance v = dataset.get(vec);
-//		double val = 0;
-//		
-//		for(int i = 0; i != v.size(); i++) {
-//			val += w[h(c, v.indexAt(i))] * v.valueAt(i);
-//		}
-//
-//		return val;
-//	}
-//
-//	@Override
-//	public void add(int vec, double factor) {
-//		Instance v = dataset.get(vec);
-//		
-//		for(int i = 0; i != v.size(); i++) {
-//			w[v.indexAt(i)] += factor * v.valueAt(i);
-//		}
-//
-//	}
-//
-//	@Override
-//	public double target(int vec) {
-//		return targets[vec];
-//	}
-//
 
 
 
 	protected int verbosity;
-	double c_pos;
-	double c_neg;
+	double c;
 	int iter;
 	double eps;
 	int threshold;
 
-	public AbstractDCDMC(double c_pos, double c_neg, int iter, double eps, int threshold) {
-		this.c_pos = c_pos;
-		this.c_neg = c_neg;
+	public AbstractDCDMC(double c, int iter, double eps, int threshold) {
+		this.c = c;
 		this.iter = iter;
 		this.eps = eps;
 		this.threshold = threshold;
@@ -185,7 +90,7 @@ public abstract class AbstractDCDMC {
 
 
 		if(verbosity > 0){
-			System.out.printf("C:%.4f/%.4f\n",c_pos, c_neg);
+			System.out.printf("C=%.4f%n",c);
 			System.out.println("Algorithm: DCD-MC");
 			System.out.printf("Problem size: %d samples (%d classes)%n", size, numClasses);
 		}
@@ -221,8 +126,7 @@ public abstract class AbstractDCDMC {
 
 				double alpha = alphas[i]; 
 				double target = target(cls, x);
-				double cost = target == 1.0? c_pos : c_neg;
-				double d_ii = norm == 2? 0.5/cost : 0;
+				double d_ii = norm == 2? 0.5/c : 0;
 				double g = 0;
 
 				g = dot(cls, x);
@@ -233,7 +137,7 @@ public abstract class AbstractDCDMC {
 
 				boolean shrink = false;
 
-				double c = norm == 1? cost : Double.POSITIVE_INFINITY;
+				double c = norm == 1? this.c : Double.POSITIVE_INFINITY;
 
 				double pg = g; // projected gradient
 				if(alpha == 0) {
@@ -275,8 +179,7 @@ public abstract class AbstractDCDMC {
 
 			if(diff <= eps && active == samples) {
 				if(verbosity > 0) {
-					System.out.printf("Reached min eps at: %d, ", t);
-					System.out.printf("eps: %.4f%n",diff);
+					System.out.printf("Reached min eps at: %d, eps: %.4f%n", t, diff);
 				}
 				break;
 			} else if(diff <= eps) {
@@ -309,7 +212,7 @@ public abstract class AbstractDCDMC {
 		elapsed = System.currentTimeMillis() - elapsed;
 
 		if(verbosity > 0){
-			System.out.printf("Optimization done in: %.2f secs\n", elapsed / 1.0E3);
+			System.out.printf("Optimization done in: %.2f secs%n", elapsed / 1.0E3);
 			System.out.printf("Total evals: %d%n", iters);
 			System.out.println("Done.");
 		}
