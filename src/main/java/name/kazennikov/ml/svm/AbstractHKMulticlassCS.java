@@ -34,7 +34,7 @@ public abstract class AbstractHKMulticlassCS extends AbstractMulticlassCS {
 	}
 
 	@Override
-	public int classes() {
+	public int numClasses() {
 		return problem.classes();
 	}
 

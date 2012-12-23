@@ -8,9 +8,9 @@ public abstract class AbstractMulticlassCS {
 	double c;
 	double eps;
 	int maxiter;
-	protected double[] alpha; ///< Alphas array
-	protected double[] b; ///< 
-	protected double[] g; ///< Gradient vector
+	protected double[] alpha; // Alphas array
+	protected double[] b; /// 
+	protected double[] g; // Gradient vector
 	protected int[] alpha_index;
 
 	public AbstractMulticlassCS(double c, double eps, int maxiter){
@@ -20,15 +20,15 @@ public abstract class AbstractMulticlassCS {
 	}
 	
 	public void init() {
-		alpha = new double[size() * classes()];
-		b = new double[classes()];
-		g = new double[classes()];
-		alpha_index = new int[classes() * size()]; //alpha_index[m][i] = m initially
+		alpha = new double[size() * numClasses()];
+		b = new double[numClasses()];
+		g = new double[numClasses()];
+		alpha_index = new int[numClasses() * size()]; // alpha_index[m][i] = m initially
 	}
 
 
 	public abstract int size();
-	public abstract int classes();
+	public abstract int numClasses();
 
 	/**
 	 * Add factor*vec_idx to w_idx weight vector
@@ -51,23 +51,23 @@ public abstract class AbstractMulticlassCS {
 
 
 
-	protected double get_alpha(int sample, int cls){
-		return alpha[sample * classes() + cls];
+	protected double getAlpha(int sample, int cls) {
+		return alpha[sample * numClasses() + cls];
 	}
 
-	protected void set_alpha(int sample, int cls, double value){
-		alpha[sample * classes() + cls] = value;
+	protected void setAlpha(int sample, int cls, double value) {
+		alpha[sample * numClasses() + cls] = value;
 	}
 
-	protected int get_alpha_idx(int sample, int cls){
-		return alpha_index[sample * classes() + cls];
+	protected int getAlphaIndex(int sample, int cls) {
+		return alpha_index[sample * numClasses() + cls];
 	}
 
-	protected void set_alpha_idx(int sample, int cls, int value){
-		alpha_index[sample * classes() + cls] = value;
+	protected void setAlphaIndex(int sample, int cls, int value) {
+		alpha_index[sample * numClasses() + cls] = value;
 	}
 
-	protected void solve_subproblem(double A_i, int yi, double C_yi, int active_i, double[] alpha_new){
+	protected void solveSubproblem(double A_i, int yi, double C_yi, int active_i, double[] alpha_new) {
 		int r;
 		double[] D = new double[active_i];
 		for(int i = 0; i < active_i; i++)
@@ -80,25 +80,19 @@ public abstract class AbstractMulticlassCS {
 		Arrays.sort(D); // reverse order
 
 		double beta = D[D.length - 1] - A_i*C_yi;
+		
 		for(r = 1; r < active_i && beta < r*D[D.length - 1 - r]; r++)
 			beta += D[D.length - 1 - r];
 
 		beta /= r;
-		for(r = 0; r < active_i; r++){
-			if(r == yi)
-				alpha_new[r] = Math.min(C_yi, (beta - b[r])/A_i);
-			else
-				alpha_new[r] = Math.min(0.0, (beta - b[r])/A_i);
+		for(r = 0; r < active_i; r++) {
+			alpha_new[r] = Math.min(r == yi? C_yi : 0.0, (beta - b[r])/A_i);
 		}
 	}
 
-	protected boolean be_shrunken(int m, int yi, double alpha_i, double minG){
-		double bound = 0;
-		if(m == yi)
-			bound = c;
-		if(alpha_i == bound && g[m] < minG)
-			return true;
-		return false;
+	protected boolean be_shrunken(int m, int yi, double alpha_i, double minG) {
+		double bound = m == yi? c : 0;
+		return alpha_i == bound && g[m] < minG;
 	}
 
 
@@ -108,9 +102,9 @@ public abstract class AbstractMulticlassCS {
 		     @param idx - sample index
 		     @param active_size - number of active classes
 	 */
-	void grad_add_dot(double[] g, int idx, int active_size){
+	void grad_add_dot(double[] g, int idx, int active_size) {
 		for(int m = 0; m < active_size; m++) {
-			g[m] += dot(get_alpha_idx(idx, m), idx);
+			g[m] += dot(getAlphaIndex(idx, m), idx);
 		}
 	}
 
@@ -121,13 +115,13 @@ public abstract class AbstractMulticlassCS {
 	     If original class label is needed, one should map
 	     the result value through classes.
 	 */
-	protected int predict_class(int v_idx){
+	protected int predictClass(int v_idx) {
 		int t = -1;
 		double max_score = Double.NEGATIVE_INFINITY;
 
-		for(int i = 0; i != classes(); i++){
+		for(int i = 0; i != numClasses(); i++) {
 			double score = dot(i, v_idx);
-			if(score > max_score){
+			if(score > max_score) {
 				t = i;
 				max_score = score;
 			}
@@ -136,11 +130,11 @@ public abstract class AbstractMulticlassCS {
 		return t;
 	}
 
-	public double zero_one_loss(){
+	public double zeroOneLoss() {
 		int _loss = 0;
 		
-		for(int i = 0; i != size(); i++){
-			if(predict_class(i) != target(i))
+		for(int i = 0; i != size(); i++) {
+			if(predictClass(i) != target(i))
 				_loss++;
 		}
 		
@@ -149,10 +143,10 @@ public abstract class AbstractMulticlassCS {
 	}
 
 
-	public void solve(){
+	public void solve() {
 		init();
 		System.out.println("Dataset size:" + size());
-		double[] alpha_new = new double[classes()]; // new \alpha
+		double[] alpha_new = new double[numClasses()]; // new \alpha
 		int[] index = new int[size()]; // array of indexes of samples
 
 		int[] y_index = new int[size()]; // y[i] -- целевые классы
@@ -163,17 +157,17 @@ public abstract class AbstractMulticlassCS {
 
 		long start_point = System.nanoTime();
 		// initialization
-		for(int i = 0; i != size(); i++){
+		for(int i = 0; i != size(); i++) {
 
-			for(int m = 0; m != classes(); m++)
-				alpha_index[i*classes() + m] = m; //init alpha[i]
+			for(int m = 0; m != numClasses(); m++)
+				alpha_index[i*numClasses() + m] = m; //init alpha[i]
 
-			active_size_i[i] = classes();
+			active_size_i[i] = numClasses();
 			y_index[i] = target(i); 
 			index[i] = i;
 		}
 
-		for(int t = 0; t !=  maxiter; t++){
+		for(int t = 0; t !=  maxiter; t++) {
 
 			double stopping = Double.NEGATIVE_INFINITY;
 			long iter_start = System.nanoTime();
@@ -200,8 +194,8 @@ public abstract class AbstractMulticlassCS {
 					double maxG = Double.NEGATIVE_INFINITY;
 
 					// track max positive G, and min negative G
-					for(int m = 0; m < active_size_i[i]; m++){
-						if(get_alpha(i, get_alpha_idx(i, m)) < 0 && g[m] < minG)
+					for(int m = 0; m < active_size_i[i]; m++) {
+						if(getAlpha(i, getAlphaIndex(i, m)) < 0 && g[m] < minG)
 							minG = g[m];
 						if(g[m] > maxG)
 							maxG = g[m];
@@ -209,16 +203,16 @@ public abstract class AbstractMulticlassCS {
 
 					// если целевое значение активно, и если 
 					if(y_index[i] < active_size_i[i])
-						if(get_alpha(i, target(i)) < c && g[y_index[i]] < minG)
+						if(getAlpha(i, target(i)) < c && g[y_index[i]] < minG)
 							minG = g[y_index[i]];
 
-					for(int m = 0; m < active_size_i[i]; m++){ // Needed, when active_size_i[i] = 0
-						if(be_shrunken(m, y_index[i], get_alpha(i, get_alpha_idx(i, m)), minG)){
+					for(int m = 0; m < active_size_i[i]; m++) { // Needed, when active_size_i[i] = 0
+						if(be_shrunken(m, y_index[i], getAlpha(i, getAlphaIndex(i, m)), minG)) {
 							active_size_i[i]--;
 							while(active_size_i[i] > m){
 								if(!be_shrunken(active_size_i[i], y_index[i],
-										get_alpha(i, get_alpha_idx(i, active_size_i[i])), minG)){
-									ArrayUtils.swap(alpha_index, i*classes() + m, i*classes() + active_size_i[i]);
+										getAlpha(i, getAlphaIndex(i, active_size_i[i])), minG)){
+									ArrayUtils.swap(alpha_index, i*numClasses() + m, i*numClasses() + active_size_i[i]);
 									ArrayUtils.swap(g, m, active_size_i[i]);
 
 									if(y_index[i] == active_size_i[i])
@@ -233,7 +227,7 @@ public abstract class AbstractMulticlassCS {
 						}
 					}
 
-					if(active_size_i[i] <= 1){
+					if(active_size_i[i] <= 1) {
 						active_size--;
 						ArrayUtils.swap(index, j, active_size);
 						j--;
@@ -246,40 +240,35 @@ public abstract class AbstractMulticlassCS {
 						stopping = Math.max(maxG - minG, stopping);
 
 					for(int m = 0; m != active_size_i[i]; m++)
-						b[m] = g[m] - snorm*get_alpha(i, get_alpha_idx(i,m));
+						b[m] = g[m] - snorm*getAlpha(i, getAlphaIndex(i,m));
 
-					solve_subproblem(snorm, y_index[i], c, active_size_i[i], alpha_new);
+					solveSubproblem(snorm, y_index[i], c, active_size_i[i], alpha_new);
 
 
-					for(int m = 0; m != active_size_i[i]; m++){
-						double dalpha = alpha_new[m] - get_alpha(i, get_alpha_idx(i, m));
-						set_alpha(i, get_alpha_idx(i, m), alpha_new[m]);
+					for(int m = 0; m != active_size_i[i]; m++) {
+						double dalpha = alpha_new[m] - getAlpha(i, getAlphaIndex(i, m));
+						setAlpha(i, getAlphaIndex(i, m), alpha_new[m]);
 
 						if(Math.abs(dalpha) >= 1e-12){ // is it worth to add to weight vector?
-							add(get_alpha_idx(i, m), i, dalpha);
-							// delta[delta_size].first = alpha_index_i[m];
-							// delta[delta_size].second = dalpha;
-							// delta_size++;
+							add(getAlphaIndex(i, m), i, dalpha);
 						}
 					}
-
-					//add_mcalpha(i, delta, delta_size);
 				}
 			}
 			iter_start = System.nanoTime() - iter_start;
-			System.out.printf("Iteration:%d active_size:%d eps=%f time=%f msecs\n", t, active_size, stopping, 1.0*iter_start/1E6);
+			System.out.printf("Iteration:%d active_size:%d eps=%.4f time=%.4f msecs\n", t, active_size, stopping, 1.0*iter_start/1E6);
 
-			if(stopping < eps_shrink){
+			if(stopping < eps_shrink) {
 
-				if(stopping < eps && full_iteration == true){
+				if(stopping < eps && full_iteration == true) {
 					System.out.println("Stopped at:" + t);
-					System.out.printf("Optimization done in: %f secs\n", 1.0*(System.nanoTime() - start_point)/1E9);
+					System.out.printf("Optimization done in: %.4f secs\n", 1.0*(System.nanoTime() - start_point)/1E9);
 					break;
 				}
 				// reactivate all samples and classes
 				active_size = size();
 				for(int k = 0; k < size(); k++)
-					active_size_i[k] = classes();
+					active_size_i[k] = numClasses();
 
 				System.out.print('*');
 				System.out.flush();
@@ -287,6 +276,7 @@ public abstract class AbstractMulticlassCS {
 				full_iteration = true;
 				continue;
 			}
+			
 			full_iteration = false;
 		}
 
