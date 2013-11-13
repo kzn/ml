@@ -72,17 +72,18 @@ public class TestASGD {
 		DCDLinear dcd = new DCDLinear(train.x, train.y.toArray(), 2, 2, 500, 0.1, 0);
 		ASGD asgd = new ASGD(new LossFunctions.HingeLoss(), 1.0e-5, 1 * train.size(), 0.25, train.dim());
 //		ASGD asgd = new ASGD(new LossFunctions.HingeLoss(), 1.0/0.1/train.size(), 2 * train.size(), 0.05, train.dim());
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < 10; i++) {
 			asgd.train(0, train.x.size(), train.x, train.y);
-			System.out.printf("Cost: %.4f/%.4f%n%n", 
-					train.test(asgd.w(), new LossFunctions.HingeLoss())/train.size(),
+			System.out.printf("Cost: %.4f/%.4f/%.4f%n%n", 
+					train.test(asgd.a(), new LossFunctions.HingeLoss())/train.size(),
+					test.test(asgd.a(), new LossFunctions.HingeLoss())/test.size(),
 					test.test(asgd.w(), new LossFunctions.HingeLoss())/test.size()
 					);
 		}
 		dcd.solve(1);
 		
 		
-		double[] w = asgd.w();
+		double[] w = asgd.a();
 		
 		System.out.printf("Errors: %f.4%n", test.test(w, new LossFunctions.HingeLoss())/test.size());
 		System.out.printf("|w| = %.4f%n", DenseVector.dot(w, w));

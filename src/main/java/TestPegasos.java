@@ -107,7 +107,9 @@ public class TestPegasos {
 		
 		public double objValue() {
 			System.out.printf("Sqnorm: %f%n", snorm());
+
 			double lambda = 1.0/c/size();
+			System.out.printf("Lambda: %f%n", lambda);
 			double v = 1.0/2 * snorm() * lambda;
 			double l = 0;
 			
