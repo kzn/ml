@@ -18,7 +18,7 @@ import ru.iitp.proling.svm.kernel.Kernel;
  */
 public abstract class MulticlassProblem {
 
-//	public abstract List<Instance> instances();
+	public abstract List<Instance> instances();
 	public abstract int classes();
 	public abstract int size();
 	public abstract int dim();
