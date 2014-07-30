@@ -33,62 +33,62 @@ public abstract class AbstractPegasosOVR {
 	// Doesn't use w.cost(i)
 	public void solve() {
 		init();
-		
-		  int totdocs = size() * numClasses();
-		  double lambda = 1.0/c/size();
-		  int size = size();
-		  
-		  Random gen = new Random();
-		  
-		  
-		  if(k == 0)
-			  k = totdocs;
- 
-		  int[] xs = new int[k];
-		  int[] ys = new int[k];
-		  int ptr = 0; // index of A+ array
-		  
-		  
-		  
-		  
-		  for(int t = 1; t != iter; t++){
-		    ptr = 0;
 
-		    if(t % ITER_PER_DOT == 0){
-		    	System.out.print(".");
-		    	System.out.flush();
-		    }
-		    
-		    double eta = 1.0/(lambda * Math.sqrt(Math.sqrt(t + start_iter)));
+		int totdocs = size() * numClasses();
+		double lambda = 1.0/c/totdocs;
+		int size = size();
 
-		    for(int i = 0; i != k; i++){
-		      int idx = Math.abs(gen.nextInt()) % totdocs;
-		      int cls = idx / size;
-		      idx = idx % size;
-		      
-		      double eval = target(cls, idx) * dot(cls, idx);
-		      if(eval - 1.0 < 10e-12) {  
-		    	  xs[ptr] = idx;
-		    	  ys[ptr] = cls;
-		    	  ptr++;
-		      }
-		      
-		      
-		    }
-
-		    scale(1 - 1.0/(t + start_iter + 1));
-
-		    for(int i = 0; i != ptr; i++){
-		      add(ys[i], xs[i], eta/k*target(ys[i], xs[i]));
-		    }
+		Random gen = new Random();
 
 
-		    double snorm = snorm();
-		    if(snorm > 1/lambda)
-		      scale(Math.sqrt(1/(lambda * snorm)));
-		  }
-		  System.out.println("Done.");
+		if(k == 0)
+			k = totdocs;
+
+		int[] xs = new int[k];
+		int[] ys = new int[k];
+		int ptr = 0; // index of A+ array
+
+
+
+
+		for(int t = 1; t != iter; t++){
+			ptr = 0;
+
+			if(t % ITER_PER_DOT == 0){
+				System.out.print(".");
+				System.out.flush();
+			}
+
+			double eta = 1.0/(lambda * Math.sqrt(Math.sqrt(t + start_iter)));
+
+			for(int i = 0; i != k; i++){
+				int idx = Math.abs(gen.nextInt()) % totdocs;
+				int cls = idx / size;
+				idx = idx % size;
+
+				double eval = target(cls, idx) * dot(cls, idx);
+				if(eval - 1.0 < 10e-12) {  
+					xs[ptr] = idx;
+					ys[ptr] = cls;
+					ptr++;
+				}
+
+
+			}
+
+			scale(1 - 1.0/(t + start_iter + 1));
+
+			for(int i = 0; i != ptr; i++){
+				add(ys[i], xs[i], eta/k*target(ys[i], xs[i]));
+			}
+
+
+			double snorm = snorm();
+			if(snorm > 1.0/lambda)
+				scale(Math.sqrt(1.0/(lambda * snorm)));
 		}
+		System.out.println("Done.");
+	}
 
 
 

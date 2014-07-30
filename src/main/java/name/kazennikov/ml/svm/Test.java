@@ -89,10 +89,12 @@ public class Test {
 	public static class Solver2 extends PegasosHKOVR {
 
 		int sdim;
+		int[] targets;
 		public Solver2(List<Instance> instances, int[] targets, int dim, int numClasses, int sdim) {
-			super(instances, targets, numClasses, dim, 1000000, 1, 0.1, 0);
+			super(instances, numClasses, dim, 1000000, 1, 0.1, 0);
 
 			this.sdim = sdim;
+			this.targets = targets;
 		}
 
 		@Override
@@ -101,6 +103,13 @@ public class Test {
 			return c * sdim + index;
 		}
 		
+		
+		
+		@Override
+		public double target(int cls, int vec) {
+			return targets[vec] == cls? 1 : -1;
+		}
+
 		public int predict(Instance x) {
 			double score = Double.NEGATIVE_INFINITY;
 			int cls = 0;
