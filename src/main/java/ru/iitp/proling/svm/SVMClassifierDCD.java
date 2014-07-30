@@ -1,6 +1,7 @@
 package ru.iitp.proling.svm;
 
 
+import cc.mallet.types.SparseVector;
 import gnu.trove.map.hash.TObjectDoubleHashMap;
 import name.kazennikov.common.Alphabet;
 import name.kazennikov.ml.core.Instance;
@@ -24,12 +25,36 @@ public class SVMClassifierDCD<T> implements Classifier<T>{
 	}
 	
 	@Override
-	public T classify(Instance<?> vec) {
+	public T classify(Instance vec) {
 		return kernel.dot(this.vec, vec) > 0? alphabet.get(1) : alphabet.get(2); 
 	}
 
 	@Override
-	public TObjectDoubleHashMap<T> scores(Instance<?> v) {
+	public T classify(SparseVector vec) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double score(Instance vec, int cls) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double score(SparseVector vec, int cls) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int classes() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/*@Override
+	public TObjectDoubleHashMap<T> scores(Instance v) {
 		TObjectDoubleHashMap<T> hm = new TObjectDoubleHashMap<T>(alphabet.size());
 		double score = kernel.dot(this.vec, v);
 		hm.put(alphabet.get(1), score);
@@ -56,7 +81,7 @@ public class SVMClassifierDCD<T> implements Classifier<T>{
 		WeightVector wv = new WeightVectorLinear(dataset, targets, kernel);
 		DCDSolver.solve(wv, c, c, 500, 0.1, 100000);
 		vec = wv.vec();
-	}
+	}*/
 
 
 }

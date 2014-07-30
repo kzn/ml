@@ -64,4 +64,9 @@ public class MulticlassProblemBasic extends MulticlassProblem {
 	public double snorm(int index){
 		return snorms[index];
 	}
+
+	@Override
+	public List<Instance> instances() {
+		return data;
+	}
 }

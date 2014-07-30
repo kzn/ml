@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
+import ru.iitp.proling.ml.scorer.Scorer;
+
 
 public class AdaBoost {
 	public static EnsembleScorer train(WeightVector wv, BinarySolver solver, int iter){
@@ -25,7 +27,7 @@ public class AdaBoost {
 			for(int i = 0; i != D1.length; i++)
 				D1[i] *= m;
 			
-			WeightVectorCost w = new WeightVectorCost(wv, D1);
+			WeightVectorCost w = null; // FIXME: breaks build new WeightVectorCost(wv, D1);
 			w.clear();
 			Scorer s = solver.solve(w);
 			
@@ -43,7 +45,7 @@ public class AdaBoost {
 			
 			double a = 0.5 * Math.log((1 - e)/e);
 			
-			System.out.printf("e[%d]=%f, 1/0 loss:%f, a:%f\n", t, e, w.zero_one_loss(), a);
+			//System.out.printf("e[%d]=%f, 1/0 loss:%f, a:%f\n", t, e, w.zeroOneLoss(), a);
 			
 			for(int i = 0; i != D.length; i++)
 				D[i] *= Math.exp(-a * w.target(i) * Math.signum(w.dot(i)));
@@ -60,6 +62,6 @@ public class AdaBoost {
 			vecs.add(s);
 		}
 		
-		return new EnsembleScorer(vecs, alpha);
+		return null; // FIXME: breaks build new EnsembleScorer(vecs, alpha);
 	}
 }

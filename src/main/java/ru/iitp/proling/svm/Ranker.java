@@ -7,6 +7,6 @@ import name.kazennikov.ml.core.Instance;
 
 
 public interface Ranker {
-	SortedMap<Double, Instance<?>> rank(List<Instance<?>> lst);
-	double score(Instance<?> v);
+	SortedMap<Double, Instance> rank(List<Instance> lst);
+	double score(Instance v);
 }

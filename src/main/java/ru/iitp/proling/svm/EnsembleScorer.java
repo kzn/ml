@@ -9,6 +9,7 @@ import name.kazennikov.ml.core.Instance;
 
 
 
+
 public class EnsembleScorer extends Scorer {
 	
 	protected List<Scorer> scorers;
