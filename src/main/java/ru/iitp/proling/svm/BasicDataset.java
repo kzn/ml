@@ -23,7 +23,7 @@ import java.util.StringTokenizer;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import name.kazennikov.common.Alphabet;
+import name.kazennikov.alphabet.Alphabet;
 import name.kazennikov.ml.core.Instance;
 import name.kazennikov.ml.core.NativeInstance;
 import ru.iitp.proling.ml.core.Dataset;

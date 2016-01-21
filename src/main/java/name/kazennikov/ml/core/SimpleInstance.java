@@ -5,8 +5,8 @@ import gnu.trove.list.array.TIntArrayList;
 
 
 public class SimpleInstance implements Instance {
-	final int[] index;
-	final double[] values;
+	public final int[] index;
+	public final double[] values;
 
 	
 	public SimpleInstance(TIntArrayList index, TDoubleArrayList values) {

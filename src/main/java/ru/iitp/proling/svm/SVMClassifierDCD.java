@@ -3,7 +3,7 @@ package ru.iitp.proling.svm;
 
 import cc.mallet.types.SparseVector;
 import gnu.trove.map.hash.TObjectDoubleHashMap;
-import name.kazennikov.common.Alphabet;
+import name.kazennikov.alphabet.Alphabet;
 import name.kazennikov.ml.core.Instance;
 import ru.iitp.proling.ml.core.Classifier;
 import ru.iitp.proling.ml.core.Dataset;
